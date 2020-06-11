@@ -1,0 +1,321 @@
+
+enum Directory {
+  ITUNES
+  FYYD
+  PANOPTIKUM
+
+  PODCHASER
+  LISTENNOTES
+
+  ARDAUDIOTHEK
+  SPOTIFY
+  DEEZER
+}
+
+type ImageType implements Image {
+  url: URL!
+  description: String
+  attribution: String
+}
+
+type ShowType implements Node & Collection & Podcast {
+  # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  nodeId: ID!
+  externalIds(system: Directory): [String!]
+
+  title: String!
+  subtitle: String
+  summary: String
+  description: HTML
+  image(aspect: AspectRatio): Image
+  imageUrl: URL @deprecated(reason: "try to use image.url if possible")
+
+  link: URL
+}
+
+
+type ItemType implements Node & Item {
+  # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  nodeId: ID!
+  guid: String!
+  externalIds(system: Directory): [String!]
+
+  title(variant: TitleVariant): String
+  subtitle: String
+  summary: String
+  description: HTML
+
+  publicationDate: Datetime!,
+  depublicationDate: Datetime,
+  duration: Duration,
+  durationSeconds: Int
+
+  link: URL
+
+  image(aspect: AspectRatio): Image
+  imageUrl: URL @deprecated(reason: "try to use image.url if possible")
+
+  tags: JSON
+  subjects: JSON
+
+  episodeNumber: Int
+  groupingId: String
+
+  isPublished: Boolean!
+
+  audios: [Asset!]!
+  files: [Asset!]
+  contributors: [Contributor!]
+  chapters: [Chapter!],
+  #transcripts: [Transcript!]
+
+  show: Collection
+  nextEpisode: Item
+}
+
+type AssetType implements Asset {
+  # absolute path to media asset
+  url: URL!
+  # file size in  byte
+  size: Int!
+  # title to be displayed in download tab e.g. "MPEG-4 AAC Audio (m4a)"
+  title: String
+  # media asset mimeType e.g. "audio/mp4"
+  mimeType: String!
+}
+
+type ContributorType implements Contributor {
+  # used as a reference e.g. in transcripts
+  id: String!
+  # name of the contributor e.g. Hans Meier
+  name: String!
+  # avatar e.g. profile photo of the contributor
+  avatar: Image
+  avatarUrl: URL @deprecated(reason: "try to use avatar.url if possible")
+  # contributors group e.g. { id: "1", slug: "onair", title: "On Air" }
+  group: ContributorGroup
+}
+
+
+# A filter to be used against `Item` object types. All fields are combined with a logical ‘and.’
+input ItemFilter {
+  # Filter by the object’s `id` field.
+  id: StringFilter
+
+  # Filter by the object’s `publishDate` field.
+  publicationDate: DatetimeFilter
+
+  # Filter by the object’s `isPublished` field.
+  isPublished: BooleanFilter
+
+  # Filter by the object’s `title` field.
+  title: StringFilter
+
+  # Filter by the object’s `groupId` field.
+  groupId: IntFilter
+
+  # Filter by the object’s `episodeNumber` field.
+  episodeNumber: IntFilter
+
+  # Checks for all expressions in this list.
+  and: [ItemFilter!]
+
+  # Checks for any expressions in this list.
+  or: [ItemFilter!]
+
+  # Negates the expression.
+  not: ItemFilter
+}
+
+# Methods to use when ordering `Item`.
+enum ItemsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  PUBLICATION_DATE_ASC
+  PUBLICATION_DATE_DESC
+  TITLE_ASC
+  TITLE_DESC
+  GROUP_ID_ASC
+  GROUP_ID_DESC
+  GROUP_NUMBER_ASC
+  GROUP_NUMBER_DESC
+}
+
+type OrganizationType implements Node & Organization {
+  # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  nodeId: ID!
+  id: Int
+  name: String!
+
+  # Reads and enables pagination through a set of `PublicationService`.
+  publicationServices(
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering `PublicationService`.
+    orderBy: [PublicationServicesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: PublicationServiceCondition
+
+    # A filter to be used in determining which values should be returned by the collection.
+    filter: PublicationServiceFilter
+  ): PublicationServicesConnection!
+}
+
+# Methods to use when ordering `Organization`.
+enum OrganizationsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  NAME_ASC
+  NAME_DESC
+}
+
+
+# The root query type which gives access points into the data universe.
+type Query implements Node & AudioQuery {
+  # Exposes the root query type nested one level down. This is helpful for Relay 1
+  # which can only query top level fields if they are in a particular form.
+  query: Query!
+
+  # version, for backwards compability with other JSON formats
+  version: Int
+
+  # The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
+  nodeId: ID!
+
+  # Fetches an object given its globally unique `ID`.
+  node(
+    # The globally unique `ID`.
+    nodeId: ID!
+  ): Node
+
+  item(guid: String!): Item
+  show(id: Int!): Show
+  contributor(uri: URL!): Contributor
+  contributorById(id: String!): Contributor
+
+  organization(name: String!): Organization
+  publicationService(id: Int!): PublicationService
+
+  # Reads and enables pagination through a set of `Item`.
+  items(
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering `Item`.
+    orderBy: [ItemsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: ItemCondition
+
+    # A filter to be used in determining which values should be returned by the collection.
+    filter: ItemFilter
+  ): ItemsConnection
+
+  # Reads and enables pagination through a set of `Show`.
+  shows(
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering `Show`.
+    orderBy: [ShowsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: ShowCondition
+
+    # A filter to be used in determining which values should be returned by the collection.
+    filter: ShowFilter
+  ): ShowsConnection
+
+  # Reads and enables pagination through a set of `Organization`.
+  organizations(
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering `Organization`.
+    orderBy: [OrganizationsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: OrganizationCondition
+
+    # A filter to be used in determining which values should be returned by the collection.
+    filter: OrganizationFilter
+  ): OrganizationsConnection
+
+  # Reads and enables pagination through a set of `PublicationService`.
+  publicationServices(
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering `PublicationService`.
+    orderBy: [PublicationServicesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PublicationServicesConnection
+}
