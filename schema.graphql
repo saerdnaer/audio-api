@@ -3,13 +3,13 @@ enum Directory {
   ITUNES
   FYYD
   PANOPTIKUM
+  PODCASTINDEXORG
 
   PODCHASER
   LISTENNOTES
 
   ARDAUDIOTHEK
   SPOTIFY
-  DEEZER
 }
 
 type ImageType implements Image {
@@ -37,7 +37,7 @@ type ShowType implements Node & Collection & Podcast {
 type ItemType implements Node & Item {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   nodeId: ID!
-  guid: String!
+  guid: ID!
   externalIds(system: Directory): [String!]
 
   title(variant: TitleVariant): String
@@ -59,7 +59,7 @@ type ItemType implements Node & Item {
   subjects: JSON
 
   episodeNumber: Int
-  groupingId: String
+  groupingId: ID
 
   isPublished: Boolean!
 
@@ -86,7 +86,7 @@ type AssetType implements Asset {
 
 type ContributorType implements Contributor {
   # used as a reference e.g. in transcripts
-  id: String!
+  id: ID!
   # name of the contributor e.g. Hans Meier
   name: String!
   # avatar e.g. profile photo of the contributor
@@ -112,7 +112,7 @@ input ItemFilter {
   title: StringFilter
 
   # Filter by the object’s `groupId` field.
-  groupId: IntFilter
+  groupingId: StringFilter
 
   # Filter by the object’s `episodeNumber` field.
   episodeNumber: IntFilter
@@ -145,7 +145,6 @@ enum ItemsOrderBy {
 type OrganizationType implements Node & Organization {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   nodeId: ID!
-  id: Int
   name: String!
 
   # Reads and enables pagination through a set of `PublicationService`.
@@ -205,13 +204,13 @@ type Query implements Node & AudioQuery {
     nodeId: ID!
   ): Node
 
-  item(guid: String!): Item
-  show(id: Int!): Show
+  item(guid: ID!): Item
+  show(id: ID!): Show
   contributor(uri: URL!): Contributor
-  contributorById(id: String!): Contributor
+  contributorById(id: ID!): Contributor
 
   organization(name: String!): Organization
-  publicationService(id: Int!): PublicationService
+  publicationService(id: ID!): PublicationService
 
   # Reads and enables pagination through a set of `Item`.
   items(

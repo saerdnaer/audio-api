@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="1403px" preserveAspectRatio="none" style="width:660px;height:1403px;" version="1.1" viewBox="0 0 660 1403" width="660px" zoomAndPan="magnify"><defs><filter height="300%" id="fwz223bta5aou" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[c160724f8e3bb89ca8141a12554ac2e3]
+class Collection--><rect codeLine="3" fill="#FEFECE" filter="url(#fwz223bta5aou)" height="151.6406" id="Collection" style="stroke:#A80036;stroke-width:1.5;" width="223" x="7" y="168"/><ellipse cx="86.75" cy="184" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M83.1777,180.2651 L83.1777,178.1069 L90.5571,178.1069 L90.5571,180.2651 L88.0918,180.2651 L88.0918,188.3418 L90.5571,188.3418 L90.5571,190.5 L83.1777,190.5 L83.1777,188.3418 L85.6431,188.3418 L85.6431,180.2651 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="55" x="107.25" y="188.5352">Collection</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="229" y1="200" y2="200"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="61" x="13" y="214.6348">title: String!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="78" x="13" y="227.5898">subtitle: String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="88" x="13" y="240.5449">summary: String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="97" x="13" y="253.5">description: HTML</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="0" x="16" y="266.4551"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="70" x="13" y="279.4102">image: Image</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="13" y="292.3652">link: URL</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="229" y1="298.6855" y2="298.6855"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="211" x="13" y="313.3203">externalIds(system: Directory): [String!]</text><!--MD5=[69baf4536e1bb03ce7781849d8a8bbbb]
+class Grouping--><rect codeLine="21" fill="#FEFECE" filter="url(#fwz223bta5aou)" height="99.8203" id="Grouping" style="stroke:#A80036;stroke-width:1.5;" width="138" x="274.5" y="381"/><ellipse cx="313.35" cy="397" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M309.7777,393.2651 L309.7777,391.1069 L317.1571,391.1069 L317.1571,393.2651 L314.6918,393.2651 L314.6918,401.3418 L317.1571,401.3418 L317.1571,403.5 L309.7777,403.5 L309.7777,401.3418 L312.2431,401.3418 L312.2431,393.2651 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="53" x="332.65" y="401.5352">Grouping</text><line style="stroke:#A80036;stroke-width:1.5;" x1="275.5" x2="411.5" y1="413" y2="413"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="121" x="280.5" y="427.6348">type: GroupingVariant!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="61" x="280.5" y="440.5898">title: String!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="101" x="280.5" y="453.5449">seasonNumber: Int</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="126" x="280.5" y="466.5">items: ItemsConnection</text><line style="stroke:#A80036;stroke-width:1.5;" x1="275.5" x2="411.5" y1="472.8203" y2="472.8203"/><!--MD5=[44a1b4afaef76c16e6c9ec4990ad0c8d]
+class Item--><rect codeLine="45" fill="#FEFECE" filter="url(#fwz223bta5aou)" height="436.6523" id="Item" style="stroke:#A80036;stroke-width:1.5;" width="223" x="164" y="542"/><ellipse cx="258.75" cy="558" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M255.1777,554.2651 L255.1777,552.1069 L262.5571,552.1069 L262.5571,554.2651 L260.0918,554.2651 L260.0918,562.3418 L262.5571,562.3418 L262.5571,564.5 L255.1777,564.5 L255.1777,562.3418 L257.6431,562.3418 L257.6431,554.2651 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="25" x="279.25" y="562.5352">Item</text><line style="stroke:#A80036;stroke-width:1.5;" x1="165" x2="386" y1="574" y2="574"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="44" x="170" y="588.6348">guid: ID!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="0" x="173" y="601.5898"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="105" x="170" y="614.5449">episodeNumber: Int</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="0" x="173" y="627.5"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="61" x="170" y="640.4551">title: String!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="78" x="170" y="653.4102">subtitle: String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="91" x="170" y="666.3652">summary: String!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="97" x="170" y="679.3203">description: HTML</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="0" x="173" y="692.2754"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="140" x="170" y="705.2305">publicationDate: Datetime!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="150" x="170" y="718.1855">depublicationDate: Datetime</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="102" x="170" y="731.1406">duration: Duration!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="114" x="170" y="744.0957">durationSeconds: Int!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="0" x="173" y="757.0508"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="170" y="770.0059">link: URL</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="0" x="173" y="782.9609"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="70" x="170" y="795.916">image: Image</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="0" x="173" y="808.8711"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="77" x="170" y="821.8262">groupingId: ID</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="0" x="173" y="834.7813"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="86" x="170" y="847.7363">audios: [Asset!]!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="69" x="170" y="860.6914">files: [Asset!]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="0" x="173" y="873.6465"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="149" x="170" y="886.6016">contributors: [Contributor!]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="0" x="173" y="899.5566"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="110" x="170" y="912.5117">chapters: [Chapter!],</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="0" x="173" y="925.4668"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="88" x="170" y="938.4219">show: Collection</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="95" x="170" y="951.377">nextEpisode: Item</text><line style="stroke:#A80036;stroke-width:1.5;" x1="165" x2="386" y1="957.6973" y2="957.6973"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="211" x="170" y="972.332">externalIds(system: Directory): [String!]</text><!--MD5=[148499297b6f36812855c8d7dd33a717]
+class Podcast--><rect codeLine="30" fill="#FEFECE" filter="url(#fwz223bta5aou)" height="86.8652" id="Podcast" style="stroke:#A80036;stroke-width:1.5;" width="157" x="265" y="200.5"/><ellipse cx="316.75" cy="216.5" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M313.1777,212.7651 L313.1777,210.6069 L320.5571,210.6069 L320.5571,212.7651 L318.0918,212.7651 L318.0918,220.8418 L320.5571,220.8418 L320.5571,223 L313.1777,223 L313.1777,220.8418 L315.6431,220.8418 L315.6431,212.7651 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="45" x="337.25" y="221.0352">Podcast</text><line style="stroke:#A80036;stroke-width:1.5;" x1="266" x2="421" y1="232.5" y2="232.5"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="109" x="271" y="247.1348">type: PodcastVariant</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="145" x="271" y="260.0898">episodes: ItemsConnection</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="83" x="271" y="273.0449">feedUrls: [URL!]</text><line style="stroke:#A80036;stroke-width:1.5;" x1="266" x2="421" y1="279.3652" y2="279.3652"/><!--MD5=[6ea451e4742352fdf230812c2c4c6482]
+class Show--><rect fill="#FEFECE" filter="url(#fwz223bta5aou)" height="48" id="Show" style="stroke:#A80036;stroke-width:1.5;" width="61" x="178" y="407"/><ellipse cx="193" cy="423" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M195.4731,429.1431 Q194.8921,429.4419 194.2529,429.5913 Q193.6138,429.7407 192.9082,429.7407 Q190.4014,429.7407 189.0815,428.0889 Q187.7617,426.437 187.7617,423.3159 Q187.7617,420.1865 189.0815,418.5347 Q190.4014,416.8828 192.9082,416.8828 Q193.6138,416.8828 194.2612,417.0322 Q194.9087,417.1816 195.4731,417.4805 L195.4731,420.2031 Q194.8423,419.6221 194.2488,419.3523 Q193.6553,419.0825 193.0244,419.0825 Q191.6797,419.0825 190.9949,420.1492 Q190.3101,421.2158 190.3101,423.3159 Q190.3101,425.4077 190.9949,426.4744 Q191.6797,427.541 193.0244,427.541 Q193.6553,427.541 194.2488,427.2712 Q194.8423,427.0015 195.4731,426.4204 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="29" x="207" y="427.5352">Show</text><line style="stroke:#A80036;stroke-width:1.5;" x1="179" x2="238" y1="439" y2="439"/><line style="stroke:#A80036;stroke-width:1.5;" x1="179" x2="238" y1="447" y2="447"/><!--MD5=[90ef11c1057e195f4e3928e1bc1d97ee]
+class PodcastVariant--><rect codeLine="173" fill="#FEFECE" filter="url(#fwz223bta5aou)" height="73.9102" id="PodcastVariant" style="stroke:#A80036;stroke-width:1.5;" width="118" x="457.5" y="207"/><ellipse cx="472.5" cy="223" fill="#EB937F" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M476.1143,229.5 L468.3945,229.5 L468.3945,217.1069 L476.1143,217.1069 L476.1143,219.2651 L470.8433,219.2651 L470.8433,221.938 L475.6162,221.938 L475.6162,224.0962 L470.8433,224.0962 L470.8433,227.3418 L476.1143,227.3418 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="86" x="486.5" y="227.5352">PodcastVariant</text><line style="stroke:#A80036;stroke-width:1.5;" x1="458.5" x2="574.5" y1="239" y2="239"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="49" x="463.5" y="253.6348">EPISODIC</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="36" x="463.5" y="266.5898">SERIAL</text><line style="stroke:#A80036;stroke-width:1.5;" x1="458.5" x2="574.5" y1="272.9102" y2="272.9102"/><!--MD5=[751a80e395721099d806782fc3bbd655]
+class Asset--><rect codeLine="119" fill="#FEFECE" filter="url(#fwz223bta5aou)" height="99.8203" id="Asset" style="stroke:#A80036;stroke-width:1.5;" width="108" x="388.5" y="1056"/><ellipse cx="423.75" cy="1072" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M420.1777,1068.2651 L420.1777,1066.1069 L427.5571,1066.1069 L427.5571,1068.2651 L425.0918,1068.2651 L425.0918,1076.3418 L427.5571,1076.3418 L427.5571,1078.5 L420.1777,1078.5 L420.1777,1076.3418 L422.6431,1076.3418 L422.6431,1068.2651 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="31" x="442.25" y="1076.5352">Asset</text><line style="stroke:#A80036;stroke-width:1.5;" x1="389.5" x2="495.5" y1="1088" y2="1088"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="45" x="394.5" y="1102.6348">url: URL!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="44" x="394.5" y="1115.5898">size: Int!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="58" x="394.5" y="1128.5449">title: String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="96" x="394.5" y="1141.5">mimeType: String!</text><line style="stroke:#A80036;stroke-width:1.5;" x1="389.5" x2="495.5" y1="1147.8203" y2="1147.8203"/><!--MD5=[597e0764983597437f4ec3f6f7506c36]
+class Marker--><rect codeLine="100" fill="#FEFECE" filter="url(#fwz223bta5aou)" height="99.8203" id="Marker" style="stroke:#A80036;stroke-width:1.5;" width="93" x="84" y="1056"/><ellipse cx="108" cy="1072" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M104.4277,1068.2651 L104.4277,1066.1069 L111.8071,1066.1069 L111.8071,1068.2651 L109.3418,1068.2651 L109.3418,1076.3418 L111.8071,1076.3418 L111.8071,1078.5 L104.4277,1078.5 L104.4277,1076.3418 L106.8931,1076.3418 L106.8931,1068.2651 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="41" x="124" y="1076.5352">Marker</text><line style="stroke:#A80036;stroke-width:1.5;" x1="85" x2="176" y1="1088" y2="1088"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="81" x="90" y="1102.6348">start: Duration!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="61" x="90" y="1115.5898">title: String!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="70" x="90" y="1128.5449">image: Image</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="49" x="90" y="1141.5">href: URL</text><line style="stroke:#A80036;stroke-width:1.5;" x1="85" x2="176" y1="1147.8203" y2="1147.8203"/><!--MD5=[e6dd12c3d7efc01d6b31087039459188]
+class Chapter--><rect fill="#FEFECE" filter="url(#fwz223bta5aou)" height="48" id="Chapter" style="stroke:#A80036;stroke-width:1.5;" width="78" x="43.5" y="1309.5"/><ellipse cx="58.5" cy="1325.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M60.9731,1331.6431 Q60.3921,1331.9419 59.7529,1332.0913 Q59.1138,1332.2407 58.4082,1332.2407 Q55.9014,1332.2407 54.5815,1330.5889 Q53.2617,1328.937 53.2617,1325.8159 Q53.2617,1322.6865 54.5815,1321.0347 Q55.9014,1319.3828 58.4082,1319.3828 Q59.1138,1319.3828 59.7612,1319.5322 Q60.4087,1319.6816 60.9731,1319.9805 L60.9731,1322.7031 Q60.3423,1322.1221 59.7488,1321.8523 Q59.1553,1321.5825 58.5244,1321.5825 Q57.1797,1321.5825 56.4949,1322.6492 Q55.8101,1323.7158 55.8101,1325.8159 Q55.8101,1327.9077 56.4949,1328.9744 Q57.1797,1330.041 58.5244,1330.041 Q59.1553,1330.041 59.7488,1329.7712 Q60.3423,1329.5015 60.9731,1328.9204 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="46" x="72.5" y="1330.0352">Chapter</text><line style="stroke:#A80036;stroke-width:1.5;" x1="44.5" x2="120.5" y1="1341.5" y2="1341.5"/><line style="stroke:#A80036;stroke-width:1.5;" x1="44.5" x2="120.5" y1="1349.5" y2="1349.5"/><!--MD5=[bdb7a498ae268604f9dee9fee1851af7]
+class Region--><rect codeLine="115" fill="#FEFECE" filter="url(#fwz223bta5aou)" height="60.9551" id="Region" style="stroke:#A80036;stroke-width:1.5;" width="88" x="26.5" y="1186"/><ellipse cx="49.15" cy="1202" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M51.6231,1208.1431 Q51.0421,1208.4419 50.4029,1208.5913 Q49.7638,1208.7407 49.0582,1208.7407 Q46.5514,1208.7407 45.2315,1207.0889 Q43.9117,1205.437 43.9117,1202.3159 Q43.9117,1199.1865 45.2315,1197.5347 Q46.5514,1195.8828 49.0582,1195.8828 Q49.7638,1195.8828 50.4112,1196.0322 Q51.0587,1196.1816 51.6231,1196.4805 L51.6231,1199.2031 Q50.9923,1198.6221 50.3988,1198.3523 Q49.8053,1198.0825 49.1744,1198.0825 Q47.8297,1198.0825 47.1449,1199.1492 Q46.4601,1200.2158 46.4601,1202.3159 Q46.4601,1204.4077 47.1449,1205.4744 Q47.8297,1206.541 49.1744,1206.541 Q49.8053,1206.541 50.3988,1206.2712 Q50.9923,1206.0015 51.6231,1205.4204 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="39" x="64.85" y="1206.5352">Region</text><line style="stroke:#A80036;stroke-width:1.5;" x1="27.5" x2="113.5" y1="1218" y2="1218"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="76" x="32.5" y="1232.6348">end: Duration!</text><line style="stroke:#A80036;stroke-width:1.5;" x1="27.5" x2="113.5" y1="1238.9551" y2="1238.9551"/><!--MD5=[1a95835255177050dd8028a7da1b3a6a]
+class Contributor--><rect codeLine="130" fill="#FEFECE" filter="url(#fwz223bta5aou)" height="112.7754" id="Contributor" style="stroke:#A80036;stroke-width:1.5;" width="103" x="163" y="1277"/><ellipse cx="180.7" cy="1293" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M177.1277,1289.2651 L177.1277,1287.1069 L184.5071,1287.1069 L184.5071,1289.2651 L182.0418,1289.2651 L182.0418,1297.3418 L184.5071,1297.3418 L184.5071,1299.5 L177.1277,1299.5 L177.1277,1297.3418 L179.5931,1297.3418 L179.5931,1289.2651 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="65" x="195.3" y="1297.5352">Contributor</text><line style="stroke:#A80036;stroke-width:1.5;" x1="164" x2="265" y1="1309" y2="1309"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="30" x="169" y="1323.6348">id: ID!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="70" x="169" y="1336.5898">name: String!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="42" x="169" y="1349.5449">uri: URL</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="71" x="169" y="1362.5">avatar: Image</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="91" x="169" y="1375.4551">wikidataId: String</text><line style="stroke:#A80036;stroke-width:1.5;" x1="164" x2="265" y1="1381.7754" y2="1381.7754"/><!--MD5=[0330879a1a385efee19ba3488ed490fa]
+class Contribution--><rect codeLine="146" fill="#FEFECE" filter="url(#fwz223bta5aou)" height="73.9102" id="Contribution" style="stroke:#A80036;stroke-width:1.5;" width="102" x="251.5" y="1069"/><ellipse cx="266.5" cy="1085" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M262.9277,1081.2651 L262.9277,1079.1069 L270.3071,1079.1069 L270.3071,1081.2651 L267.8418,1081.2651 L267.8418,1089.3418 L270.3071,1089.3418 L270.3071,1091.5 L262.9277,1091.5 L262.9277,1089.3418 L265.3931,1089.3418 L265.3931,1081.2651 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="70" x="280.5" y="1089.5352">Contribution</text><line style="stroke:#A80036;stroke-width:1.5;" x1="252.5" x2="352.5" y1="1101" y2="1101"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="50" x="257.5" y="1115.6348">role: Role</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="71" x="257.5" y="1128.5898">group: String</text><line style="stroke:#A80036;stroke-width:1.5;" x1="252.5" x2="352.5" y1="1134.9102" y2="1134.9102"/><ellipse cx="214.5" cy="1106" fill="#000000" rx="2" ry="2" style="stroke:none;stroke-width:1.0;"/><!--MD5=[964f074a2dd77d134c21b891bb53e381]
+class Image--><rect codeLine="152" fill="#FEFECE" filter="url(#fwz223bta5aou)" height="86.8652" id="Image" style="stroke:#A80036;stroke-width:1.5;" width="111" x="431" y="13.5"/><ellipse cx="465.8" cy="29.5" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M462.2277,25.7651 L462.2277,23.6069 L469.6071,23.6069 L469.6071,25.7651 L467.1418,25.7651 L467.1418,33.8418 L469.6071,33.8418 L469.6071,36 L462.2277,36 L462.2277,33.8418 L464.6931,33.8418 L464.6931,25.7651 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="484.2" y="34.0352">Image</text><line style="stroke:#A80036;stroke-width:1.5;" x1="432" x2="541" y1="45.5" y2="45.5"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="45" x="437" y="60.1348">url: URL!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="99" x="437" y="73.0898">description: String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="95" x="437" y="86.0449">attribution: String</text><line style="stroke:#A80036;stroke-width:1.5;" x1="432" x2="541" y1="92.3652" y2="92.3652"/><!--MD5=[3fee75583bb7a64f68d843a3c9534ab3]
+class Node--><rect codeLine="159" fill="#FEFECE" filter="url(#fwz223bta5aou)" height="60.9551" id="Node" style="stroke:#A80036;stroke-width:1.5;" width="69" x="577" y="26.5"/><ellipse cx="594.7" cy="42.5" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M591.1277,38.7651 L591.1277,36.6069 L598.5071,36.6069 L598.5071,38.7651 L596.0418,38.7651 L596.0418,46.8418 L598.5071,46.8418 L598.5071,49 L591.1277,49 L591.1277,46.8418 L593.5931,46.8418 L593.5931,38.7651 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="31" x="609.3" y="47.0352">Node</text><line style="stroke:#A80036;stroke-width:1.5;" x1="578" x2="645" y1="58.5" y2="58.5"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="57" x="583" y="73.1348">nodeId: ID!</text><line style="stroke:#A80036;stroke-width:1.5;" x1="578" x2="645" y1="79.4551" y2="79.4551"/><!--MD5=[86c7c362de55a38b660185a1328fe18d]
+class Organization--><rect codeLine="164" fill="#FEFECE" filter="url(#fwz223bta5aou)" height="99.8203" id="Organization" style="stroke:#A80036;stroke-width:1.5;" width="105" x="291" y="7"/><ellipse cx="306" cy="23" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M302.4277,19.2651 L302.4277,17.1069 L309.8071,17.1069 L309.8071,19.2651 L307.3418,19.2651 L307.3418,27.3418 L309.8071,27.3418 L309.8071,29.5 L302.4277,29.5 L302.4277,27.3418 L304.8931,27.3418 L304.8931,19.2651 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="73" x="320" y="27.5352">Organization</text><line style="stroke:#A80036;stroke-width:1.5;" x1="292" x2="395" y1="39" y2="39"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="70" x="297" y="53.6348">name: String!</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="70" x="297" y="66.5898">image: Image</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="42" x="297" y="79.5449">uri: URL</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="91" x="297" y="92.5">wikidataId: String</text><line style="stroke:#A80036;stroke-width:1.5;" x1="292" x2="395" y1="98.8203" y2="98.8203"/><!--MD5=[3a59a968a4b49a8e9087281381ca4462]
+link Grouping to Item--><path codeLine="27" d="M333.32,481.03 C329.71,498.43 325.37,519.3 320.73,541.69 " fill="none" id="Grouping-Item" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="323.4146" y="501.3619">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="6" x="316.2476" y="531.1372">*</text><!--MD5=[053c42c6962902a7e7ce2a2973b17d10]
+link Show to Item--><path codeLine="36" d="M213.21,455.03 C217.32,475.12 223.74,506.5 230.93,541.63 " fill="none" id="Show-Item" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="205.3919" y="475.7177">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="6" x="223.2205" y="531.075">*</text><!--MD5=[021b278da809e37b747dd269be06a830]
+link Podcast to PodcastVariant--><path codeLine="37" d="M422.23,244 C432.16,244 442.09,244 452.02,244 " fill="none" id="Podcast-to-PodcastVariant" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="457.21,244,448.21,240,452.21,244,448.21,248,457.21,244" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[3013a7a858d8679facfb490b05a43a4f]
+link Podcast to Grouping--><path codeLine="38" d="M343.5,287.91 C343.5,315.66 343.5,351.87 343.5,380.79 " fill="none" id="Podcast-Grouping" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="334.9125" y="308.0619">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="6" x="337.0781" y="370.2774">*</text><!--MD5=[1037dec170e7de67882970b843ee6b94]
+reverse link Collection to Show--><path codeLine="40" d="M163.86,338.25 C176.26,363.72 188.61,389.12 197.17,406.71 " fill="none" id="Collection-backto-Show" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="157.56,341.29,155.11,320.25,170.15,335.17,157.56,341.29" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[7f62d875a617cafc428aca833c609ec5]
+reverse link Podcast to Show--><path codeLine="41" d="M300.21,304.32 C274.79,339.16 244.09,381.23 225.44,406.78 " fill="none" id="Podcast-backto-Show" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="294.74,299.94,312.19,287.91,306.05,308.19,294.74,299.94" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[36161d3d7a2c9a3677b7c5eebe3bbf8b]
+link Item to Asset--><path codeLine="92" d="M319.96,979.32 C326.97,995.68 335.1,1011.45 344.5,1026 C350.43,1035.17 366.66,1049.22 384.25,1062.95 " fill="none" id="Item-to-Asset" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="388.27,1066.05,383.6085,1057.3741,384.3186,1062.9862,378.7065,1063.6964,388.27,1066.05" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="42" x="345.5" y="1022.5684">audios</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="313.2876" y="999.3253">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="6" x="374.5797" y="1057.2752">*</text><!--MD5=[36161d3d7a2c9a3677b7c5eebe3bbf8b]
+link Item to Asset--><path codeLine="93" d="M381.26,979.04 C394.2,1005.66 406.37,1030.69 416.4,1051.32 " fill="none" id="Item-to-Asset-1" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="418.64,1055.92,418.3059,1046.0768,416.4555,1051.4225,411.1098,1049.572,418.64,1055.92" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="27" x="402.5" y="1022.5684">files</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="376.599" y="999.0361">0</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="6" x="408.8628" y="1045.4256">*</text><!--MD5=[c2204506a01a7a24101ba72c7a07ad5b]
+link Item to Item--><path codeLine="94" d="M387.28,716.55 C407.69,722.12 422,736.77 422,760.5 C422,782.19 410.04,796.3 392.4,802.81 " fill="none" id="Item-to-Item" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="387.28,804.45,397.0722,805.505,392.0403,802.9204,394.6249,797.8885,387.28,804.45" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="77" x="428" y="765.5684">nextEpisode</text><!--MD5=[ad5c8efaf2584d2da438d23d61f88234]
+link Item to Marker--><path codeLine="96" d="M183.67,979.04 C172.48,1005.55 161.96,1030.48 153.27,1051.06 " fill="none" id="Item-to-Marker" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="151.22,1055.92,158.3991,1049.1775,153.1603,1051.3118,151.026,1046.0731,151.22,1055.92" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[f1fde5675377c0adcc1db6cd89115a3b]
+reverse link Marker to Chapter--><path codeLine="111" d="M126.7,1176.19 C124.49,1198.96 121.01,1224.26 115.5,1247 C110.22,1268.8 100.75,1292.53 93.3,1309.44 " fill="none" id="Marker-backto-Chapter" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="119.73,1175.47,128.38,1156.13,133.68,1176.65,119.73,1175.47" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[ecef90b82f8db019246dafd729bef663]
+reverse link Marker to Region--><path codeLine="112" d="M93.39,1174.1 C91.17,1178.11 89.01,1182.03 86.95,1185.74 " fill="none" id="Marker-backto-Region" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="87.5,1170.29,103.31,1156.17,99.76,1177.06,87.5,1170.29" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[2e12d3e96f4a88efe95593883e537ad6]
+reverse link Region to Chapter--><path codeLine="113" d="M74.98,1260.44 C76.7,1276.95 78.6,1295.16 80.06,1309.15 " fill="none" id="Region-backto-Chapter" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#FFFFFF" points="73.59,1247.12,70.2375,1253.5044,74.8414,1259.0546,78.1939,1252.6701,73.59,1247.12" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[ef7de95a7f4e623185913bf470e56731]
+link Item to apoint27--><path d="M236.87,979.04 C225.71,1041.89 216.11,1095.91 214.68,1103.96 " fill="none" id="Item-apoint27" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[b53893d013332cfff1c56d5a05533b44]
+link apoint27 to Contributor--><path d="M214.5,1108.01 C214.5,1118.79 214.5,1213.98 214.5,1276.9 " fill="none" id="apoint27-Contributor" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[9ca32d309a52056727e0a2c8c1f55f39]
+link apoint27 to Contribution--><path d="M216.56,1106 C228.2,1106 239.84,1106 251.47,1106 " fill="none" id="apoint27-Contribution" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><!--MD5=[f9bbd251521f3ee3b727ed059a1af6c0]
+link Organization to Podcast--><path codeLine="170" d="M343.5,107.09 C343.5,136.1 343.5,172.48 343.5,200.29 " fill="none" id="Organization-Podcast" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[77a9e7bbdaccb157f5ecd2d1a9bdc49b]
+@startuml datamodel
+
+' The primary collection an Item is related to, e.g. a Podcast, Show or Conference
+interface Collection {
+  externalIds(system: Directory): [String!]
+
+  ' title of the podcast that is the primary field to be used to represent the podcast in directories, lists and other uses.
+  title: String!
+  ' subtitle is an extension to the title. The subtitle is meant to clarify what the podcast is about. While a title can be anything, a subtitle should be more descriptive in what the content actually wants to convey and what the most important information is, you want everybody want to know about the offering.
+  subtitle: String
+  ' A summary is a much more precise and elaborate description of the podcast\'s content. While title and subtitle are rather concise, a summary is meant to consist of one or more sentences that form a paragraph or more.
+  summary: String
+  description: HTML
+
+  image: Image
+  ' imageUrl: URL @deprecated(reason: "try to use image.url if possible")
+  link: URL
+
+  'items: ItemsConnection
+}
+
+interface Grouping {
+  type: GroupingVariant!
+  title: String!
+  seasonNumber: Int
+  items: ItemsConnection
+}
+Grouping "1" - - "*" Item
+
+
+interface Podcast {
+  type: PodcastVariant
+  episodes: ItemsConnection
+  feedUrls: [URL!]
+}
+
+Show "1" - - "*" Item
+Podcast -right-> PodcastVariant
+Podcast "1" - - "*" Grouping
+
+Collection <|- - Show
+Podcast <|- - Show
+'Grouping <|- - Show
+
+' A single item of a Podcast e.g. a single Episode, Teaser, Talk or Lecture
+interface Item {
+  guid: ID!
+  externalIds(system: Directory): [String!]
+
+  ' Ordinal of the episode, either globally e.g. "72" or per season
+  episodeNumber: Int
+
+  ' e.g. "FG072 Verantwortung in der Informatik"
+  title: String!
+  subtitle: String
+  summary: String!
+  description: HTML
+
+  publicationDate: Datetime!
+  depublicationDate: Datetime
+  duration: Duration!
+  durationSeconds: Int!
+
+  link: URL
+
+  image: Image
+  'imageUrl: URL @deprecated(reason: "try to use image.url if possible")
+
+  ' an guid grouping this Item to a season, series or multi part publication
+  groupingId: ID
+
+  ' Audio Assets
+  '  - media Assets played by an audio player
+  '  - format support depends on the used browser (https://en.wikipedia.org/wiki/HTML5_audio'Supported_audio_coding_formats)
+  '  - also allows HLS streams
+  audios: [Asset!]!
+  ' Files
+  ' - list of files available for download
+  ' - if no files are present, a player will use audio assets as downloads
+  files: [Asset!]
+
+  ' Contributors are natural persons providing content to that item
+  contributors: [Contributor!]
+
+  ' Chapters are sections of an episode
+  chapters: [Chapter!],
+
+  ' Transcripts are full text
+  ' transcripts: [Transcript!]
+  show: Collection
+  nextEpisode: Item
+}
+Item "1" - -> "*" Asset : audios 
+Item "0" - -> "*" Asset : files 
+Item - -> Item : nextEpisode
+'Item - -> Contributor
+Item - -> Marker
+
+
+' chapters of an Item, following the Podlove Simple Chapters format (https://podlove.org/simple-chapters/)
+interface Marker {
+  ' start time following [hh]:[mm]:[ss].[sss] format
+  start: Duration!
+  title: String!
+  ' image that will be presented in the header section if the chapter is available
+  image: Image
+  'imageUrl: URL @deprecated(reason: "try to use image.url if possible")
+  ' Link related to the chapter
+  ' TODO: should we call this link instead?
+  href: URL
+}
+Marker <|- - Chapter
+Marker <|- Region
+Region o- Chapter
+
+class Region {
+  end: Duration!
+}
+
+interface Asset {
+  ' absolute path to media asset
+  url: URL!
+  ' file size in byte
+  size: Int!
+  ' title to be displayed in download tab e.g. "MPEG-4 AAC Audio (m4a)"
+  title: String
+  ' media asset mimeType e.g. "audio/mp4"
+  mimeType: String!
+}
+
+interface Contributor {
+  ' used as a reference e.g. in transcripts
+  id: ID!
+  ' name of the contributor e.g. Hans Meier
+  name: String!
+  ' URI identifying the person e.g. his personal domain or this main social media profile e.g. Twitter/Mastodon
+  uri: URL
+  ' avatar e.g. profile photo of the contributor
+  avatar: Image
+  'avatarUrl: URL @deprecated(reason: "try to use avatar.url if possible")
+  ' contributors group e.g. { id: "1", slug: "onair", title: "On Air" }
+  wikidataId: String
+}
+
+(Item, Contributor) . Contribution
+
+interface Contribution {
+  role: Role
+  group: String
+}
+
+
+interface Image {
+  url: URL!
+  description: String
+  attribution: String
+}
+
+' An object with a globally unique `ID`.
+interface Node {
+  ' A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  nodeId: ID!
+}
+
+interface Organization {
+  name: String!
+  image: Image
+  uri: URL
+  wikidataId: String
+}
+Organization - - Podcast
+
+
+enum PodcastVariant {
+  ' episodic: Stand-alone episodes that should be presented last-to-first.
+  EPISODIC
+  ' Serial: Episodes that should be presented first-to-last. Great for narratives, storytelling, thematic, and multiple seasons.
+  SERIAL
+}
+
+
+
+@enduml
+
+@startuml datamodel
+
+interface Collection {
+  externalIds(system: Directory): [String!]
+
+  title: String!
+  subtitle: String
+  summary: String
+  description: HTML
+
+  image: Image
+  link: URL
+
+}
+
+interface Grouping {
+  type: GroupingVariant!
+  title: String!
+  seasonNumber: Int
+  items: ItemsConnection
+}
+Grouping "1" - - "*" Item
+
+
+interface Podcast {
+  type: PodcastVariant
+  episodes: ItemsConnection
+  feedUrls: [URL!]
+}
+
+Show "1" - - "*" Item
+Podcast -right-> PodcastVariant
+Podcast "1" - - "*" Grouping
+
+Collection <|- - Show
+Podcast <|- - Show
+
+interface Item {
+  guid: ID!
+  externalIds(system: Directory): [String!]
+
+  episodeNumber: Int
+
+  title: String!
+  subtitle: String
+  summary: String!
+  description: HTML
+
+  publicationDate: Datetime!
+  depublicationDate: Datetime
+  duration: Duration!
+  durationSeconds: Int!
+
+  link: URL
+
+  image: Image
+
+  groupingId: ID
+
+  audios: [Asset!]!
+  files: [Asset!]
+
+  contributors: [Contributor!]
+
+  chapters: [Chapter!],
+
+  show: Collection
+  nextEpisode: Item
+}
+Item "1" - -> "*" Asset : audios 
+Item "0" - -> "*" Asset : files 
+Item - -> Item : nextEpisode
+Item - -> Marker
+
+
+interface Marker {
+  start: Duration!
+  title: String!
+  image: Image
+  href: URL
+}
+Marker <|- - Chapter
+Marker <|- Region
+Region o- Chapter
+
+class Region {
+  end: Duration!
+}
+
+interface Asset {
+  url: URL!
+  size: Int!
+  title: String
+  mimeType: String!
+}
+
+interface Contributor {
+  id: ID!
+  name: String!
+  uri: URL
+  avatar: Image
+  wikidataId: String
+}
+
+(Item, Contributor) . Contribution
+
+interface Contribution {
+  role: Role
+  group: String
+}
+
+
+interface Image {
+  url: URL!
+  description: String
+  attribution: String
+}
+
+interface Node {
+  nodeId: ID!
+}
+
+interface Organization {
+  name: String!
+  image: Image
+  uri: URL
+  wikidataId: String
+}
+Organization - - Podcast
+
+
+enum PodcastVariant {
+  EPISODIC
+  SERIAL
+}
+
+
+
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 11:25:05 CET 2021)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: de
+Country: DE
+--></g></svg>

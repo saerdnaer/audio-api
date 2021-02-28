@@ -56,7 +56,7 @@ interface Podcast {
 
 # A single item of a Podcast e.g. a single Episode, Teaser, Talk or Lecture
 interface Item {
-  guid: String!
+  guid: ID!
   externalIds(system: Directory): [String!]
 
   # Ordinal of the episode, either globally e.g. "72" or per season
@@ -80,7 +80,7 @@ interface Item {
   imageUrl: URL @deprecated(reason: "try to use image.url if possible")
 
   # an guid grouping this Item to a season, series or multi part publication
-  groupingId: String
+  groupingId: ID
 
   # Audio Assets
   #  - media Assets played by an audio player
@@ -178,8 +178,8 @@ interface AudioQuery {
     nodeId: ID!
   ): Node
 
-  item(guid: String!): Item
-  show(id: String!): Show
+  item(guid: ID!): Item
+  show(id: ID!): Show
   contributor(uri: URL!): Contributor
 
 

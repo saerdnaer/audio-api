@@ -1,0 +1,183 @@
+@startuml datamodel
+
+' The primary collection an Item is related to, e.g. a Podcast, Show or Conference
+interface Collection {
+  externalIds(system: Directory): [String!]
+
+  ' title of the podcast that is the primary field to be used to represent the podcast in directories, lists and other uses.
+  title: String!
+  ' subtitle is an extension to the title. The subtitle is meant to clarify what the podcast is about. While a title can be anything, a subtitle should be more descriptive in what the content actually wants to convey and what the most important information is, you want everybody want to know about the offering.
+  subtitle: String
+  ' A summary is a much more precise and elaborate description of the podcast\'s content. While title and subtitle are rather concise, a summary is meant to consist of one or more sentences that form a paragraph or more.
+  summary: String
+  description: HTML
+
+  image: Image
+  ' imageUrl: URL @deprecated(reason: "try to use image.url if possible")
+  link: URL
+
+  'items: ItemsConnection
+}
+
+interface Grouping {
+  type: GroupingVariant!
+  title: String!
+  seasonNumber: Int
+  items: ItemsConnection
+}
+Grouping "1" -- "*" Item
+
+
+interface Podcast {
+  type: PodcastVariant
+  episodes: ItemsConnection
+  feedUrls: [URL!]
+}
+
+Show "1" -- "*" Item
+Podcast -right-> PodcastVariant
+Podcast "1" -- "*" Grouping
+
+Collection <|-- Show
+Podcast <|-- Show
+'Grouping <|-- Show
+
+' A single item of a Podcast e.g. a single Episode, Teaser, Talk or Lecture
+interface Item {
+  guid: ID!
+  externalIds(system: Directory): [String!]
+
+  ' Ordinal of the episode, either globally e.g. "72" or per season
+  episodeNumber: Int
+
+  ' e.g. "FG072 Verantwortung in der Informatik"
+  title: String!
+  subtitle: String
+  summary: String!
+  description: HTML
+
+  publicationDate: Datetime!
+  depublicationDate: Datetime
+  duration: Duration!
+  durationSeconds: Int!
+
+  link: URL
+
+  image: Image
+  'imageUrl: URL @deprecated(reason: "try to use image.url if possible")
+
+  ' an guid grouping this Item to a season, series or multi part publication
+  groupingId: ID
+
+  ' Audio Assets
+  '  - media Assets played by an audio player
+  '  - format support depends on the used browser (https://en.wikipedia.org/wiki/HTML5_audio'Supported_audio_coding_formats)
+  '  - also allows HLS streams
+  audios: [Asset!]!
+  ' Files
+  ' - list of files available for download
+  ' - if no files are present, a player will use audio assets as downloads
+  files: [Asset!]
+
+  ' Contributors are natural persons providing content to that item
+  contributors: [Contributor!]
+
+  ' Chapters are sections of an episode
+  chapters: [Chapter!],
+
+  ' Transcripts are full text
+  ' transcripts: [Transcript!]
+  show: Collection
+  nextEpisode: Item
+}
+Item "1" --> "*" Asset : audios 
+Item "0" --> "*" Asset : files 
+Item --> Item : nextEpisode
+'Item --> Contributor
+Item --> Marker
+
+
+' chapters of an Item, following the Podlove Simple Chapters format (https://podlove.org/simple-chapters/)
+interface Marker {
+  ' start time following [hh]:[mm]:[ss].[sss] format
+  start: Duration!
+  title: String!
+  ' image that will be presented in the header section if the chapter is available
+  image: Image
+  'imageUrl: URL @deprecated(reason: "try to use image.url if possible")
+  ' Link related to the chapter
+  ' TODO: should we call this link instead?
+  href: URL
+}
+Marker <|-- Chapter
+Marker <|- Region
+Region o- Chapter
+
+class Region {
+  end: Duration!
+}
+
+interface Asset {
+  ' absolute path to media asset
+  url: URL!
+  ' file size in byte
+  size: Int!
+  ' title to be displayed in download tab e.g. "MPEG-4 AAC Audio (m4a)"
+  title: String
+  ' media asset mimeType e.g. "audio/mp4"
+  mimeType: String!
+}
+
+interface Contributor {
+  ' used as a reference e.g. in transcripts
+  id: ID!
+  ' name of the contributor e.g. Hans Meier
+  name: String!
+  ' URI identifying the person e.g. his personal domain or this main social media profile e.g. Twitter/Mastodon
+  uri: URL
+  ' avatar e.g. profile photo of the contributor
+  avatar: Image
+  'avatarUrl: URL @deprecated(reason: "try to use avatar.url if possible")
+  ' contributors group e.g. { id: "1", slug: "onair", title: "On Air" }
+  wikidataId: String
+}
+
+(Item, Contributor) . Contribution
+
+interface Contribution {
+  role: Role
+  group: String
+}
+
+
+interface Image {
+  url: URL!
+  description: String
+  attribution: String
+}
+
+' An object with a globally unique `ID`.
+interface Node {
+  ' A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  nodeId: ID!
+}
+
+interface Organization {
+  name: String!
+  image: Image
+  uri: URL
+  wikidataId: String
+}
+Organization -- Podcast
+
+
+enum PodcastVariant {
+  ' episodic: Stand-alone episodes that should be presented last-to-first.
+  EPISODIC
+  ' Serial: Episodes that should be presented first-to-last. Great for narratives, storytelling, thematic, and multiple seasons.
+  SERIAL
+}
+
+
+
+@enduml
