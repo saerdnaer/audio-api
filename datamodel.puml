@@ -53,7 +53,7 @@ interface Item {
   ' e.g. "FG072 Verantwortung in der Informatik"
   title: String!
   subtitle: String
-  summary: String!
+  summary: String
   description: HTML
 
   publicationDate: Datetime!

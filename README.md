@@ -14,7 +14,8 @@ The primary goal is to decouple data storage/access from the individual apps, e.
 ![Components](docs/components_v0.png)
 
 
-# Concrete Datamodel
+# Datamodel
+
 
 
 ![Components](datamodel.svg)

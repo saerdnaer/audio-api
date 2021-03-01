@@ -1,3 +1,5 @@
+scalar JSON
+scalar Cursor
 
 enum Directory {
   ITUNES
@@ -25,12 +27,20 @@ type ShowType implements Node & Collection & Podcast {
 
   title: String!
   subtitle: String
-  summary: String
+  summary: String!
   description: HTML
   image(aspect: AspectRatio): Image
   imageUrl: URL @deprecated(reason: "try to use image.url if possible")
 
   link: URL
+
+  type: PodcastVariant
+  episodes: ItemsConnection
+  feedUrls: [URL!]
+  language: String
+
+  meta: JSON
+  _raw: JSON @deprecated(reason: "only for debugging")
 }
 
 
@@ -40,15 +50,15 @@ type ItemType implements Node & Item {
   guid: ID!
   externalIds(system: Directory): [String!]
 
-  title(variant: TitleVariant): String
+  title(variant: TitleVariant): String!
   subtitle: String
   summary: String
   description: HTML
 
-  publicationDate: Datetime!,
-  depublicationDate: Datetime,
-  duration: Duration,
-  durationSeconds: Int
+  publicationDate: Datetime!
+  depublicationDate: Datetime
+  duration: Duration!
+  durationSeconds: Int!
 
   link: URL
 
@@ -71,6 +81,8 @@ type ItemType implements Node & Item {
 
   show: Collection
   nextEpisode: Item
+
+  _raw: JSON @deprecated(reason: "only for debugging")
 }
 
 type AssetType implements Asset {
@@ -87,13 +99,15 @@ type AssetType implements Asset {
 type ContributorType implements Contributor {
   # used as a reference e.g. in transcripts
   id: ID!
+  uri: URL!
   # name of the contributor e.g. Hans Meier
   name: String!
   # avatar e.g. profile photo of the contributor
   avatar: Image
   avatarUrl: URL @deprecated(reason: "try to use avatar.url if possible")
   # contributors group e.g. { id: "1", slug: "onair", title: "On Air" }
-  group: ContributorGroup
+  #group: ContributorGroup
+  wikidataId: String
 }
 
 
@@ -103,10 +117,7 @@ input ItemFilter {
   id: StringFilter
 
   # Filter by the object’s `publishDate` field.
-  publicationDate: DatetimeFilter
-
-  # Filter by the object’s `isPublished` field.
-  isPublished: BooleanFilter
+  #publicationDate: DatetimeFilter
 
   # Filter by the object’s `title` field.
   title: StringFilter
@@ -146,34 +157,9 @@ type OrganizationType implements Node & Organization {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   nodeId: ID!
   name: String!
-
-  # Reads and enables pagination through a set of `PublicationService`.
-  publicationServices(
-    # Only read the first `n` values of the set.
-    first: Int
-
-    # Only read the last `n` values of the set.
-    last: Int
-
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
-    offset: Int
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # The method to use when ordering `PublicationService`.
-    orderBy: [PublicationServicesOrderBy!] = [PRIMARY_KEY_ASC]
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: PublicationServiceCondition
-
-    # A filter to be used in determining which values should be returned by the collection.
-    filter: PublicationServiceFilter
-  ): PublicationServicesConnection!
+  uri: URL
+  wikidataId: String
+  image(aspect: AspectRatio): Image
 }
 
 # Methods to use when ordering `Organization`.
@@ -185,6 +171,11 @@ enum OrganizationsOrderBy {
   NAME_DESC
 }
 
+type ShowsConnection implements CollectionConnection {
+  nodes: [ShowType!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
 
 # The root query type which gives access points into the data universe.
 type Query implements Node & AudioQuery {
@@ -204,13 +195,15 @@ type Query implements Node & AudioQuery {
     nodeId: ID!
   ): Node
 
-  item(guid: ID!): Item
-  show(id: ID!): Show
-  contributor(uri: URL!): Contributor
-  contributorById(id: ID!): Contributor
+  test2: String
 
-  organization(name: String!): Organization
-  publicationService(id: ID!): PublicationService
+  item(guid: ID!, source: Directory): Item
+  show(id: ID!, source: Directory): ShowType
+  contributor(uri: URL!, source: Directory): Contributor
+  contributorById(id: ID!, source: Directory): Contributor
+
+  organization(name: String!, source: Directory): Organization
+  #publicationService(id: ID!): PublicationService
 
   # Reads and enables pagination through a set of `Item`.
   items(
@@ -233,11 +226,10 @@ type Query implements Node & AudioQuery {
     # The method to use when ordering `Item`.
     orderBy: [ItemsOrderBy!] = [PRIMARY_KEY_ASC]
 
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: ItemCondition
-
     # A filter to be used in determining which values should be returned by the collection.
-    filter: ItemFilter
+    #filter: ItemFilter
+
+    source: Directory
   ): ItemsConnection
 
   # Reads and enables pagination through a set of `Show`.
@@ -259,13 +251,12 @@ type Query implements Node & AudioQuery {
     after: Cursor
 
     # The method to use when ordering `Show`.
-    orderBy: [ShowsOrderBy!] = [PRIMARY_KEY_ASC]
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: ShowCondition
+    #orderBy: [ShowsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A filter to be used in determining which values should be returned by the collection.
-    filter: ShowFilter
+    #filter: ShowFilter
+
+    source: Directory
   ): ShowsConnection
 
   # Reads and enables pagination through a set of `Organization`.
@@ -289,32 +280,9 @@ type Query implements Node & AudioQuery {
     # The method to use when ordering `Organization`.
     orderBy: [OrganizationsOrderBy!] = [PRIMARY_KEY_ASC]
 
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: OrganizationCondition
-
     # A filter to be used in determining which values should be returned by the collection.
-    filter: OrganizationFilter
+    #filter: OrganizationFilter
+
+    source: Directory
   ): OrganizationsConnection
-
-  # Reads and enables pagination through a set of `PublicationService`.
-  publicationServices(
-    # Only read the first `n` values of the set.
-    first: Int
-
-    # Only read the last `n` values of the set.
-    last: Int
-
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
-    offset: Int
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # The method to use when ordering `PublicationService`.
-    orderBy: [PublicationServicesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): PublicationServicesConnection
 }
