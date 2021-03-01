@@ -1,0 +1,320 @@
+_type: export
+__export_format: 4
+__export_date: 2021-03-01T08:28:06.715Z
+__export_source: insomnia.desktop.app:v2020.4.0
+resources:
+  - _id: req_9f52369a0287486e8d35382dda4f6f9e
+    parentId: fld_982b50f381e246b08ab01464394bf3e8
+    modified: 1614540545680
+    created: 1614540465863
+    url: "{{ endpoint  }}/episode"
+    name: Episode
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - description: ""
+        disabled: false
+        id: pair_d8d1c1d8cb0540cf9d959c6a5466211e
+        name: episode_id
+        value: "6017277"
+    headers: []
+    authentication: {}
+    metaSortKey: -1587230399783
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_982b50f381e246b08ab01464394bf3e8
+    parentId: wrk_0b0138361adc4cc1913e66aa82162710
+    modified: 1614540451912
+    created: 1614540451912
+    name: Episode
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1614540451912
+    _type: request_group
+  - _id: wrk_0b0138361adc4cc1913e66aa82162710
+    parentId: null
+    modified: 1587230330839
+    created: 1587230330839
+    name: Fyyd
+    description: ""
+    scope: null
+    _type: workspace
+  - _id: req_de8e890ab7ae4b54a940b260558037e3
+    parentId: fld_982b50f381e246b08ab01464394bf3e8
+    modified: 1614586960947
+    created: 1614586490791
+    url: "{{ endpoint  }}/search/episode"
+    name: Episode Search
+    description: >+
+      This request tries to find an episode inside fyyd's database, matching any
+      or some of a set of given criteria.
+
+
+      This reflects Skoon's need to find an episode's id to add to the user's curation.
+
+
+      ## Parameters
+
+
+      - title (optional, string) the episode's title. Search might use parts of the string to find the episode.
+
+      - guid (optional, string) the episode's GUID as stated inside the podcasts feed.
+
+      - podcast_id (optional, int) the podcast's id in fyyd's database.
+
+      - podcast_title (optional, string) the podcast's title. Search might use parts of the string to find the podcast.
+
+      - pubdate (optional, string) the pubDate as stated inside the podcasts feed.
+
+      - duration (optional, int) the duration of the episode in seconds.
+
+      - url (optional, string) the episode's url as stated inside the podcast's feed.
+
+      - term (optional,string) a search term to find inside the episodes.
+
+      - count (optional, int, default: 10)
+
+
+      Please note: title, guid, pubdate, duration, url and term add episodes together. Think of a logical OR.
+
+
+      In contrast to that, podcast_id and podcast_title restrict all episodes to podcasts matching to one of podcast_id or podcast_title.
+
+    method: GET
+    body: {}
+    parameters:
+      - name: count
+        value: "10"
+        id: pair_303a3c480a8e4223938a62cf7b73af78
+      - name: term
+        value: ""
+        id: pair_a6f1ec32d47a4f8bb3f3714c356df01d
+      - name: title
+        value: ""
+        id: pair_159ae68aaa544eefa8caba4c26b542c7
+        disabled: true
+      - name: guid
+        value: ""
+        id: pair_db566fcbfa1c4c64b623bc546c3229ad
+        disabled: true
+      - name: podcast_id
+        value: ""
+        id: pair_a476f59a09b54e358699def2791c6295
+        disabled: true
+      - name: podcast_title
+        value: ""
+        id: pair_3d975fff14fc4a54a0209452dd937c35
+        disabled: true
+      - name: pubdate
+        value: ""
+        id: pair_b096017785d44c00960e08c581c830f0
+        disabled: true
+      - name: duration
+        value: ""
+        id: pair_85b14b28431e41e5b951ed4566295185
+        disabled: true
+      - name: url
+        value: ""
+        id: pair_d513b5c7e8654a6884f7b67136474c8b
+        disabled: true
+    headers: []
+    authentication: {}
+    metaSortKey: -1587230399770.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_fd72e3cf69a14fff9ce63eb494f99faa
+    parentId: fld_f0366a1c5e9f42d8b7e8acff2ec54adc
+    modified: 1614540283912
+    created: 1587231220416
+    url: "{{ endpoint  }}/podcasts"
+    name: All Podcasts
+    description: |-
+      Gets information about all podcasts within fyyd.
+
+      Additionally you can address the resultset with {page} and {count}.
+
+      Please note that this request is the plural form of podcast, podcasts ;-)
+
+      ## Parameters
+
+      - page (optional, int) the page you want to address, default: 0
+      - count (optional,int) the page's size, default: 50
+    method: GET
+    body: {}
+    parameters:
+      - description: ""
+        disabled: true
+        id: pair_1d6a2ec02e584df9ac2a2cfd7d5e1be1
+        name: page
+        value: ""
+      - description: ""
+        disabled: true
+        id: pair_87a8446c2f1448a5ac892a48b3fe4d3b
+        name: count
+        value: ""
+    headers: []
+    authentication: {}
+    metaSortKey: -1587230399858
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_f0366a1c5e9f42d8b7e8acff2ec54adc
+    parentId: wrk_0b0138361adc4cc1913e66aa82162710
+    modified: 1587230967632
+    created: 1587230967632
+    name: Podcast
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1587230967632
+    _type: request_group
+  - _id: req_8f7f1fdd932140938b624f4971c4ebc2
+    parentId: fld_f0366a1c5e9f42d8b7e8acff2ec54adc
+    modified: 1614587092445
+    created: 1587230399808
+    url: "{{ endpoint  }}/podcast"
+    name: Podcast
+    description: >-
+      
+      Retrieves information about a podcast
+
+
+      [GET /podcast/[/episodes]]
+
+
+      ## Description
+
+
+      Gets information about the podcast with id {id}. You may retrieve the episodes by appending /episodes.
+
+
+      Additionally you can address the resultset with {page} and {count}.
+
+
+      ## Parameters
+
+
+      - podcast_id (required, int) the podcast's id
+
+      - or podcast_slug (alternative, string) the podcast's slug
+
+      - page (optional, int) the page you want to address, default: 0
+
+      - count (optional,int) the page's size, default: 50
+    method: GET
+    body: {}
+    parameters:
+      - description: ""
+        disabled: false
+        id: pair_65304705cdbe4c9382243dd667ada348
+        name: podcast_slug
+        value: forschergeist
+      - description: ""
+        disabled: true
+        id: pair_d8d1c1d8cb0540cf9d959c6a5466211e
+        name: podcast_id
+        value: "{{ podcast_id  }}"
+      - name: page
+        value: ""
+        description: ""
+        id: pair_91bfb98ece234dce84ad09fd61ddbc17
+        disabled: true
+      - name: count
+        value: "50"
+        description: ""
+        id: pair_7f0a9e2b1631459cbc1d3d41ca99f10a
+        disabled: true
+    headers: []
+    authentication: {}
+    metaSortKey: -1587230399808
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_58e7b7b9e12043fe916e781474e8e32b
+    parentId: fld_f0366a1c5e9f42d8b7e8acff2ec54adc
+    modified: 1587230974654
+    created: 1587230902245
+    url: "{{ endpoint  }}/podcast/episodes"
+    name: Podcast with Episodes
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - description: ""
+        disabled: true
+        id: pair_65304705cdbe4c9382243dd667ada348
+        name: podcast_slug
+        value: serial
+      - description: ""
+        disabled: false
+        id: pair_d8d1c1d8cb0540cf9d959c6a5466211e
+        name: podcast_id
+        value: "{{ podcast_id  }}"
+    headers: []
+    authentication: {}
+    metaSortKey: -1587230399758
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_ce77895fb2ebdd5f063840a15975004dff8f6be0
+    parentId: wrk_0b0138361adc4cc1913e66aa82162710
+    modified: 1587231102609
+    created: 1587230330862
+    name: Base Environment
+    data:
+      endpoint: https://api.fyyd.de/0.2
+      episode_id: 123
+      podcast_id: 4462
+    dataPropertyOrder:
+      "&":
+        - endpoint
+        - podcast_id
+        - episode_id
+    color: null
+    isPrivate: false
+    metaSortKey: 1587230330862
+    _type: environment
+  - _id: jar_ce77895fb2ebdd5f063840a15975004dff8f6be0
+    parentId: wrk_0b0138361adc4cc1913e66aa82162710
+    modified: 1587230330869
+    created: 1587230330869
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_636a6533065b46cda19c8e45afbf86fc
+    parentId: wrk_0b0138361adc4cc1913e66aa82162710
+    modified: 1601466102339
+    created: 1601466102339
+    fileName: Fyyd
+    contents: ""
+    contentType: yaml
+    _type: api_spec
