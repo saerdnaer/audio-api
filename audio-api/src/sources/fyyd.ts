@@ -73,7 +73,7 @@ export class FyydAPI extends RESTDataSource {
       nodeId: `fyyd:${p.slug}`,
       ...p,
       image: {
-        __typename: "ItemType",
+        __typename: "ImageType",
         url: p.thumbImageURL,
         urls: [
           p.layoutImageURL, //  https://img-1.fyyd.de/pd/layout/4279c90453fc0dafbc5b9cf76f3442964.jpg
