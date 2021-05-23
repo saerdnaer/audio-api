@@ -1,7 +1,6 @@
 // tslint:disable
 /**
  * PodcastIndex.org API
- * # Authentication Details Sending an API request is easy. We use an Amazon-style request authorization token to secure each request.  Register for a free API key at https://api.podcastindex.org/  These headers parameters are required for each request: `User-Agent`, `X-Auth-Date`, `X-Auth-Key`, `Authorization`  See [Authentication](#auth) for description of parameters. 
  *
  * OpenAPI spec version: 1.4.0
  * Contact: info@podcastindex.org
