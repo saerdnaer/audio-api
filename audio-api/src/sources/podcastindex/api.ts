@@ -1,8 +1,6 @@
-/// <reference path="./custom.d.ts" />
-// tslint:disable
-// @ts-nocheck
 /**
  * PodcastIndex.org API
+ * # Authentication Details Sending an API request is easy. We use an Amazon-style request authorization token to secure each request.  Register for a free API key at https://api.podcastindex.org/  These headers parameters are required for each request: `User-Agent`, `X-Auth-Date`, `X-Auth-Key`, `Authorization`  See [Authentication](#auth) for description of parameters.
  *
  * OpenAPI spec version: 1.4.0
  * Contact: info@podcastindex.org
@@ -12,55 +10,10 @@
  * Do not edit the file manually.
  */
 
-import * as url from "url";
-import portableFetch from "portable-fetch";
 import { Configuration } from "./configuration";
 import { RESTDataSource } from "apollo-datasource-rest";
-// {$CustomDataSourcePlaceholder}
 
-type GenericObject<key, type> = {}
-
-const BASE_PATH = "https://api.podcastindex.org/api/1.0";
-
-/**
- *
- * @export
- */
-export const COLLECTION_FORMATS = {
-    csv: ",",
-    ssv: " ",
-    tsv: "\t",
-    pipes: "|",
-};
-
-/**
- *
- * @export
- * @class BaseAPI
- */
-export class BaseAPI {
-    protected configuration: Configuration;
-
-    constructor(configuration?: Configuration, protected basePath: string = BASE_PATH, protected fetch: FetchAPI = portableFetch) {
-        if (configuration) {
-            this.configuration = configuration;
-            this.basePath = configuration.basePath || this.basePath;
-        }
-    }
-};
-
-/**
- *
- * @export
- * @class RequiredError
- * @extends {Error}
- */
-export class RequiredError extends Error {
-    name: "RequiredError"
-    constructor(public field: string, msg?: string) {
-        super(msg);
-    }
-}
+const BASE_PATH = "https://api.podcastindex.org/api/1.0".replace(/\/+$/, "");
 
 /**
  * Address of node to receive payment
@@ -336,173 +289,33 @@ export interface FeeDestination {
  * @interface FeedBytag
  */
 export interface FeedBytag {
-    /**
-     *
-     * @type {IdFeed}
-     * @memberof FeedBytag
-     */
     id: IdFeed;
-    /**
-     *
-     * @type {TitleFeed}
-     * @memberof FeedBytag
-     */
     title: TitleFeed;
-    /**
-     *
-     * @type {UrlFeed}
-     * @memberof FeedBytag
-     */
     url: UrlFeed;
-    /**
-     *
-     * @type {OriginalUrl}
-     * @memberof FeedBytag
-     */
     originalUrl: OriginalUrl;
-    /**
-     *
-     * @type {LinkFeed}
-     * @memberof FeedBytag
-     */
     link: LinkFeed;
-    /**
-     *
-     * @type {DescriptionFeed}
-     * @memberof FeedBytag
-     */
     description: DescriptionFeed;
-    /**
-     *
-     * @type {Author}
-     * @memberof FeedBytag
-     */
     author: Author;
-    /**
-     *
-     * @type {OwnerName}
-     * @memberof FeedBytag
-     */
     ownerName: OwnerName;
-    /**
-     *
-     * @type {ImageFeed}
-     * @memberof FeedBytag
-     */
     image: ImageFeed;
-    /**
-     *
-     * @type {Artwork}
-     * @memberof FeedBytag
-     */
     artwork: Artwork;
-    /**
-     *
-     * @type {LastUpdateTime}
-     * @memberof FeedBytag
-     */
     lastUpdateTime: LastUpdateTime;
-    /**
-     *
-     * @type {LastCrawlTime}
-     * @memberof FeedBytag
-     */
     lastCrawlTime: LastCrawlTime;
-    /**
-     *
-     * @type {LastParseTime}
-     * @memberof FeedBytag
-     */
     lastParseTime: LastParseTime;
-    /**
-     *
-     * @type {LastGoodHttpStatusTime}
-     * @memberof FeedBytag
-     */
     lastGoodHttpStatusTime: LastGoodHttpStatusTime;
-    /**
-     *
-     * @type {LastHttpStatus}
-     * @memberof FeedBytag
-     */
     lastHttpStatus: LastHttpStatus;
-    /**
-     *
-     * @type {ContentType}
-     * @memberof FeedBytag
-     */
     contentType: ContentType;
-    /**
-     *
-     * @type {ItunesIdFeed}
-     * @memberof FeedBytag
-     */
     itunesId: ItunesIdFeed;
-    /**
-     *
-     * @type {Generator}
-     * @memberof FeedBytag
-     */
     generator: Generator;
-    /**
-     *
-     * @type {Language}
-     * @memberof FeedBytag
-     */
     language: Language;
-    /**
-     *
-     * @type {Type}
-     * @memberof FeedBytag
-     */
     type: Type;
-    /**
-     *
-     * @type {Dead}
-     * @memberof FeedBytag
-     */
     dead: Dead;
-    /**
-     *
-     * @type {CrawlErrors}
-     * @memberof FeedBytag
-     */
     crawlErrors: CrawlErrors;
-    /**
-     *
-     * @type {ParseErrors}
-     * @memberof FeedBytag
-     */
     parseErrors: ParseErrors;
-    /**
-     *
-     * @type {Categories}
-     * @memberof FeedBytag
-     */
     categories: Categories;
-    /**
-     *
-     * @type {Locked}
-     * @memberof FeedBytag
-     */
     locked: Locked;
-    /**
-     *
-     * @type {ImageUrlHash}
-     * @memberof FeedBytag
-     */
     imageUrlHash: ImageUrlHash;
-    /**
-     *
-     * @type {Value}
-     * @memberof FeedBytag
-     */
     value: Value;
-    /**
-     *
-     * @type {Funding}
-     * @memberof FeedBytag
-     */
     funding: Funding;
 }
 /**
@@ -511,17 +324,7 @@ export interface FeedBytag {
  * @interface FeedDead
  */
 export interface FeedDead {
-    /**
-     *
-     * @type {IdFeed}
-     * @memberof FeedDead
-     */
     id: IdFeed;
-    /**
-     *
-     * @type {UrlFeed}
-     * @memberof FeedDead
-     */
     url: UrlFeed;
 }
 /**
@@ -530,149 +333,29 @@ export interface FeedDead {
  * @interface FeedItunes
  */
 export interface FeedItunes {
-    /**
-     *
-     * @type {IdFeed}
-     * @memberof FeedItunes
-     */
     id: IdFeed;
-    /**
-     *
-     * @type {TitleFeed}
-     * @memberof FeedItunes
-     */
     title: TitleFeed;
-    /**
-     *
-     * @type {UrlFeed}
-     * @memberof FeedItunes
-     */
     url: UrlFeed;
-    /**
-     *
-     * @type {OriginalUrl}
-     * @memberof FeedItunes
-     */
     originalUrl: OriginalUrl;
-    /**
-     *
-     * @type {LinkFeed}
-     * @memberof FeedItunes
-     */
     link: LinkFeed;
-    /**
-     *
-     * @type {DescriptionFeed}
-     * @memberof FeedItunes
-     */
     description: DescriptionFeed;
-    /**
-     *
-     * @type {Author}
-     * @memberof FeedItunes
-     */
     author: Author;
-    /**
-     *
-     * @type {OwnerName}
-     * @memberof FeedItunes
-     */
     ownerName: OwnerName;
-    /**
-     *
-     * @type {ImageFeed}
-     * @memberof FeedItunes
-     */
     image: ImageFeed;
-    /**
-     *
-     * @type {Artwork}
-     * @memberof FeedItunes
-     */
     artwork: Artwork;
-    /**
-     *
-     * @type {LastUpdateTime}
-     * @memberof FeedItunes
-     */
     lastUpdateTime: LastUpdateTime;
-    /**
-     *
-     * @type {LastCrawlTime}
-     * @memberof FeedItunes
-     */
     lastCrawlTime: LastCrawlTime;
-    /**
-     *
-     * @type {LastParseTime}
-     * @memberof FeedItunes
-     */
     lastParseTime: LastParseTime;
-    /**
-     *
-     * @type {LastGoodHttpStatusTime}
-     * @memberof FeedItunes
-     */
     lastGoodHttpStatusTime: LastGoodHttpStatusTime;
-    /**
-     *
-     * @type {LastHttpStatus}
-     * @memberof FeedItunes
-     */
     lastHttpStatus: LastHttpStatus;
-    /**
-     *
-     * @type {ContentType}
-     * @memberof FeedItunes
-     */
     contentType: ContentType;
-    /**
-     *
-     * @type {ItunesIdFeed}
-     * @memberof FeedItunes
-     */
     itunesId: ItunesIdFeed;
-    /**
-     *
-     * @type {Generator}
-     * @memberof FeedItunes
-     */
     generator: Generator;
-    /**
-     *
-     * @type {Language}
-     * @memberof FeedItunes
-     */
     language: Language;
-    /**
-     *
-     * @type {Type}
-     * @memberof FeedItunes
-     */
     type: Type;
-    /**
-     *
-     * @type {Dead}
-     * @memberof FeedItunes
-     */
     dead: Dead;
-    /**
-     *
-     * @type {CrawlErrors}
-     * @memberof FeedItunes
-     */
     crawlErrors: CrawlErrors;
-    /**
-     *
-     * @type {ParseErrors}
-     * @memberof FeedItunes
-     */
     parseErrors: ParseErrors;
-    /**
-     *
-     * @type {Locked}
-     * @memberof FeedItunes
-     */
     locked: Locked;
 }
 /**
@@ -681,185 +364,35 @@ export interface FeedItunes {
  * @interface FeedPodcast
  */
 export interface FeedPodcast {
-    /**
-     *
-     * @type {IdFeed}
-     * @memberof FeedPodcast
-     */
     id: IdFeed;
-    /**
-     *
-     * @type {TitleFeed}
-     * @memberof FeedPodcast
-     */
     title: TitleFeed;
-    /**
-     *
-     * @type {UrlFeed}
-     * @memberof FeedPodcast
-     */
     url: UrlFeed;
-    /**
-     *
-     * @type {OriginalUrl}
-     * @memberof FeedPodcast
-     */
     originalUrl: OriginalUrl;
-    /**
-     *
-     * @type {LinkFeed}
-     * @memberof FeedPodcast
-     */
     link: LinkFeed;
-    /**
-     *
-     * @type {DescriptionFeed}
-     * @memberof FeedPodcast
-     */
     description: DescriptionFeed;
-    /**
-     *
-     * @type {Author}
-     * @memberof FeedPodcast
-     */
     author: Author;
-    /**
-     *
-     * @type {OwnerName}
-     * @memberof FeedPodcast
-     */
     ownerName: OwnerName;
-    /**
-     *
-     * @type {ImageFeed}
-     * @memberof FeedPodcast
-     */
     image: ImageFeed;
-    /**
-     *
-     * @type {Artwork}
-     * @memberof FeedPodcast
-     */
     artwork: Artwork;
-    /**
-     *
-     * @type {LastUpdateTime}
-     * @memberof FeedPodcast
-     */
     lastUpdateTime: LastUpdateTime;
-    /**
-     *
-     * @type {LastCrawlTime}
-     * @memberof FeedPodcast
-     */
     lastCrawlTime: LastCrawlTime;
-    /**
-     *
-     * @type {LastParseTime}
-     * @memberof FeedPodcast
-     */
     lastParseTime: LastParseTime;
-    /**
-     *
-     * @type {LastGoodHttpStatusTime}
-     * @memberof FeedPodcast
-     */
     lastGoodHttpStatusTime: LastGoodHttpStatusTime;
-    /**
-     *
-     * @type {LastHttpStatus}
-     * @memberof FeedPodcast
-     */
     lastHttpStatus: LastHttpStatus;
-    /**
-     *
-     * @type {ContentType}
-     * @memberof FeedPodcast
-     */
     contentType: ContentType;
-    /**
-     *
-     * @type {ItunesIdFeed}
-     * @memberof FeedPodcast
-     */
     itunesId: ItunesIdFeed;
-    /**
-     *
-     * @type {Generator}
-     * @memberof FeedPodcast
-     */
     generator: Generator;
-    /**
-     *
-     * @type {Language}
-     * @memberof FeedPodcast
-     */
     language: Language;
-    /**
-     *
-     * @type {Type}
-     * @memberof FeedPodcast
-     */
     type: Type;
-    /**
-     *
-     * @type {Dead}
-     * @memberof FeedPodcast
-     */
     dead: Dead;
-    /**
-     *
-     * @type {Chash}
-     * @memberof FeedPodcast
-     */
     chash: Chash;
-    /**
-     *
-     * @type {EpisodeCount}
-     * @memberof FeedPodcast
-     */
     episodeCount: EpisodeCount;
-    /**
-     *
-     * @type {CrawlErrors}
-     * @memberof FeedPodcast
-     */
     crawlErrors: CrawlErrors;
-    /**
-     *
-     * @type {ParseErrors}
-     * @memberof FeedPodcast
-     */
     parseErrors: ParseErrors;
-    /**
-     *
-     * @type {Categories}
-     * @memberof FeedPodcast
-     */
     categories: Categories;
-    /**
-     *
-     * @type {Locked}
-     * @memberof FeedPodcast
-     */
     locked: Locked;
-    /**
-     *
-     * @type {ImageUrlHash}
-     * @memberof FeedPodcast
-     */
     imageUrlHash: ImageUrlHash;
-    /**
-     *
-     * @type {Value}
-     * @memberof FeedPodcast
-     */
     value: Value;
-    /**
-     *
-     * @type {Funding}
-     * @memberof FeedPodcast
-     */
     funding: Funding;
 }
 /**
@@ -868,161 +401,31 @@ export interface FeedPodcast {
  * @interface FeedSearch
  */
 export interface FeedSearch {
-    /**
-     *
-     * @type {IdFeed}
-     * @memberof FeedSearch
-     */
     id: IdFeed;
-    /**
-     *
-     * @type {TitleFeed}
-     * @memberof FeedSearch
-     */
     title: TitleFeed;
-    /**
-     *
-     * @type {UrlFeed}
-     * @memberof FeedSearch
-     */
     url: UrlFeed;
-    /**
-     *
-     * @type {OriginalUrl}
-     * @memberof FeedSearch
-     */
     originalUrl: OriginalUrl;
-    /**
-     *
-     * @type {LinkFeed}
-     * @memberof FeedSearch
-     */
     link: LinkFeed;
-    /**
-     *
-     * @type {DescriptionFeed}
-     * @memberof FeedSearch
-     */
     description: DescriptionFeed;
-    /**
-     *
-     * @type {Author}
-     * @memberof FeedSearch
-     */
     author: Author;
-    /**
-     *
-     * @type {OwnerName}
-     * @memberof FeedSearch
-     */
     ownerName: OwnerName;
-    /**
-     *
-     * @type {ImageFeed}
-     * @memberof FeedSearch
-     */
     image: ImageFeed;
-    /**
-     *
-     * @type {Artwork}
-     * @memberof FeedSearch
-     */
     artwork: Artwork;
-    /**
-     *
-     * @type {LastUpdateTime}
-     * @memberof FeedSearch
-     */
     lastUpdateTime: LastUpdateTime;
-    /**
-     *
-     * @type {LastCrawlTime}
-     * @memberof FeedSearch
-     */
     lastCrawlTime: LastCrawlTime;
-    /**
-     *
-     * @type {LastParseTime}
-     * @memberof FeedSearch
-     */
     lastParseTime: LastParseTime;
-    /**
-     *
-     * @type {LastGoodHttpStatusTime}
-     * @memberof FeedSearch
-     */
     lastGoodHttpStatusTime: LastGoodHttpStatusTime;
-    /**
-     *
-     * @type {LastHttpStatus}
-     * @memberof FeedSearch
-     */
     lastHttpStatus: LastHttpStatus;
-    /**
-     *
-     * @type {ContentType}
-     * @memberof FeedSearch
-     */
     contentType: ContentType;
-    /**
-     *
-     * @type {ItunesIdFeed}
-     * @memberof FeedSearch
-     */
     itunesId: ItunesIdFeed;
-    /**
-     *
-     * @type {Generator}
-     * @memberof FeedSearch
-     */
     generator: Generator;
-    /**
-     *
-     * @type {Language}
-     * @memberof FeedSearch
-     */
     language: Language;
-    /**
-     *
-     * @type {Type}
-     * @memberof FeedSearch
-     */
     type: Type;
-    /**
-     *
-     * @type {Dead}
-     * @memberof FeedSearch
-     */
     dead: Dead;
-    /**
-     *
-     * @type {CrawlErrors}
-     * @memberof FeedSearch
-     */
     crawlErrors: CrawlErrors;
-    /**
-     *
-     * @type {ParseErrors}
-     * @memberof FeedSearch
-     */
     parseErrors: ParseErrors;
-    /**
-     *
-     * @type {Categories}
-     * @memberof FeedSearch
-     */
     categories: Categories;
-    /**
-     *
-     * @type {Locked}
-     * @memberof FeedSearch
-     */
     locked: Locked;
-    /**
-     *
-     * @type {ImageUrlHash}
-     * @memberof FeedSearch
-     */
     imageUrlHash: ImageUrlHash;
 }
 /**
@@ -1031,65 +434,15 @@ export interface FeedSearch {
  * @interface FeedTrending
  */
 export interface FeedTrending {
-    /**
-     *
-     * @type {IdFeed}
-     * @memberof FeedTrending
-     */
     id: IdFeed;
-    /**
-     *
-     * @type {UrlFeed}
-     * @memberof FeedTrending
-     */
     url: UrlFeed;
-    /**
-     *
-     * @type {TitleFeed}
-     * @memberof FeedTrending
-     */
     title: TitleFeed;
-    /**
-     *
-     * @type {Author}
-     * @memberof FeedTrending
-     */
     author: Author;
-    /**
-     *
-     * @type {ImageFeed}
-     * @memberof FeedTrending
-     */
     image: ImageFeed;
-    /**
-     *
-     * @type {NewestItemPublishedTime}
-     * @memberof FeedTrending
-     */
     newestItemPublishedTime: NewestItemPublishedTime;
-    /**
-     *
-     * @type {ItunesIdFeed}
-     * @memberof FeedTrending
-     */
     itunesId: ItunesIdFeed;
-    /**
-     *
-     * @type {TrendScore}
-     * @memberof FeedTrending
-     */
     trendScore: TrendScore;
-    /**
-     *
-     * @type {Language}
-     * @memberof FeedTrending
-     */
     language: Language;
-    /**
-     *
-     * @type {Categories}
-     * @memberof FeedTrending
-     */
     categories: Categories;
 }
 /**
@@ -1126,47 +479,12 @@ export interface FeedsRecent extends Array<FeedsRecentInner> {
  * @interface FeedsRecentInner
  */
 export interface FeedsRecentInner {
-    /**
-     *
-     * @type {IdFeed}
-     * @memberof FeedsRecentInner
-     */
     id: IdFeed;
-    /**
-     *
-     * @type {UrlFeed}
-     * @memberof FeedsRecentInner
-     */
     url: UrlFeed;
-    /**
-     *
-     * @type {TitleFeed}
-     * @memberof FeedsRecentInner
-     */
     title: TitleFeed;
-    /**
-     *
-     * @type {NewestItemPublishedTime}
-     * @memberof FeedsRecentInner
-     */
     newestItemPublishedTime: NewestItemPublishedTime;
-    /**
-     *
-     * @type {ItunesIdFeed}
-     * @memberof FeedsRecentInner
-     */
     itunesId: ItunesIdFeed;
-    /**
-     *
-     * @type {Language}
-     * @memberof FeedsRecentInner
-     */
     language: Language;
-    /**
-     *
-     * @type {Categories}
-     * @memberof FeedsRecentInner
-     */
     categories: Categories;
 }
 /**
@@ -1182,41 +500,11 @@ export interface FeedsRecentNew extends Array<FeedsRecentNewInner> {
  * @interface FeedsRecentNewInner
  */
 export interface FeedsRecentNewInner {
-    /**
-     *
-     * @type {IdFeed}
-     * @memberof FeedsRecentNewInner
-     */
     id: IdFeed;
-    /**
-     *
-     * @type {UrlFeed}
-     * @memberof FeedsRecentNewInner
-     */
     url: UrlFeed;
-    /**
-     *
-     * @type {TimeAdded}
-     * @memberof FeedsRecentNewInner
-     */
     timeAdded: TimeAdded;
-    /**
-     *
-     * @type {StatusFeed}
-     * @memberof FeedsRecentNewInner
-     */
     status: StatusFeed;
-    /**
-     *
-     * @type {ContentHash}
-     * @memberof FeedsRecentNewInner
-     */
     contentHash: ContentHash;
-    /**
-     *
-     * @type {Language}
-     * @memberof FeedsRecentNewInner
-     */
     language: Language;
 }
 /**
@@ -1232,17 +520,7 @@ export interface FeedsTrending extends Array<FeedTrending> {
  * @interface Funding
  */
 export interface Funding {
-    /**
-     *
-     * @type {UrlFunding}
-     * @memberof Funding
-     */
     url: UrlFunding;
-    /**
-     *
-     * @type {Message}
-     * @memberof Funding
-     */
     message: Message;
 }
 /**
@@ -1307,35 +585,10 @@ export interface ImageUrlHash {
  * @interface InlineResponse200
  */
 export interface InlineResponse200 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse200
-     */
     status: Status;
-    /**
-     *
-     * @type {Feeds}
-     * @memberof InlineResponse200
-     */
     feeds: Feeds;
-    /**
-     *
-     * @type {Count}
-     * @memberof InlineResponse200
-     */
     count: Count;
-    /**
-     *
-     * @type {QuerySearch}
-     * @memberof InlineResponse200
-     */
     query: QuerySearch;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse200
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1344,35 +597,10 @@ export interface InlineResponse200 {
  * @interface InlineResponse2001
  */
 export interface InlineResponse2001 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse2001
-     */
     status: Status;
-    /**
-     *
-     * @type {ItemsByperson}
-     * @memberof InlineResponse2001
-     */
     items: ItemsByperson;
-    /**
-     *
-     * @type {Count}
-     * @memberof InlineResponse2001
-     */
     count: Count;
-    /**
-     *
-     * @type {QuerySearch}
-     * @memberof InlineResponse2001
-     */
     query: QuerySearch;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse2001
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1381,35 +609,10 @@ export interface InlineResponse2001 {
  * @interface InlineResponse20010
  */
 export interface InlineResponse20010 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse20010
-     */
     status: Status;
-    /**
-     *
-     * @type {ItemsPodcast}
-     * @memberof InlineResponse20010
-     */
     items: ItemsPodcast;
-    /**
-     *
-     * @type {Count}
-     * @memberof InlineResponse20010
-     */
     count: Count;
-    /**
-     *
-     * @type {IdQuery}
-     * @memberof InlineResponse20010
-     */
     query: IdQuery;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse20010
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1418,29 +621,9 @@ export interface InlineResponse20010 {
  * @interface InlineResponse20011
  */
 export interface InlineResponse20011 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse20011
-     */
     status: Status;
-    /**
-     *
-     * @type {IdEpisode}
-     * @memberof InlineResponse20011
-     */
     id: IdEpisode;
-    /**
-     *
-     * @type {EpisodeObject}
-     * @memberof InlineResponse20011
-     */
     episode: EpisodeObject;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse20011
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1449,35 +632,10 @@ export interface InlineResponse20011 {
  * @interface InlineResponse20012
  */
 export interface InlineResponse20012 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse20012
-     */
     status: Status;
-    /**
-     *
-     * @type {EpisodesRandomArray}
-     * @memberof InlineResponse20012
-     */
     episodes: EpisodesRandomArray;
-    /**
-     *
-     * @type {Count}
-     * @memberof InlineResponse20012
-     */
     count: Count;
-    /**
-     *
-     * @type {Max}
-     * @memberof InlineResponse20012
-     */
     max: Max;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse20012
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1486,35 +644,10 @@ export interface InlineResponse20012 {
  * @interface InlineResponse20013
  */
 export interface InlineResponse20013 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse20013
-     */
     status: Status;
-    /**
-     *
-     * @type {ItemsRecent}
-     * @memberof InlineResponse20013
-     */
     items: ItemsRecent;
-    /**
-     *
-     * @type {Count}
-     * @memberof InlineResponse20013
-     */
     count: Count;
-    /**
-     *
-     * @type {Max}
-     * @memberof InlineResponse20013
-     */
     max: Max;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse20013
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1523,41 +656,11 @@ export interface InlineResponse20013 {
  * @interface InlineResponse20014
  */
 export interface InlineResponse20014 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse20014
-     */
     status: Status;
-    /**
-     *
-     * @type {FeedsRecent}
-     * @memberof InlineResponse20014
-     */
     feeds: FeedsRecent;
-    /**
-     *
-     * @type {Count}
-     * @memberof InlineResponse20014
-     */
     count: Count;
-    /**
-     *
-     * @type {Max}
-     * @memberof InlineResponse20014
-     */
     max: Max;
-    /**
-     *
-     * @type {Since}
-     * @memberof InlineResponse20014
-     */
     since: Since;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse20014
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1566,35 +669,10 @@ export interface InlineResponse20014 {
  * @interface InlineResponse20015
  */
 export interface InlineResponse20015 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse20015
-     */
     status: Status;
-    /**
-     *
-     * @type {FeedsRecentNew}
-     * @memberof InlineResponse20015
-     */
     feeds: FeedsRecentNew;
-    /**
-     *
-     * @type {Count}
-     * @memberof InlineResponse20015
-     */
     count: Count;
-    /**
-     *
-     * @type {Max}
-     * @memberof InlineResponse20015
-     */
     max: Max;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse20015
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1603,29 +681,9 @@ export interface InlineResponse20015 {
  * @interface InlineResponse20016
  */
 export interface InlineResponse20016 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse20016
-     */
     status: Status;
-    /**
-     *
-     * @type {ItemsSoundbites}
-     * @memberof InlineResponse20016
-     */
     items: ItemsSoundbites;
-    /**
-     *
-     * @type {Count}
-     * @memberof InlineResponse20016
-     */
     count: Count;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse20016
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1634,29 +692,9 @@ export interface InlineResponse20016 {
  * @interface InlineResponse20017
  */
 export interface InlineResponse20017 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse20017
-     */
     status: Status;
-    /**
-     *
-     * @type {QueryId}
-     * @memberof InlineResponse20017
-     */
     query: QueryId;
-    /**
-     *
-     * @type {Value}
-     * @memberof InlineResponse20017
-     */
     value: Value;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse20017
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1665,29 +703,9 @@ export interface InlineResponse20017 {
  * @interface InlineResponse20018
  */
 export interface InlineResponse20018 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse20018
-     */
     status: Status;
-    /**
-     *
-     * @type {QueryUrl}
-     * @memberof InlineResponse20018
-     */
     query: QueryUrl;
-    /**
-     *
-     * @type {Value}
-     * @memberof InlineResponse20018
-     */
     value: Value;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse20018
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1696,23 +714,8 @@ export interface InlineResponse20018 {
  * @interface InlineResponse20019
  */
 export interface InlineResponse20019 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse20019
-     */
     status: Status;
-    /**
-     *
-     * @type {Stats}
-     * @memberof InlineResponse20019
-     */
     stats: Stats;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse20019
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1721,29 +724,9 @@ export interface InlineResponse20019 {
  * @interface InlineResponse2002
  */
 export interface InlineResponse2002 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse2002
-     */
     status: Status;
-    /**
-     *
-     * @type {QueryId}
-     * @memberof InlineResponse2002
-     */
     query: QueryId;
-    /**
-     *
-     * @type {FeedPodcast}
-     * @memberof InlineResponse2002
-     */
     feed: FeedPodcast;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse2002
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1752,29 +735,9 @@ export interface InlineResponse2002 {
  * @interface InlineResponse20020
  */
 export interface InlineResponse20020 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse20020
-     */
     status: Status;
-    /**
-     *
-     * @type {IdFeed}
-     * @memberof InlineResponse20020
-     */
     feedId: IdFeed;
-    /**
-     *
-     * @type {Existed}
-     * @memberof InlineResponse20020
-     */
     existed: Existed;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse20020
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1783,17 +746,7 @@ export interface InlineResponse20020 {
  * @interface InlineResponse20021
  */
 export interface InlineResponse20021 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse20021
-     */
     status: Status;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse20021
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1802,29 +755,9 @@ export interface InlineResponse20021 {
  * @interface InlineResponse2003
  */
 export interface InlineResponse2003 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse2003
-     */
     status: Status;
-    /**
-     *
-     * @type {QueryUrl}
-     * @memberof InlineResponse2003
-     */
     query: QueryUrl;
-    /**
-     *
-     * @type {FeedPodcast}
-     * @memberof InlineResponse2003
-     */
     feed: FeedPodcast;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse2003
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1833,29 +766,9 @@ export interface InlineResponse2003 {
  * @interface InlineResponse2004
  */
 export interface InlineResponse2004 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse2004
-     */
     status: Status;
-    /**
-     *
-     * @type {QueryId}
-     * @memberof InlineResponse2004
-     */
     query: QueryId;
-    /**
-     *
-     * @type {FeedItunes}
-     * @memberof InlineResponse2004
-     */
     feed: FeedItunes;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse2004
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1864,29 +777,9 @@ export interface InlineResponse2004 {
  * @interface InlineResponse2005
  */
 export interface InlineResponse2005 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse2005
-     */
     status: Status;
-    /**
-     *
-     * @type {FeedsBytag}
-     * @memberof InlineResponse2005
-     */
     feeds: FeedsBytag;
-    /**
-     *
-     * @type {Count}
-     * @memberof InlineResponse2005
-     */
     count: Count;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse2005
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1895,41 +788,11 @@ export interface InlineResponse2005 {
  * @interface InlineResponse2006
  */
 export interface InlineResponse2006 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse2006
-     */
     status: Status;
-    /**
-     *
-     * @type {FeedsTrending}
-     * @memberof InlineResponse2006
-     */
     feeds: FeedsTrending;
-    /**
-     *
-     * @type {Count}
-     * @memberof InlineResponse2006
-     */
     count: Count;
-    /**
-     *
-     * @type {Max}
-     * @memberof InlineResponse2006
-     */
     max: Max;
-    /**
-     *
-     * @type {Since}
-     * @memberof InlineResponse2006
-     */
     since: Since;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse2006
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1938,29 +801,9 @@ export interface InlineResponse2006 {
  * @interface InlineResponse2007
  */
 export interface InlineResponse2007 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse2007
-     */
     status: Status;
-    /**
-     *
-     * @type {FeedsDead}
-     * @memberof InlineResponse2007
-     */
     feeds: FeedsDead;
-    /**
-     *
-     * @type {Count}
-     * @memberof InlineResponse2007
-     */
     count: Count;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse2007
-     */
     description: DescriptionResponse;
 }
 /**
@@ -1969,35 +812,10 @@ export interface InlineResponse2007 {
  * @interface InlineResponse2008
  */
 export interface InlineResponse2008 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse2008
-     */
     status: Status;
-    /**
-     *
-     * @type {ItemsPodcast}
-     * @memberof InlineResponse2008
-     */
     items: ItemsPodcast;
-    /**
-     *
-     * @type {Count}
-     * @memberof InlineResponse2008
-     */
     count: Count;
-    /**
-     *
-     * @type {QueryPodcastIdSingle | QueryPodcastIdMultiple}
-     * @memberof InlineResponse2008
-     */
     query: QueryPodcastIdSingle | QueryPodcastIdMultiple;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse2008
-     */
     description: DescriptionResponse;
 }
 /**
@@ -2006,35 +824,10 @@ export interface InlineResponse2008 {
  * @interface InlineResponse2009
  */
 export interface InlineResponse2009 {
-    /**
-     *
-     * @type {Status}
-     * @memberof InlineResponse2009
-     */
     status: Status;
-    /**
-     *
-     * @type {ItemsPodcast}
-     * @memberof InlineResponse2009
-     */
     items: ItemsPodcast;
-    /**
-     *
-     * @type {Count}
-     * @memberof InlineResponse2009
-     */
     count: Count;
-    /**
-     *
-     * @type {QueryUrl}
-     * @memberof InlineResponse2009
-     */
     query: QueryUrl;
-    /**
-     *
-     * @type {DescriptionResponse}
-     * @memberof InlineResponse2009
-     */
     description: DescriptionResponse;
 }
 /**
@@ -2043,155 +836,30 @@ export interface InlineResponse2009 {
  * @interface ItemPodcast
  */
 export interface ItemPodcast {
-    /**
-     *
-     * @type {IdEpisode}
-     * @memberof ItemPodcast
-     */
     id: IdEpisode;
-    /**
-     *
-     * @type {TitleFeed}
-     * @memberof ItemPodcast
-     */
     title: TitleFeed;
-    /**
-     *
-     * @type {LinkFeed}
-     * @memberof ItemPodcast
-     */
     link: LinkFeed;
-    /**
-     *
-     * @type {DescriptionEpisode}
-     * @memberof ItemPodcast
-     */
     description: DescriptionEpisode;
-    /**
-     *
-     * @type {Guid}
-     * @memberof ItemPodcast
-     */
     guid: Guid;
-    /**
-     *
-     * @type {DatePublished}
-     * @memberof ItemPodcast
-     */
     datePublished: DatePublished;
-    /**
-     *
-     * @type {DatePublishedPretty}
-     * @memberof ItemPodcast
-     */
     datePublishedPretty: DatePublishedPretty;
-    /**
-     *
-     * @type {DateCrawled}
-     * @memberof ItemPodcast
-     */
     dateCrawled: DateCrawled;
-    /**
-     *
-     * @type {EnclosureUrl}
-     * @memberof ItemPodcast
-     */
     enclosureUrl: EnclosureUrl;
-    /**
-     *
-     * @type {EnclosureType}
-     * @memberof ItemPodcast
-     */
     enclosureType: EnclosureType;
-    /**
-     *
-     * @type {EnclosureLength}
-     * @memberof ItemPodcast
-     */
     enclosureLength: EnclosureLength;
-    /**
-     *
-     * @type {Duration}
-     * @memberof ItemPodcast
-     */
     duration: Duration;
-    /**
-     *
-     * @type {Explicit}
-     * @memberof ItemPodcast
-     */
     explicit: Explicit;
-    /**
-     *
-     * @type {EpisodeNumber}
-     * @memberof ItemPodcast
-     */
     episode: EpisodeNumber;
-    /**
-     *
-     * @type {EpisodeType}
-     * @memberof ItemPodcast
-     */
     episodeType: EpisodeType;
-    /**
-     *
-     * @type {Season}
-     * @memberof ItemPodcast
-     */
     season: Season;
-    /**
-     *
-     * @type {ImageEpisode}
-     * @memberof ItemPodcast
-     */
     image: ImageEpisode;
-    /**
-     *
-     * @type {ItunesIdFeed}
-     * @memberof ItemPodcast
-     */
     feedItunesId: ItunesIdFeed;
-    /**
-     *
-     * @type {ImageFeed}
-     * @memberof ItemPodcast
-     */
     feedImage: ImageFeed;
-    /**
-     *
-     * @type {IdFeed}
-     * @memberof ItemPodcast
-     */
     feedId: IdFeed;
-    /**
-     *
-     * @type {Language}
-     * @memberof ItemPodcast
-     */
     feedLanguage: Language;
-    /**
-     *
-     * @type {ChaptersUrl}
-     * @memberof ItemPodcast
-     */
     chaptersUrl: ChaptersUrl;
-    /**
-     *
-     * @type {TranscriptUrl}
-     * @memberof ItemPodcast
-     */
     transcriptUrl: TranscriptUrl;
-    /**
-     *
-     * @type {Soundbite}
-     * @memberof ItemPodcast
-     */
     soundbite: Soundbite;
-    /**
-     *
-     * @type {Soundbites}
-     * @memberof ItemPodcast
-     */
     soundbites: Soundbites;
 }
 /**
@@ -2200,143 +868,28 @@ export interface ItemPodcast {
  * @interface ItemPodcastRandom
  */
 export interface ItemPodcastRandom {
-    /**
-     *
-     * @type {IdEpisode}
-     * @memberof ItemPodcastRandom
-     */
     id: IdEpisode;
-    /**
-     *
-     * @type {TitleFeed}
-     * @memberof ItemPodcastRandom
-     */
     title: TitleFeed;
-    /**
-     *
-     * @type {LinkFeed}
-     * @memberof ItemPodcastRandom
-     */
     link: LinkFeed;
-    /**
-     *
-     * @type {DescriptionEpisode}
-     * @memberof ItemPodcastRandom
-     */
     description: DescriptionEpisode;
-    /**
-     *
-     * @type {Guid}
-     * @memberof ItemPodcastRandom
-     */
     guid: Guid;
-    /**
-     *
-     * @type {DatePublished}
-     * @memberof ItemPodcastRandom
-     */
     datePublished: DatePublished;
-    /**
-     *
-     * @type {DatePublishedPretty}
-     * @memberof ItemPodcastRandom
-     */
     datePublishedPretty: DatePublishedPretty;
-    /**
-     *
-     * @type {DateCrawled}
-     * @memberof ItemPodcastRandom
-     */
     dateCrawled: DateCrawled;
-    /**
-     *
-     * @type {EnclosureUrl}
-     * @memberof ItemPodcastRandom
-     */
     enclosureUrl: EnclosureUrl;
-    /**
-     *
-     * @type {EnclosureType}
-     * @memberof ItemPodcastRandom
-     */
     enclosureType: EnclosureType;
-    /**
-     *
-     * @type {EnclosureLength}
-     * @memberof ItemPodcastRandom
-     */
     enclosureLength: EnclosureLength;
-    /**
-     *
-     * @type {Explicit}
-     * @memberof ItemPodcastRandom
-     */
     explicit: Explicit;
-    /**
-     *
-     * @type {EpisodeNumber}
-     * @memberof ItemPodcastRandom
-     */
     episode: EpisodeNumber;
-    /**
-     *
-     * @type {EpisodeType}
-     * @memberof ItemPodcastRandom
-     */
     episodeType: EpisodeType;
-    /**
-     *
-     * @type {Season}
-     * @memberof ItemPodcastRandom
-     */
     season: Season;
-    /**
-     *
-     * @type {ImageEpisode}
-     * @memberof ItemPodcastRandom
-     */
     image: ImageEpisode;
-    /**
-     *
-     * @type {ItunesIdFeed}
-     * @memberof ItemPodcastRandom
-     */
     feedItunesId: ItunesIdFeed;
-    /**
-     *
-     * @type {ImageFeed}
-     * @memberof ItemPodcastRandom
-     */
     feedImage: ImageFeed;
-    /**
-     *
-     * @type {IdFeed}
-     * @memberof ItemPodcastRandom
-     */
     feedId: IdFeed;
-    /**
-     *
-     * @type {TitleFeed}
-     * @memberof ItemPodcastRandom
-     */
     feedTitle: TitleFeed;
-    /**
-     *
-     * @type {Language}
-     * @memberof ItemPodcastRandom
-     */
     feedLanguage: Language;
-    /**
-     *
-     * @type {Categories}
-     * @memberof ItemPodcastRandom
-     */
     categories: Categories;
-    /**
-     *
-     * @type {ChaptersUrl}
-     * @memberof ItemPodcastRandom
-     */
     chaptersUrl: ChaptersUrl;
 }
 /**
@@ -2345,131 +898,26 @@ export interface ItemPodcastRandom {
  * @interface ItemPodcastRecent
  */
 export interface ItemPodcastRecent {
-    /**
-     *
-     * @type {IdEpisode}
-     * @memberof ItemPodcastRecent
-     */
     id: IdEpisode;
-    /**
-     *
-     * @type {TitleFeed}
-     * @memberof ItemPodcastRecent
-     */
     title: TitleFeed;
-    /**
-     *
-     * @type {LinkFeed}
-     * @memberof ItemPodcastRecent
-     */
     link: LinkFeed;
-    /**
-     *
-     * @type {DescriptionEpisode}
-     * @memberof ItemPodcastRecent
-     */
     description: DescriptionEpisode;
-    /**
-     *
-     * @type {Guid}
-     * @memberof ItemPodcastRecent
-     */
     guid: Guid;
-    /**
-     *
-     * @type {DatePublished}
-     * @memberof ItemPodcastRecent
-     */
     datePublished: DatePublished;
-    /**
-     *
-     * @type {DatePublishedPretty}
-     * @memberof ItemPodcastRecent
-     */
     datePublishedPretty: DatePublishedPretty;
-    /**
-     *
-     * @type {DateCrawled}
-     * @memberof ItemPodcastRecent
-     */
     dateCrawled: DateCrawled;
-    /**
-     *
-     * @type {EnclosureUrl}
-     * @memberof ItemPodcastRecent
-     */
     enclosureUrl: EnclosureUrl;
-    /**
-     *
-     * @type {EnclosureType}
-     * @memberof ItemPodcastRecent
-     */
     enclosureType: EnclosureType;
-    /**
-     *
-     * @type {EnclosureLength}
-     * @memberof ItemPodcastRecent
-     */
     enclosureLength: EnclosureLength;
-    /**
-     *
-     * @type {Explicit}
-     * @memberof ItemPodcastRecent
-     */
     explicit: Explicit;
-    /**
-     *
-     * @type {EpisodeNumber}
-     * @memberof ItemPodcastRecent
-     */
     episode: EpisodeNumber;
-    /**
-     *
-     * @type {EpisodeType}
-     * @memberof ItemPodcastRecent
-     */
     episodeType: EpisodeType;
-    /**
-     *
-     * @type {Season}
-     * @memberof ItemPodcastRecent
-     */
     season: Season;
-    /**
-     *
-     * @type {ImageEpisode}
-     * @memberof ItemPodcastRecent
-     */
     image: ImageEpisode;
-    /**
-     *
-     * @type {ItunesIdFeed}
-     * @memberof ItemPodcastRecent
-     */
     feedItunesId: ItunesIdFeed;
-    /**
-     *
-     * @type {ImageFeed}
-     * @memberof ItemPodcastRecent
-     */
     feedImage: ImageFeed;
-    /**
-     *
-     * @type {IdFeed}
-     * @memberof ItemPodcastRecent
-     */
     feedId: IdFeed;
-    /**
-     *
-     * @type {TitleFeed}
-     * @memberof ItemPodcastRecent
-     */
     feedTitle: TitleFeed;
-    /**
-     *
-     * @type {Language}
-     * @memberof ItemPodcastRecent
-     */
     feedLanguage: Language;
 }
 /**
@@ -2478,155 +926,30 @@ export interface ItemPodcastRecent {
  * @interface ItemSearchByperson
  */
 export interface ItemSearchByperson {
-    /**
-     *
-     * @type {IdEpisode}
-     * @memberof ItemSearchByperson
-     */
     id: IdEpisode;
-    /**
-     *
-     * @type {TitleFeed}
-     * @memberof ItemSearchByperson
-     */
     title: TitleFeed;
-    /**
-     *
-     * @type {LinkFeed}
-     * @memberof ItemSearchByperson
-     */
     link: LinkFeed;
-    /**
-     *
-     * @type {DescriptionEpisode}
-     * @memberof ItemSearchByperson
-     */
     description: DescriptionEpisode;
-    /**
-     *
-     * @type {Guid}
-     * @memberof ItemSearchByperson
-     */
     guid: Guid;
-    /**
-     *
-     * @type {DatePublished}
-     * @memberof ItemSearchByperson
-     */
     datePublished: DatePublished;
-    /**
-     *
-     * @type {DateCrawled}
-     * @memberof ItemSearchByperson
-     */
     dateCrawled: DateCrawled;
-    /**
-     *
-     * @type {EnclosureUrl}
-     * @memberof ItemSearchByperson
-     */
     enclosureUrl: EnclosureUrl;
-    /**
-     *
-     * @type {EnclosureType}
-     * @memberof ItemSearchByperson
-     */
     enclosureType: EnclosureType;
-    /**
-     *
-     * @type {EnclosureLength}
-     * @memberof ItemSearchByperson
-     */
     enclosureLength: EnclosureLength;
-    /**
-     *
-     * @type {Duration}
-     * @memberof ItemSearchByperson
-     */
     duration: Duration;
-    /**
-     *
-     * @type {Explicit}
-     * @memberof ItemSearchByperson
-     */
     explicit: Explicit;
-    /**
-     *
-     * @type {EpisodeNumber}
-     * @memberof ItemSearchByperson
-     */
     episode: EpisodeNumber;
-    /**
-     *
-     * @type {EpisodeType}
-     * @memberof ItemSearchByperson
-     */
     episodeType: EpisodeType;
-    /**
-     *
-     * @type {Season}
-     * @memberof ItemSearchByperson
-     */
     season: Season;
-    /**
-     *
-     * @type {ImageEpisode}
-     * @memberof ItemSearchByperson
-     */
     image: ImageEpisode;
-    /**
-     *
-     * @type {ItunesIdFeed}
-     * @memberof ItemSearchByperson
-     */
     feedItunesId: ItunesIdFeed;
-    /**
-     *
-     * @type {ImageFeed}
-     * @memberof ItemSearchByperson
-     */
     feedImage: ImageFeed;
-    /**
-     *
-     * @type {IdFeed}
-     * @memberof ItemSearchByperson
-     */
     feedId: IdFeed;
-    /**
-     *
-     * @type {UrlFeed}
-     * @memberof ItemSearchByperson
-     */
     feedUrl: UrlFeed;
-    /**
-     *
-     * @type {Author}
-     * @memberof ItemSearchByperson
-     */
     feedAuthor: Author;
-    /**
-     *
-     * @type {TitleFeed}
-     * @memberof ItemSearchByperson
-     */
     feedTitle: TitleFeed;
-    /**
-     *
-     * @type {Language}
-     * @memberof ItemSearchByperson
-     */
     feedLanguage: Language;
-    /**
-     *
-     * @type {ChaptersUrl}
-     * @memberof ItemSearchByperson
-     */
     chaptersUrl: ChaptersUrl;
-    /**
-     *
-     * @type {TranscriptUrl}
-     * @memberof ItemSearchByperson
-     */
     transcriptUrl: TranscriptUrl;
 }
 /**
@@ -2663,59 +986,14 @@ export interface ItemsSoundbites extends Array<ItemsSoundbitesInner> {
  * @interface ItemsSoundbitesInner
  */
 export interface ItemsSoundbitesInner {
-    /**
-     *
-     * @type {EnclosureUrl}
-     * @memberof ItemsSoundbitesInner
-     */
     enclosureUrl: EnclosureUrl;
-    /**
-     *
-     * @type {TitleSoundbite}
-     * @memberof ItemsSoundbitesInner
-     */
     title: TitleSoundbite;
-    /**
-     *
-     * @type {StartTime}
-     * @memberof ItemsSoundbitesInner
-     */
     startTime: StartTime;
-    /**
-     *
-     * @type {DurationSoundbite}
-     * @memberof ItemsSoundbitesInner
-     */
     duration: DurationSoundbite;
-    /**
-     *
-     * @type {IdEpisode}
-     * @memberof ItemsSoundbitesInner
-     */
     episodeId: IdEpisode;
-    /**
-     *
-     * @type {TitleEpisode}
-     * @memberof ItemsSoundbitesInner
-     */
     episodeTitle: TitleEpisode;
-    /**
-     *
-     * @type {TitleFeed}
-     * @memberof ItemsSoundbitesInner
-     */
     feedTitle: TitleFeed;
-    /**
-     *
-     * @type {UrlFeed}
-     * @memberof ItemsSoundbitesInner
-     */
     feedUrl: UrlFeed;
-    /**
-     *
-     * @type {IdFeed}
-     * @memberof ItemsSoundbitesInner
-     */
     feedId: IdFeed;
 }
 /**
@@ -2812,23 +1090,8 @@ export interface MethodV4v {
  * @interface ModelV4v
  */
 export interface ModelV4v {
-    /**
-     *
-     * @type {TypeV4v}
-     * @memberof ModelV4v
-     */
     type: TypeV4v;
-    /**
-     *
-     * @type {MethodV4v}
-     * @memberof ModelV4v
-     */
     method: MethodV4v;
-    /**
-     *
-     * @type {SuggestedV4v}
-     * @memberof ModelV4v
-     */
     suggested: SuggestedV4v;
 }
 /**
@@ -2872,11 +1135,6 @@ export interface ParseErrors {
  * @interface QueryId
  */
 export interface QueryId {
-    /**
-     *
-     * @type {IdQuery}
-     * @memberof QueryId
-     */
     id: IdQuery;
 }
 /**
@@ -2906,11 +1164,6 @@ export interface QuerySearch {
  * @interface QueryUrl
  */
 export interface QueryUrl {
-    /**
-     *
-     * @type {UrlQuery}
-     * @memberof QueryUrl
-     */
     url: UrlQuery;
 }
 /**
@@ -2933,23 +1186,8 @@ export interface Since {
  * @interface Soundbite
  */
 export interface Soundbite {
-    /**
-     *
-     * @type {StartTime}
-     * @memberof Soundbite
-     */
     startTime: StartTime;
-    /**
-     *
-     * @type {DurationSoundbite}
-     * @memberof Soundbite
-     */
     duration: DurationSoundbite;
-    /**
-     *
-     * @type {TitleSoundbite}
-     * @memberof Soundbite
-     */
     title: TitleSoundbite;
 }
 /**
@@ -2979,41 +1217,11 @@ export interface StartTime {
  * @interface Stats
  */
 export interface Stats {
-    /**
-     * Total podcast feeds in the index.
-     * @type {number}
-     * @memberof Stats
-     */
     feedCountTotal: number;
-    /**
-     * Total individual podcast episodes in the index.
-     * @type {number}
-     * @memberof Stats
-     */
     episodeCountTotal: number;
-    /**
-     * Podcast feeds with a new episode released in the last 3 days.
-     * @type {number}
-     * @memberof Stats
-     */
     feedsWithNewEpisodes3days: number;
-    /**
-     * Podcast feeds with a new episode released in the last 10 days.
-     * @type {number}
-     * @memberof Stats
-     */
     feedsWithNewEpisodes10days: number;
-    /**
-     * Podcast feeds with a new episode released in the last 30 days.
-     * @type {number}
-     * @memberof Stats
-     */
     feedsWithNewEpisodes30days: number;
-    /**
-     * Podcast feeds with a new episode released in the last 90 days.
-     * @type {number}
-     * @memberof Stats
-     */
     feedsWithNewEpisodes90days: number;
 }
 /**
@@ -3147,70 +1355,20 @@ export interface UrlQuery {
  * @interface Value
  */
 export interface Value {
-    /**
-     *
-     * @type {ModelV4v}
-     * @memberof Value
-     */
     model: ModelV4v;
-    /**
-     *
-     * @type {DestinationsV4v}
-     * @memberof Value
-     */
     destinations: DestinationsV4v;
 }
 
-export class Controllers {
-        AddApi: AddApiApi
-        EpisodesApi: EpisodesApiApi
-        PodcastsApi: PodcastsApiApi
-        RecentApi: RecentApiApi
-        SearchApi: SearchApiApi
-        StatsApi: StatsApiApi
-        ValueApi: ValueApiApi
-
-    constructor(...args) {
-        this.AddApi = new AddApiApi(...args)
-        this.EpisodesApi = new EpisodesApiApi(...args)
-        this.PodcastsApi = new PodcastsApiApi(...args)
-        this.RecentApi = new RecentApiApi(...args)
-        this.SearchApi = new SearchApiApi(...args)
-        this.StatsApi = new StatsApiApi(...args)
-        this.ValueApi = new ValueApiApi(...args)
-    }
-    initialize(config) {
-        this.AddApi.initialize(config)
-        this.EpisodesApi.initialize(config)
-        this.PodcastsApi.initialize(config)
-        this.RecentApi.initialize(config)
-        this.SearchApi.initialize(config)
-        this.StatsApi.initialize(config)
-        this.ValueApi.initialize(config)
-    }
-}
 
 
-export class AddApiApi extends RESTDataSource {
+export class DefaultApiApi extends RESTDataSource {
     constructor(baseUrl?: string) {
         super();
         this.baseURL = baseUrl;
     }
-    paramCreator = AddApiFetchParamCreator()
-    addbyfeedurlGet(url: string, chash: string, itunesid?: number, pretty?: boolean, ): Promise<InlineResponse20020> {
-        const args = this.paramCreator.addbyfeedurlGet(url, chash, itunesid, pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
+    paramCreator = DefaultApiFetchParamCreator()
     addbyfeedurlPost(url: string, itunesid?: number, pretty?: boolean, ): Promise<InlineResponse20020> {
         const args = this.paramCreator.addbyfeedurlPost(url, itunesid, pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
-    addbyitunesidGet(id?: number, pretty?: boolean, ): Promise<InlineResponse20021> {
-        const args = this.paramCreator.addbyitunesidGet(id, pretty, )
 
         // @ts-ignore
         return this.fetch(Object.assign(args.options, { path: args.url }))
@@ -3221,457 +1379,6 @@ export class AddApiApi extends RESTDataSource {
         // @ts-ignore
         return this.fetch(Object.assign(args.options, { path: args.url }))
     }
-}
-
-
-/**
- * AddApi - fetch parameter creator
- * @export
- */
-export const AddApiFetchParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * This call adds a podcast to the index using its feed url. If a feed already exists, you will get its existing Feed ID returned.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty
-         * @summary By Feed URL
-         * @param {string} url Podcast feed URL
-         * @param {string} chash The md5 hash of the following feed items in hex format. If known, allows for easier duplicate checking.    - &#x60;title&#x60;   - &#x60;link&#x60;   - &#x60;feedLanguage&#x60;   - &#x60;generator&#x60;   - &#x60;author&#x60;   - &#x60;ownerName&#x60;   - &#x60;ownerEmail&#x60; (note: not exposed via the API)  Pseudo-code:        chash &#x3D; md5(title+link+feedLanguage+generator+author+ownerName+ownerEmail)
-         * @param {number} [itunesid] If this parameter is given, and the existing feed has no associated iTunes ID, it will be associated with this ID. If an existing iTunes ID is already associated with this feed it will **NOT** be changed.
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addbyfeedurlGet(url: string, chash: string, itunesid?: number, pretty?: boolean, options: any = {}): FetchArgs {
-            // verify required parameter 'url' is not null or undefined
-            if (url === null || url === undefined) {
-                throw new RequiredError('url','Required parameter url was null or undefined when calling addbyfeedurlGet.');
-            }
-            // verify required parameter 'chash' is not null or undefined
-            if (chash === null || chash === undefined) {
-                throw new RequiredError('chash','Required parameter chash was null or undefined when calling addbyfeedurlGet.');
-            }
-            const localVarPath = `/add/byfeedurl`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
-
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
-
-            if (url !== undefined) {
-                localVarQueryParameter['url'] = url;
-            }
-
-            if (chash !== undefined) {
-                localVarQueryParameter['chash'] = chash;
-            }
-
-            if (itunesid !== undefined) {
-                localVarQueryParameter['itunesid'] = itunesid;
-            }
-
-            if (pretty !== undefined) {
-                localVarQueryParameter['pretty'] = pretty;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * This call adds a podcast to the index using its feed url. If a feed already exists, you will get its existing Feed ID returned.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty
-         * @summary By Feed URL
-         * @param {string} url Podcast feed URL
-         * @param {number} [itunesid] If this parameter is given, and the existing feed has no associated iTunes ID, it will be associated with this ID. If an existing iTunes ID is already associated with this feed it will **NOT** be changed.
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addbyfeedurlPost(url: string, itunesid?: number, pretty?: boolean, options: any = {}): FetchArgs {
-            // verify required parameter 'url' is not null or undefined
-            if (url === null || url === undefined) {
-                throw new RequiredError('url','Required parameter url was null or undefined when calling addbyfeedurlPost.');
-            }
-            const localVarPath = `/add/byfeedurl`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
-
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
-
-            if (url !== undefined) {
-                localVarQueryParameter['url'] = url;
-            }
-
-            if (itunesid !== undefined) {
-                localVarQueryParameter['itunesid'] = itunesid;
-            }
-
-            if (pretty !== undefined) {
-                localVarQueryParameter['pretty'] = pretty;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * This call adds a podcast to the index using its iTunes ID. If a feed already exists, it will be noted in the response.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byitunesid?id=1441923632&pretty
-         * @summary By iTunes ID
-         * @param {number} [id] The iTunes ID to add
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addbyitunesidGet(id?: number, pretty?: boolean, options: any = {}): FetchArgs {
-            const localVarPath = `/add/byitunesid`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
-
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
-
-            if (id !== undefined) {
-                localVarQueryParameter['id'] = id;
-            }
-
-            if (pretty !== undefined) {
-                localVarQueryParameter['pretty'] = pretty;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * This call adds a podcast to the index using its iTunes ID. If a feed already exists, it will be noted in the response.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byitunesid?id=1441923632&pretty
-         * @summary By iTunes ID
-         * @param {number} [id] The iTunes ID to add
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addbyitunesidPost(id?: number, pretty?: boolean, options: any = {}): FetchArgs {
-            const localVarPath = `/add/byitunesid`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
-
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
-
-            if (id !== undefined) {
-                localVarQueryParameter['id'] = id;
-            }
-
-            if (pretty !== undefined) {
-                localVarQueryParameter['pretty'] = pretty;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * AddApi - functional programming interface
- * @export
- */
-export const AddApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         * This call adds a podcast to the index using its feed url. If a feed already exists, you will get its existing Feed ID returned.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty
-         * @summary By Feed URL
-         * @param {string} url Podcast feed URL
-         * @param {number} [itunesid] If this parameter is given, and the existing feed has no associated iTunes ID, it will be associated with this ID. If an existing iTunes ID is already associated with this feed it will **NOT** be changed.
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addbyfeedurl(url: string, itunesid?: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20020> {
-            const localVarFetchArgs = AddApiFetchParamCreator(configuration).addbyfeedurlPost(url, itunesid, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * This call adds a podcast to the index using its iTunes ID. If a feed already exists, it will be noted in the response.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byitunesid?id=1441923632&pretty
-         * @summary By iTunes ID
-         * @param {number} [id] The iTunes ID to add
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addbyitunesidPost(id?: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20021> {
-            const localVarFetchArgs = AddApiFetchParamCreator(configuration).addbyitunesidPost(id, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-    }
-};
-
-/**
- * AddApi - factory interface
- * @export
- */
-export const AddApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
-    return {
-        /**
-         * This call adds a podcast to the index using its feed url. If a feed already exists, you will get its existing Feed ID returned.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty
-         * @summary By Feed URL
-         * @param {string} url Podcast feed URL
-         * @param {number} [itunesid] If this parameter is given, and the existing feed has no associated iTunes ID, it will be associated with this ID. If an existing iTunes ID is already associated with this feed it will **NOT** be changed.
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addbyfeedurlPost(url: string, itunesid?: number, pretty?: boolean, options?: any) {
-            return AddApiFp(configuration).addbyfeedurlPost(url, itunesid, pretty, options)(fetch, basePath);
-        },
-        /**
-         * This call adds a podcast to the index using its iTunes ID. If a feed already exists, it will be noted in the response.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byitunesid?id=1441923632&pretty
-         * @summary By iTunes ID
-         * @param {number} [id] The iTunes ID to add
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addbyitunesidPost(id?: number, pretty?: boolean, options?: any) {
-            return AddApiFp(configuration).addbyitunesidPost(id, pretty, options)(fetch, basePath);
-        },
-    };
-};
-
-/**
- * AddApi - object-oriented interface
- * @export
- * @class AddApi
- * @extends {BaseAPI}
- */
-export class AddApi extends BaseAPI {
-    /**
-     * This call adds a podcast to the index using its feed url. If a feed already exists, you will get its existing Feed ID returned.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty
-     * @summary By Feed URL
-     * @param {string} url Podcast feed URL
-     * @param {string} chash The md5 hash of the following feed items in hex format. If known, allows for easier duplicate checking.    - &#x60;title&#x60;   - &#x60;link&#x60;   - &#x60;feedLanguage&#x60;   - &#x60;generator&#x60;   - &#x60;author&#x60;   - &#x60;ownerName&#x60;   - &#x60;ownerEmail&#x60; (note: not exposed via the API)  Pseudo-code:        chash &#x3D; md5(title+link+feedLanguage+generator+author+ownerName+ownerEmail)
-     * @param {number} [itunesid] If this parameter is given, and the existing feed has no associated iTunes ID, it will be associated with this ID. If an existing iTunes ID is already associated with this feed it will **NOT** be changed.
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AddApi
-     */
-    public addbyfeedurlGet(url: string, chash: string, itunesid?: number, pretty?: boolean, options?: any) {
-        return AddApiFp(this.configuration).addbyfeedurlGet(url, chash, itunesid, pretty, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * This call adds a podcast to the index using its feed url. If a feed already exists, you will get its existing Feed ID returned.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty
-     * @summary By Feed URL
-     * @param {string} url Podcast feed URL
-     * @param {number} [itunesid] If this parameter is given, and the existing feed has no associated iTunes ID, it will be associated with this ID. If an existing iTunes ID is already associated with this feed it will **NOT** be changed.
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AddApi
-     */
-    public addbyfeedurlPost(url: string, itunesid?: number, pretty?: boolean, options?: any) {
-        return AddApiFp(this.configuration).addbyfeedurlPost(url, itunesid, pretty, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * This call adds a podcast to the index using its iTunes ID. If a feed already exists, it will be noted in the response.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byitunesid?id=1441923632&pretty
-     * @summary By iTunes ID
-     * @param {number} [id] The iTunes ID to add
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AddApi
-     */
-    public addbyitunesidGet(id?: number, pretty?: boolean, options?: any) {
-        return AddApiFp(this.configuration).addbyitunesidGet(id, pretty, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * This call adds a podcast to the index using its iTunes ID. If a feed already exists, it will be noted in the response.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byitunesid?id=1441923632&pretty
-     * @summary By iTunes ID
-     * @param {number} [id] The iTunes ID to add
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AddApi
-     */
-    public addbyitunesidPost(id?: number, pretty?: boolean, options?: any) {
-        return AddApiFp(this.configuration).addbyitunesidPost(id, pretty, options)(this.fetch, this.basePath);
-    }
-
-}
-
-export class EpisodesApiApi extends RESTDataSource {
-    constructor(baseUrl?: string) {
-        super();
-        this.baseURL = baseUrl;
-    }
-    paramCreator = EpisodesApiFetchParamCreator()
     episodesbyfeedid(id: string, since?: number, max?: number, fulltext?: boolean, pretty?: boolean, ): Promise<InlineResponse2008> {
         const args = this.paramCreator.episodesbyfeedid(id, since, max, fulltext, pretty, )
 
@@ -3702,15 +1409,179 @@ export class EpisodesApiApi extends RESTDataSource {
         // @ts-ignore
         return this.fetch(Object.assign(args.options, { path: args.url }))
     }
+    podcastsbyfeedid(id: number, pretty?: boolean, ): Promise<InlineResponse2002> {
+        const args = this.paramCreator.podcastsbyfeedid(id, pretty, )
+
+        // @ts-ignore
+        return this.fetch(Object.assign(args.options, { path: args.url }))
+    }
+    podcastsbyfeedurl(url: string, pretty?: boolean, ): Promise<InlineResponse2003> {
+        const args = this.paramCreator.podcastsbyfeedurl(url, pretty, )
+
+        // @ts-ignore
+        return this.fetch(Object.assign(args.options, { path: args.url }))
+    }
+    podcastsbyitunesid(id: number, pretty?: boolean, ): Promise<InlineResponse2004> {
+        const args = this.paramCreator.podcastsbyitunesid(id, pretty, )
+
+        // @ts-ignore
+        return this.fetch(Object.assign(args.options, { path: args.url }))
+    }
+    podcastsbytag(podcastValue: boolean, pretty?: boolean, ): Promise<InlineResponse2005> {
+        const args = this.paramCreator.podcastsbytag(podcastValue, pretty, )
+
+        // @ts-ignore
+        return this.fetch(Object.assign(args.options, { path: args.url }))
+    }
+    podcastsdead(pretty?: boolean, ): Promise<InlineResponse2007> {
+        const args = this.paramCreator.podcastsdead(pretty, )
+
+        // @ts-ignore
+        return this.fetch(Object.assign(args.options, { path: args.url }))
+    }
+    podcaststrending(max?: number, since?: number, lang?: string, cat?: string, notcat?: string, pretty?: boolean, ): Promise<InlineResponse2006> {
+        const args = this.paramCreator.podcaststrending(max, since, lang, cat, notcat, pretty, )
+
+        // @ts-ignore
+        return this.fetch(Object.assign(args.options, { path: args.url }))
+    }
+    recentepisodes(max?: number, excludeString?: string, before?: number, fulltext?: boolean, pretty?: boolean, ): Promise<InlineResponse20013> {
+        const args = this.paramCreator.recentepisodes(max, excludeString, before, fulltext, pretty, )
+
+        // @ts-ignore
+        return this.fetch(Object.assign(args.options, { path: args.url }))
+    }
+    recentfeeds(max?: number, since?: number, lang?: string, cat?: string, notcat?: string, pretty?: boolean, ): Promise<InlineResponse20014> {
+        const args = this.paramCreator.recentfeeds(max, since, lang, cat, notcat, pretty, )
+
+        // @ts-ignore
+        return this.fetch(Object.assign(args.options, { path: args.url }))
+    }
+    recentnewfeeds(max?: number, since?: number, pretty?: boolean, ): Promise<InlineResponse20015> {
+        const args = this.paramCreator.recentnewfeeds(max, since, pretty, )
+
+        // @ts-ignore
+        return this.fetch(Object.assign(args.options, { path: args.url }))
+    }
+    recentsoundbites(max?: number, pretty?: boolean, ): Promise<InlineResponse20016> {
+        const args = this.paramCreator.recentsoundbites(max, pretty, )
+
+        // @ts-ignore
+        return this.fetch(Object.assign(args.options, { path: args.url }))
+    }
+    searchbyperson(q: string, fulltext?: boolean, pretty?: boolean, ): Promise<InlineResponse2001> {
+        const args = this.paramCreator.searchbyperson(q, fulltext, pretty, )
+
+        // @ts-ignore
+        return this.fetch(Object.assign(args.options, { path: args.url }))
+    }
+    searchbyterm(q: string, val?: string, clean?: boolean, fulltext?: boolean, pretty?: boolean, ): Promise<InlineResponse200> {
+        const args = this.paramCreator.searchbyterm(q, val, clean, fulltext, pretty, )
+
+        // @ts-ignore
+        return this.fetch(Object.assign(args.options, { path: args.url }))
+    }
+    statscurrent(pretty?: boolean, ): Promise<InlineResponse20019> {
+        const args = this.paramCreator.statscurrent(pretty, )
+
+        // @ts-ignore
+        return this.fetch(Object.assign(args.options, { path: args.url }))
+    }
+    valuebyfeedid(id: number, pretty?: boolean, ): Promise<InlineResponse20017> {
+        const args = this.paramCreator.valuebyfeedid(id, pretty, )
+
+        // @ts-ignore
+        return this.fetch(Object.assign(args.options, { path: args.url }))
+    }
+    valuebyfeedurl(url: string, pretty?: boolean, ): Promise<InlineResponse20018> {
+        const args = this.paramCreator.valuebyfeedurl(url, pretty, )
+
+        // @ts-ignore
+        return this.fetch(Object.assign(args.options, { path: args.url }))
+    }
 }
 
-
-/**
- * EpisodesApi - fetch parameter creator
- * @export
- */
-export const EpisodesApiFetchParamCreator = function (configuration?: Configuration) {
+export const DefaultApiFetchParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * This call adds a podcast to the index using its feed url. If a feed already exists, you will get its existing Feed ID returned.  **NOTE**: this endpoint requires an APIKey with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty
+         * @summary By Feed URL
+         * @param {string} url Podcast feed URL
+         * @param {number} [itunesid] If this parameter is given, and the existing feed has no associated iTunes ID, it will be associated with this ID. If an existing iTunes ID is already associated with this feed it will **NOT** be changed.
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addbyfeedurlPost(url: string, itunesid?: number, pretty?: boolean, options: any = {}): FetchArgs {
+            // verify required parameter 'url' is not null or undefined
+            if (url === null || url === undefined) {
+                throw new RequiredError('url','Required parameter url was null or undefined when calling addbyfeedurlPost.');
+            }
+            const localVarPath = `/add/byfeedurl`;
+            const localVarUrlObj = url.parse(localVarPath, true);
+            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+
+            if (url !== undefined) {
+                localVarQueryParameter['url'] = url;
+            }
+
+            if (itunesid !== undefined) {
+                localVarQueryParameter['itunesid'] = itunesid;
+            }
+
+            if (pretty !== undefined) {
+                localVarQueryParameter['pretty'] = pretty;
+            }
+
+            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+            return {
+                url: url.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * This call adds a podcast to the index using its iTunes ID. If a feed already exists, it will be noted in the response.  **NOTE**: this endpoint requires an APIKey with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byitunesid?id=1441923632&pretty
+         * @summary By iTunes ID
+         * @param {number} [id] The iTunes ID to add
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addbyitunesidPost(id?: number, pretty?: boolean, options: any = {}): FetchArgs {
+            const localVarPath = `/add/byitunesid`;
+            const localVarUrlObj = url.parse(localVarPath, true);
+            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (pretty !== undefined) {
+                localVarQueryParameter['pretty'] = pretty;
+            }
+
+            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+            return {
+                url: url.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * This call returns all the episodes we know about for this feed from the PodcastIndex ID. Episodes are in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=75075&pretty   - https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=41504,920666&pretty   - Includes `persons`: https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=169991&pretty
          * @summary By Feed ID
@@ -3732,38 +1603,6 @@ export const EpisodesApiFetchParamCreator = function (configuration?: Configurat
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
-
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (id !== undefined) {
                 localVarQueryParameter['id'] = id;
@@ -3817,38 +1656,6 @@ export const EpisodesApiFetchParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
-
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
-
             if (url !== undefined) {
                 localVarQueryParameter['url'] = url;
             }
@@ -3899,37 +1706,7 @@ export const EpisodesApiFetchParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (id !== undefined) {
                 localVarQueryParameter['id'] = id;
@@ -3975,37 +1752,7 @@ export const EpisodesApiFetchParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (id !== undefined) {
                 localVarQueryParameter['id'] = id;
@@ -4056,37 +1803,7 @@ export const EpisodesApiFetchParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (max !== undefined) {
                 localVarQueryParameter['max'] = max;
@@ -4122,349 +1839,6 @@ export const EpisodesApiFetchParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
-    }
-};
-
-/**
- * EpisodesApi - functional programming interface
- * @export
- */
-export const EpisodesApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         * This call returns all the episodes we know about for this feed from the PodcastIndex ID. Episodes are in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=75075&pretty   - https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=41504,920666&pretty   - Includes `persons`: https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=169991&pretty
-         * @summary By Feed ID
-         * @param {string} id The PodcastIndex Feed ID or IDs to search for.  If searching for multiple IDs, separate values with a comma. A maximum of 200 IDs can be provided.
-         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-         * @param {number} [max] Maximum number of results to return.
-         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        episodesbyfeedid(id: string, since?: number, max?: number, fulltext?: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2008> {
-            const localVarFetchArgs = EpisodesApiFetchParamCreator(configuration).episodesbyfeedid(id, since, max, fulltext, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * This call returns all the episodes we know about for this feed from the feed URL. Episodes are in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/episodes/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty   - Includes `persons`: https://api.podcastindex.org/api/1.0/episodes/byfeedurl?url=https://engineered.network/pragmatic/feed/index.xml&pretty
-         * @summary By Feed URL
-         * @param {string} url Podcast feed URL
-         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-         * @param {number} [max] Maximum number of results to return.
-         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        episodesbyfeedurl(url: string, since?: number, max?: number, fulltext?: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2009> {
-            const localVarFetchArgs = EpisodesApiFetchParamCreator(configuration).episodesbyfeedurl(url, since, max, fulltext, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * Get all the metadata for a single episode by passing its id.  Example: https://api.podcastindex.org/api/1.0/episodes/byid?id=16795090&pretty
-         * @summary By ID
-         * @param {number} id The PodcastIndex episode ID to search for.
-         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        episodesbyid(id: number, fulltext?: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20011> {
-            const localVarFetchArgs = EpisodesApiFetchParamCreator(configuration).episodesbyid(id, fulltext, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * This call returns all the episodes we know about for this feed from the iTunes ID. Episodes are in reverse chronological order.  Example: https://api.podcastindex.org/api/1.0/episodes/byitunesid?id=1441923632&pretty
-         * @summary By iTunes ID
-         * @param {number} id The iTunes Feed ID to search for
-         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-         * @param {number} [max] Maximum number of results to return.
-         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        episodesbyitunesid(id: number, since?: number, max?: number, fulltext?: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20010> {
-            const localVarFetchArgs = EpisodesApiFetchParamCreator(configuration).episodesbyitunesid(id, since, max, fulltext, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * This call returns a random batch of episodes, in no specific order.  Examples:    - https://api.podcastindex.org/api/1.0/episodes/random?notcat=News,Religion&lang=en,es&pretty   - https://api.podcastindex.org/api/1.0/episodes/random?max=2&pretty
-         * @summary Random
-         * @param {number} [max] Maximum number of results to return.
-         * @param {string} [lang] Specifying a language code (like \&quot;en\&quot;) will return only episodes having that specific language.  You can specify multiple languages by separating them with commas.  If you also want to return episodes that have no language given, use the token \&quot;unknown\&quot;. (ex. en,es,ja,unknown).  Values are not case sensitive.
-         * @param {string} [cat] Use this argument to specify that you **ONLY** want episodes with these categories in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-         * @param {string} [notcat] Use this argument to specify categories of episodes to **NOT** show in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        episodesrandom(max?: number, lang?: string, cat?: string, notcat?: string, fulltext?: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20012> {
-            const localVarFetchArgs = EpisodesApiFetchParamCreator(configuration).episodesrandom(max, lang, cat, notcat, fulltext, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-    }
-};
-
-/**
- * EpisodesApi - factory interface
- * @export
- */
-export const EpisodesApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
-    return {
-        /**
-         * This call returns all the episodes we know about for this feed from the PodcastIndex ID. Episodes are in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=75075&pretty   - https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=41504,920666&pretty   - Includes `persons`: https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=169991&pretty
-         * @summary By Feed ID
-         * @param {string} id The PodcastIndex Feed ID or IDs to search for.  If searching for multiple IDs, separate values with a comma. A maximum of 200 IDs can be provided.
-         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-         * @param {number} [max] Maximum number of results to return.
-         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        episodesbyfeedid(id: string, since?: number, max?: number, fulltext?: boolean, pretty?: boolean, options?: any) {
-            return EpisodesApiFp(configuration).episodesbyfeedid(id, since, max, fulltext, pretty, options)(fetch, basePath);
-        },
-        /**
-         * This call returns all the episodes we know about for this feed from the feed URL. Episodes are in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/episodes/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty   - Includes `persons`: https://api.podcastindex.org/api/1.0/episodes/byfeedurl?url=https://engineered.network/pragmatic/feed/index.xml&pretty
-         * @summary By Feed URL
-         * @param {string} url Podcast feed URL
-         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-         * @param {number} [max] Maximum number of results to return.
-         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        episodesbyfeedurl(url: string, since?: number, max?: number, fulltext?: boolean, pretty?: boolean, options?: any) {
-            return EpisodesApiFp(configuration).episodesbyfeedurl(url, since, max, fulltext, pretty, options)(fetch, basePath);
-        },
-        /**
-         * Get all the metadata for a single episode by passing its id.  Example: https://api.podcastindex.org/api/1.0/episodes/byid?id=16795090&pretty
-         * @summary By ID
-         * @param {number} id The PodcastIndex episode ID to search for.
-         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        episodesbyid(id: number, fulltext?: boolean, pretty?: boolean, options?: any) {
-            return EpisodesApiFp(configuration).episodesbyid(id, fulltext, pretty, options)(fetch, basePath);
-        },
-        /**
-         * This call returns all the episodes we know about for this feed from the iTunes ID. Episodes are in reverse chronological order.  Example: https://api.podcastindex.org/api/1.0/episodes/byitunesid?id=1441923632&pretty
-         * @summary By iTunes ID
-         * @param {number} id The iTunes Feed ID to search for
-         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-         * @param {number} [max] Maximum number of results to return.
-         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        episodesbyitunesid(id: number, since?: number, max?: number, fulltext?: boolean, pretty?: boolean, options?: any) {
-            return EpisodesApiFp(configuration).episodesbyitunesid(id, since, max, fulltext, pretty, options)(fetch, basePath);
-        },
-        /**
-         * This call returns a random batch of episodes, in no specific order.  Examples:    - https://api.podcastindex.org/api/1.0/episodes/random?notcat=News,Religion&lang=en,es&pretty   - https://api.podcastindex.org/api/1.0/episodes/random?max=2&pretty
-         * @summary Random
-         * @param {number} [max] Maximum number of results to return.
-         * @param {string} [lang] Specifying a language code (like \&quot;en\&quot;) will return only episodes having that specific language.  You can specify multiple languages by separating them with commas.  If you also want to return episodes that have no language given, use the token \&quot;unknown\&quot;. (ex. en,es,ja,unknown).  Values are not case sensitive.
-         * @param {string} [cat] Use this argument to specify that you **ONLY** want episodes with these categories in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-         * @param {string} [notcat] Use this argument to specify categories of episodes to **NOT** show in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        episodesrandom(max?: number, lang?: string, cat?: string, notcat?: string, fulltext?: boolean, pretty?: boolean, options?: any) {
-            return EpisodesApiFp(configuration).episodesrandom(max, lang, cat, notcat, fulltext, pretty, options)(fetch, basePath);
-        },
-    };
-};
-
-/**
- * EpisodesApi - object-oriented interface
- * @export
- * @class EpisodesApi
- * @extends {BaseAPI}
- */
-export class EpisodesApi extends BaseAPI {
-    /**
-     * This call returns all the episodes we know about for this feed from the PodcastIndex ID. Episodes are in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=75075&pretty   - https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=41504,920666&pretty   - Includes `persons`: https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=169991&pretty
-     * @summary By Feed ID
-     * @param {string} id The PodcastIndex Feed ID or IDs to search for.  If searching for multiple IDs, separate values with a comma. A maximum of 200 IDs can be provided.
-     * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-     * @param {number} [max] Maximum number of results to return.
-     * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof EpisodesApi
-     */
-    public episodesbyfeedid(id: string, since?: number, max?: number, fulltext?: boolean, pretty?: boolean, options?: any) {
-        return EpisodesApiFp(this.configuration).episodesbyfeedid(id, since, max, fulltext, pretty, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * This call returns all the episodes we know about for this feed from the feed URL. Episodes are in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/episodes/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty   - Includes `persons`: https://api.podcastindex.org/api/1.0/episodes/byfeedurl?url=https://engineered.network/pragmatic/feed/index.xml&pretty
-     * @summary By Feed URL
-     * @param {string} url Podcast feed URL
-     * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-     * @param {number} [max] Maximum number of results to return.
-     * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof EpisodesApi
-     */
-    public episodesbyfeedurl(url: string, since?: number, max?: number, fulltext?: boolean, pretty?: boolean, options?: any) {
-        return EpisodesApiFp(this.configuration).episodesbyfeedurl(url, since, max, fulltext, pretty, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * Get all the metadata for a single episode by passing its id.  Example: https://api.podcastindex.org/api/1.0/episodes/byid?id=16795090&pretty
-     * @summary By ID
-     * @param {number} id The PodcastIndex episode ID to search for.
-     * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof EpisodesApi
-     */
-    public episodesbyid(id: number, fulltext?: boolean, pretty?: boolean, options?: any) {
-        return EpisodesApiFp(this.configuration).episodesbyid(id, fulltext, pretty, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * This call returns all the episodes we know about for this feed from the iTunes ID. Episodes are in reverse chronological order.  Example: https://api.podcastindex.org/api/1.0/episodes/byitunesid?id=1441923632&pretty
-     * @summary By iTunes ID
-     * @param {number} id The iTunes Feed ID to search for
-     * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-     * @param {number} [max] Maximum number of results to return.
-     * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof EpisodesApi
-     */
-    public episodesbyitunesid(id: number, since?: number, max?: number, fulltext?: boolean, pretty?: boolean, options?: any) {
-        return EpisodesApiFp(this.configuration).episodesbyitunesid(id, since, max, fulltext, pretty, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * This call returns a random batch of episodes, in no specific order.  Examples:    - https://api.podcastindex.org/api/1.0/episodes/random?notcat=News,Religion&lang=en,es&pretty   - https://api.podcastindex.org/api/1.0/episodes/random?max=2&pretty
-     * @summary Random
-     * @param {number} [max] Maximum number of results to return.
-     * @param {string} [lang] Specifying a language code (like \&quot;en\&quot;) will return only episodes having that specific language.  You can specify multiple languages by separating them with commas.  If you also want to return episodes that have no language given, use the token \&quot;unknown\&quot;. (ex. en,es,ja,unknown).  Values are not case sensitive.
-     * @param {string} [cat] Use this argument to specify that you **ONLY** want episodes with these categories in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-     * @param {string} [notcat] Use this argument to specify categories of episodes to **NOT** show in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-     * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof EpisodesApi
-     */
-    public episodesrandom(max?: number, lang?: string, cat?: string, notcat?: string, fulltext?: boolean, pretty?: boolean, options?: any) {
-        return EpisodesApiFp(this.configuration).episodesrandom(max, lang, cat, notcat, fulltext, pretty, options)(this.fetch, this.basePath);
-    }
-
-}
-
-export class PodcastsApiApi extends RESTDataSource {
-    constructor(baseUrl?: string) {
-        super();
-        this.baseURL = baseUrl;
-    }
-    paramCreator = PodcastsApiFetchParamCreator()
-    podcastsbyfeedid(id: number, pretty?: boolean, ): Promise<InlineResponse2002> {
-        const args = this.paramCreator.podcastsbyfeedid(id, pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
-    podcastsbyfeedurl(url: string, pretty?: boolean, ): Promise<InlineResponse2003> {
-        const args = this.paramCreator.podcastsbyfeedurl(url, pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
-    podcastsbyitunesid(id: number, pretty?: boolean, ): Promise<InlineResponse2004> {
-        const args = this.paramCreator.podcastsbyitunesid(id, pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
-    podcastsbytag(podcastValue: boolean, pretty?: boolean, ): Promise<InlineResponse2005> {
-        const args = this.paramCreator.podcastsbytag(podcastValue, pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
-    podcastsdead(pretty?: boolean, ): Promise<InlineResponse2007> {
-        const args = this.paramCreator.podcastsdead(pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
-    podcaststrending(max?: number, since?: number, lang?: string, cat?: string, notcat?: string, pretty?: boolean, ): Promise<InlineResponse2006> {
-        const args = this.paramCreator.podcaststrending(max, since, lang, cat, notcat, pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
-}
-
-
-/**
- * PodcastsApi - fetch parameter creator
- * @export
- */
-export const PodcastsApiFetchParamCreator = function (configuration?: Configuration) {
-    return {
         /**
          * This call returns everything we know about the feed from the PodcastIndex ID  Examples:    - https://api.podcastindex.org/api/1.0/podcasts/byfeedid?id=75075&pretty   - Includes `value` and `funding`: https://api.podcastindex.org/api/1.0/podcasts/byfeedid?id=169991&pretty
          * @summary By Feed ID
@@ -4484,37 +1858,7 @@ export const PodcastsApiFetchParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (id !== undefined) {
                 localVarQueryParameter['id'] = id;
@@ -4553,37 +1897,7 @@ export const PodcastsApiFetchParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (url !== undefined) {
                 localVarQueryParameter['url'] = url;
@@ -4622,37 +1936,7 @@ export const PodcastsApiFetchParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (id !== undefined) {
                 localVarQueryParameter['id'] = id;
@@ -4691,37 +1975,7 @@ export const PodcastsApiFetchParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (podcastValue !== undefined) {
                 localVarQueryParameter['podcast-value'] = podcastValue;
@@ -4755,37 +2009,7 @@ export const PodcastsApiFetchParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (pretty !== undefined) {
                 localVarQueryParameter['pretty'] = pretty;
@@ -4820,37 +2044,7 @@ export const PodcastsApiFetchParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (max !== undefined) {
                 localVarQueryParameter['max'] = max;
@@ -4886,348 +2080,6 @@ export const PodcastsApiFetchParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
-    }
-};
-
-/**
- * PodcastsApi - functional programming interface
- * @export
- */
-export const PodcastsApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         * This call returns everything we know about the feed from the PodcastIndex ID  Examples:    - https://api.podcastindex.org/api/1.0/podcasts/byfeedid?id=75075&pretty   - Includes `value` and `funding`: https://api.podcastindex.org/api/1.0/podcasts/byfeedid?id=169991&pretty
-         * @summary By Feed ID
-         * @param {number} id The PodcastIndex Feed ID to search for
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        podcastsbyfeedid(id: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2002> {
-            const localVarFetchArgs = PodcastsApiFetchParamCreator(configuration).podcastsbyfeedid(id, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * This call returns everything we know about the feed from the feed URL  Examples:    - https://api.podcastindex.org/api/1.0/podcasts/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty   - Includes `value` and `funding`: https://api.podcastindex.org/api/1.0/podcasts/byfeedurl?url=https://engineered.network/pragmatic/feed/index.xml&pretty
-         * @summary By Feed URL
-         * @param {string} url Podcast feed URL
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        podcastsbyfeedurl(url: string, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2003> {
-            const localVarFetchArgs = PodcastsApiFetchParamCreator(configuration).podcastsbyfeedurl(url, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * This call returns everything we know about the feed from the iTunes ID  Example: https://api.podcastindex.org/api/1.0/podcasts/byitunesid?id=1441923632&pretty
-         * @summary By iTunes ID
-         * @param {number} id The iTunes Feed ID to search for
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        podcastsbyitunesid(id: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2004> {
-            const localVarFetchArgs = PodcastsApiFetchParamCreator(configuration).podcastsbyitunesid(id, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * This call returns all feeds that support the specified [podcast namespace](https://podcastindex.org/namespace/1.0) tag.  Example: https://api.podcastindex.org/api/1.0/podcasts/bytag?podcast-value&pretty
-         * @summary By Tag
-         * @param {boolean} podcastValue Get feeds supporting the &#x60;value&#x60; tag.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        podcastsbytag(podcastValue: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2005> {
-            const localVarFetchArgs = PodcastsApiFetchParamCreator(configuration).podcastsbytag(podcastValue, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * This call returns all feeds that have been marked dead (`dead` == 1)  Example: https://api.podcastindex.org/api/1.0/podcasts/dead?pretty
-         * @summary Dead
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        podcastsdead(pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2007> {
-            const localVarFetchArgs = PodcastsApiFetchParamCreator(configuration).podcastsdead(pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * This call returns the podcasts/feeds that in the index that are trending.  Example: https://api.podcastindex.org/api/1.0/podcasts/trending?pretty
-         * @summary Trending
-         * @param {number} [max] Maximum number of results to return.
-         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-         * @param {string} [lang] Specifying a language code (like \&quot;en\&quot;) will return only episodes having that specific language.  You can specify multiple languages by separating them with commas.  If you also want to return episodes that have no language given, use the token \&quot;unknown\&quot;. (ex. en,es,ja,unknown).  Values are not case sensitive.
-         * @param {string} [cat] Use this argument to specify that you **ONLY** want episodes with these categories in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-         * @param {string} [notcat] Use this argument to specify categories of episodes to **NOT** show in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        podcaststrending(max?: number, since?: number, lang?: string, cat?: string, notcat?: string, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2006> {
-            const localVarFetchArgs = PodcastsApiFetchParamCreator(configuration).podcaststrending(max, since, lang, cat, notcat, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-    }
-};
-
-/**
- * PodcastsApi - factory interface
- * @export
- */
-export const PodcastsApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
-    return {
-        /**
-         * This call returns everything we know about the feed from the PodcastIndex ID  Examples:    - https://api.podcastindex.org/api/1.0/podcasts/byfeedid?id=75075&pretty   - Includes `value` and `funding`: https://api.podcastindex.org/api/1.0/podcasts/byfeedid?id=169991&pretty
-         * @summary By Feed ID
-         * @param {number} id The PodcastIndex Feed ID to search for
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        podcastsbyfeedid(id: number, pretty?: boolean, options?: any) {
-            return PodcastsApiFp(configuration).podcastsbyfeedid(id, pretty, options)(fetch, basePath);
-        },
-        /**
-         * This call returns everything we know about the feed from the feed URL  Examples:    - https://api.podcastindex.org/api/1.0/podcasts/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty   - Includes `value` and `funding`: https://api.podcastindex.org/api/1.0/podcasts/byfeedurl?url=https://engineered.network/pragmatic/feed/index.xml&pretty
-         * @summary By Feed URL
-         * @param {string} url Podcast feed URL
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        podcastsbyfeedurl(url: string, pretty?: boolean, options?: any) {
-            return PodcastsApiFp(configuration).podcastsbyfeedurl(url, pretty, options)(fetch, basePath);
-        },
-        /**
-         * This call returns everything we know about the feed from the iTunes ID  Example: https://api.podcastindex.org/api/1.0/podcasts/byitunesid?id=1441923632&pretty
-         * @summary By iTunes ID
-         * @param {number} id The iTunes Feed ID to search for
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        podcastsbyitunesid(id: number, pretty?: boolean, options?: any) {
-            return PodcastsApiFp(configuration).podcastsbyitunesid(id, pretty, options)(fetch, basePath);
-        },
-        /**
-         * This call returns all feeds that support the specified [podcast namespace](https://podcastindex.org/namespace/1.0) tag.  Example: https://api.podcastindex.org/api/1.0/podcasts/bytag?podcast-value&pretty
-         * @summary By Tag
-         * @param {boolean} podcastValue Get feeds supporting the &#x60;value&#x60; tag.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        podcastsbytag(podcastValue: boolean, pretty?: boolean, options?: any) {
-            return PodcastsApiFp(configuration).podcastsbytag(podcastValue, pretty, options)(fetch, basePath);
-        },
-        /**
-         * This call returns all feeds that have been marked dead (`dead` == 1)  Example: https://api.podcastindex.org/api/1.0/podcasts/dead?pretty
-         * @summary Dead
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        podcastsdead(pretty?: boolean, options?: any) {
-            return PodcastsApiFp(configuration).podcastsdead(pretty, options)(fetch, basePath);
-        },
-        /**
-         * This call returns the podcasts/feeds that in the index that are trending.  Example: https://api.podcastindex.org/api/1.0/podcasts/trending?pretty
-         * @summary Trending
-         * @param {number} [max] Maximum number of results to return.
-         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-         * @param {string} [lang] Specifying a language code (like \&quot;en\&quot;) will return only episodes having that specific language.  You can specify multiple languages by separating them with commas.  If you also want to return episodes that have no language given, use the token \&quot;unknown\&quot;. (ex. en,es,ja,unknown).  Values are not case sensitive.
-         * @param {string} [cat] Use this argument to specify that you **ONLY** want episodes with these categories in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-         * @param {string} [notcat] Use this argument to specify categories of episodes to **NOT** show in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        podcaststrending(max?: number, since?: number, lang?: string, cat?: string, notcat?: string, pretty?: boolean, options?: any) {
-            return PodcastsApiFp(configuration).podcaststrending(max, since, lang, cat, notcat, pretty, options)(fetch, basePath);
-        },
-    };
-};
-
-/**
- * PodcastsApi - object-oriented interface
- * @export
- * @class PodcastsApi
- * @extends {BaseAPI}
- */
-export class PodcastsApi extends BaseAPI {
-    /**
-     * This call returns everything we know about the feed from the PodcastIndex ID  Examples:    - https://api.podcastindex.org/api/1.0/podcasts/byfeedid?id=75075&pretty   - Includes `value` and `funding`: https://api.podcastindex.org/api/1.0/podcasts/byfeedid?id=169991&pretty
-     * @summary By Feed ID
-     * @param {number} id The PodcastIndex Feed ID to search for
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof PodcastsApi
-     */
-    public podcastsbyfeedid(id: number, pretty?: boolean, options?: any) {
-        return PodcastsApiFp(this.configuration).podcastsbyfeedid(id, pretty, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * This call returns everything we know about the feed from the feed URL  Examples:    - https://api.podcastindex.org/api/1.0/podcasts/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty   - Includes `value` and `funding`: https://api.podcastindex.org/api/1.0/podcasts/byfeedurl?url=https://engineered.network/pragmatic/feed/index.xml&pretty
-     * @summary By Feed URL
-     * @param {string} url Podcast feed URL
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof PodcastsApi
-     */
-    public podcastsbyfeedurl(url: string, pretty?: boolean, options?: any) {
-        return PodcastsApiFp(this.configuration).podcastsbyfeedurl(url, pretty, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * This call returns everything we know about the feed from the iTunes ID  Example: https://api.podcastindex.org/api/1.0/podcasts/byitunesid?id=1441923632&pretty
-     * @summary By iTunes ID
-     * @param {number} id The iTunes Feed ID to search for
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof PodcastsApi
-     */
-    public podcastsbyitunesid(id: number, pretty?: boolean, options?: any) {
-        return PodcastsApiFp(this.configuration).podcastsbyitunesid(id, pretty, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * This call returns all feeds that support the specified [podcast namespace](https://podcastindex.org/namespace/1.0) tag.  Example: https://api.podcastindex.org/api/1.0/podcasts/bytag?podcast-value&pretty
-     * @summary By Tag
-     * @param {boolean} podcastValue Get feeds supporting the &#x60;value&#x60; tag.  Parameter shall not have a value
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof PodcastsApi
-     */
-    public podcastsbytag(podcastValue: boolean, pretty?: boolean, options?: any) {
-        return PodcastsApiFp(this.configuration).podcastsbytag(podcastValue, pretty, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * This call returns all feeds that have been marked dead (`dead` == 1)  Example: https://api.podcastindex.org/api/1.0/podcasts/dead?pretty
-     * @summary Dead
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof PodcastsApi
-     */
-    public podcastsdead(pretty?: boolean, options?: any) {
-        return PodcastsApiFp(this.configuration).podcastsdead(pretty, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * This call returns the podcasts/feeds that in the index that are trending.  Example: https://api.podcastindex.org/api/1.0/podcasts/trending?pretty
-     * @summary Trending
-     * @param {number} [max] Maximum number of results to return.
-     * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-     * @param {string} [lang] Specifying a language code (like \&quot;en\&quot;) will return only episodes having that specific language.  You can specify multiple languages by separating them with commas.  If you also want to return episodes that have no language given, use the token \&quot;unknown\&quot;. (ex. en,es,ja,unknown).  Values are not case sensitive.
-     * @param {string} [cat] Use this argument to specify that you **ONLY** want episodes with these categories in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-     * @param {string} [notcat] Use this argument to specify categories of episodes to **NOT** show in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof PodcastsApi
-     */
-    public podcaststrending(max?: number, since?: number, lang?: string, cat?: string, notcat?: string, pretty?: boolean, options?: any) {
-        return PodcastsApiFp(this.configuration).podcaststrending(max, since, lang, cat, notcat, pretty, options)(this.fetch, this.basePath);
-    }
-
-}
-
-export class RecentApiApi extends RESTDataSource {
-    constructor(baseUrl?: string) {
-        super();
-        this.baseURL = baseUrl;
-    }
-    paramCreator = RecentApiFetchParamCreator()
-    recentepisodes(max?: number, excludeString?: string, before?: number, fulltext?: boolean, pretty?: boolean, ): Promise<InlineResponse20013> {
-        const args = this.paramCreator.recentepisodes(max, excludeString, before, fulltext, pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
-    recentfeeds(max?: number, since?: number, lang?: string, cat?: string, notcat?: string, pretty?: boolean, ): Promise<InlineResponse20014> {
-        const args = this.paramCreator.recentfeeds(max, since, lang, cat, notcat, pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
-    recentnewfeeds(max?: number, since?: number, pretty?: boolean, ): Promise<InlineResponse20015> {
-        const args = this.paramCreator.recentnewfeeds(max, since, pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
-    recentsoundbites(max?: number, pretty?: boolean, ): Promise<InlineResponse20016> {
-        const args = this.paramCreator.recentsoundbites(max, pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
-}
-
-
-/**
- * RecentApi - fetch parameter creator
- * @export
- */
-export const RecentApiFetchParamCreator = function (configuration?: Configuration) {
-    return {
         /**
          * This call returns the most recent `max` number of episodes globally across the whole index, in reverse chronological order.  Example: https://api.podcastindex.org/api/1.0/recent/episodes?max=7&pretty
          * @summary Episodes
@@ -5246,37 +2098,7 @@ export const RecentApiFetchParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (max !== undefined) {
                 localVarQueryParameter['max'] = max;
@@ -5327,37 +2149,7 @@ export const RecentApiFetchParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (max !== undefined) {
                 localVarQueryParameter['max'] = max;
@@ -5409,37 +2201,7 @@ export const RecentApiFetchParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (max !== undefined) {
                 localVarQueryParameter['max'] = max;
@@ -5478,37 +2240,7 @@ export const RecentApiFetchParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (max !== undefined) {
                 localVarQueryParameter['max'] = max;
@@ -5528,263 +2260,6 @@ export const RecentApiFetchParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
-    }
-};
-
-/**
- * RecentApi - functional programming interface
- * @export
- */
-export const RecentApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         * This call returns the most recent `max` number of episodes globally across the whole index, in reverse chronological order.  Example: https://api.podcastindex.org/api/1.0/recent/episodes?max=7&pretty
-         * @summary Episodes
-         * @param {number} [max] Maximum number of results to return.
-         * @param {string} [excludeString] Any item containing this string will be discarded from the result set.  This may, in certain cases, reduce your set size below your &#x60;max&#x60; value.  Matches against the &#x60;title&#x60; and URL properties.
-         * @param {number} [before] If you pass a PodcastIndex Episode ID, you will get recent episodes before that ID, allowing you to walk back through the episode history sequentially.
-         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        recentepisodes(max?: number, excludeString?: string, before?: number, fulltext?: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20013> {
-            const localVarFetchArgs = RecentApiFetchParamCreator(configuration).recentepisodes(max, excludeString, before, fulltext, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * This call returns the most recent `max` feeds, in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/recent/feeds?pretty   - https://api.podcastindex.org/api/1.0/recent/feeds?max=20&cat=102,health&lang=de,ja&pretty
-         * @summary Feeds
-         * @param {number} [max] Maximum number of results to return.
-         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-         * @param {string} [lang] Specifying a language code (like \&quot;en\&quot;) will return only episodes having that specific language.  You can specify multiple languages by separating them with commas.  If you also want to return episodes that have no language given, use the token \&quot;unknown\&quot;. (ex. en,es,ja,unknown).  Values are not case sensitive.
-         * @param {string} [cat] Use this argument to specify that you **ONLY** want episodes with these categories in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-         * @param {string} [notcat] Use this argument to specify categories of episodes to **NOT** show in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        recentfeeds(max?: number, since?: number, lang?: string, cat?: string, notcat?: string, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20014> {
-            const localVarFetchArgs = RecentApiFetchParamCreator(configuration).recentfeeds(max, since, lang, cat, notcat, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * This call returns every new feed added to the index over the past 24 hours in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/recent/newfeeds?pretty   - https://api.podcastindex.org/api/1.0/recent/newfeeds?pretty&since=1613805000
-         * @summary New Feeds
-         * @param {number} [max] Maximum number of results to return.
-         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        recentnewfeeds(max?: number, since?: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20015> {
-            const localVarFetchArgs = RecentApiFetchParamCreator(configuration).recentnewfeeds(max, since, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * This call returns the most recent `max` soundbites that the index has discovered.  A soundbite consists of an enclosure url, a start time and a duration. It is documented in the [podcast namespace](https://podcastindex.org/namespace/1.0#soundbite).  Example: https://api.podcastindex.org/api/1.0/recent/soundbites?pretty
-         * @summary Soundbites
-         * @param {number} [max] Maximum number of soundbites to return.
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        recentsoundbites(max?: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20016> {
-            const localVarFetchArgs = RecentApiFetchParamCreator(configuration).recentsoundbites(max, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-    }
-};
-
-/**
- * RecentApi - factory interface
- * @export
- */
-export const RecentApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
-    return {
-        /**
-         * This call returns the most recent `max` number of episodes globally across the whole index, in reverse chronological order.  Example: https://api.podcastindex.org/api/1.0/recent/episodes?max=7&pretty
-         * @summary Episodes
-         * @param {number} [max] Maximum number of results to return.
-         * @param {string} [excludeString] Any item containing this string will be discarded from the result set.  This may, in certain cases, reduce your set size below your &#x60;max&#x60; value.  Matches against the &#x60;title&#x60; and URL properties.
-         * @param {number} [before] If you pass a PodcastIndex Episode ID, you will get recent episodes before that ID, allowing you to walk back through the episode history sequentially.
-         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        recentepisodes(max?: number, excludeString?: string, before?: number, fulltext?: boolean, pretty?: boolean, options?: any) {
-            return RecentApiFp(configuration).recentepisodes(max, excludeString, before, fulltext, pretty, options)(fetch, basePath);
-        },
-        /**
-         * This call returns the most recent `max` feeds, in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/recent/feeds?pretty   - https://api.podcastindex.org/api/1.0/recent/feeds?max=20&cat=102,health&lang=de,ja&pretty
-         * @summary Feeds
-         * @param {number} [max] Maximum number of results to return.
-         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-         * @param {string} [lang] Specifying a language code (like \&quot;en\&quot;) will return only episodes having that specific language.  You can specify multiple languages by separating them with commas.  If you also want to return episodes that have no language given, use the token \&quot;unknown\&quot;. (ex. en,es,ja,unknown).  Values are not case sensitive.
-         * @param {string} [cat] Use this argument to specify that you **ONLY** want episodes with these categories in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-         * @param {string} [notcat] Use this argument to specify categories of episodes to **NOT** show in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        recentfeeds(max?: number, since?: number, lang?: string, cat?: string, notcat?: string, pretty?: boolean, options?: any) {
-            return RecentApiFp(configuration).recentfeeds(max, since, lang, cat, notcat, pretty, options)(fetch, basePath);
-        },
-        /**
-         * This call returns every new feed added to the index over the past 24 hours in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/recent/newfeeds?pretty   - https://api.podcastindex.org/api/1.0/recent/newfeeds?pretty&since=1613805000
-         * @summary New Feeds
-         * @param {number} [max] Maximum number of results to return.
-         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        recentnewfeeds(max?: number, since?: number, pretty?: boolean, options?: any) {
-            return RecentApiFp(configuration).recentnewfeeds(max, since, pretty, options)(fetch, basePath);
-        },
-        /**
-         * This call returns the most recent `max` soundbites that the index has discovered.  A soundbite consists of an enclosure url, a start time and a duration. It is documented in the [podcast namespace](https://podcastindex.org/namespace/1.0#soundbite).  Example: https://api.podcastindex.org/api/1.0/recent/soundbites?pretty
-         * @summary Soundbites
-         * @param {number} [max] Maximum number of soundbites to return.
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        recentsoundbites(max?: number, pretty?: boolean, options?: any) {
-            return RecentApiFp(configuration).recentsoundbites(max, pretty, options)(fetch, basePath);
-        },
-    };
-};
-
-/**
- * RecentApi - object-oriented interface
- * @export
- * @class RecentApi
- * @extends {BaseAPI}
- */
-export class RecentApi extends BaseAPI {
-    /**
-     * This call returns the most recent `max` number of episodes globally across the whole index, in reverse chronological order.  Example: https://api.podcastindex.org/api/1.0/recent/episodes?max=7&pretty
-     * @summary Episodes
-     * @param {number} [max] Maximum number of results to return.
-     * @param {string} [excludeString] Any item containing this string will be discarded from the result set.  This may, in certain cases, reduce your set size below your &#x60;max&#x60; value.  Matches against the &#x60;title&#x60; and URL properties.
-     * @param {number} [before] If you pass a PodcastIndex Episode ID, you will get recent episodes before that ID, allowing you to walk back through the episode history sequentially.
-     * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof RecentApi
-     */
-    public recentepisodes(max?: number, excludeString?: string, before?: number, fulltext?: boolean, pretty?: boolean, options?: any) {
-        return RecentApiFp(this.configuration).recentepisodes(max, excludeString, before, fulltext, pretty, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * This call returns the most recent `max` feeds, in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/recent/feeds?pretty   - https://api.podcastindex.org/api/1.0/recent/feeds?max=20&cat=102,health&lang=de,ja&pretty
-     * @summary Feeds
-     * @param {number} [max] Maximum number of results to return.
-     * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-     * @param {string} [lang] Specifying a language code (like \&quot;en\&quot;) will return only episodes having that specific language.  You can specify multiple languages by separating them with commas.  If you also want to return episodes that have no language given, use the token \&quot;unknown\&quot;. (ex. en,es,ja,unknown).  Values are not case sensitive.
-     * @param {string} [cat] Use this argument to specify that you **ONLY** want episodes with these categories in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-     * @param {string} [notcat] Use this argument to specify categories of episodes to **NOT** show in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof RecentApi
-     */
-    public recentfeeds(max?: number, since?: number, lang?: string, cat?: string, notcat?: string, pretty?: boolean, options?: any) {
-        return RecentApiFp(this.configuration).recentfeeds(max, since, lang, cat, notcat, pretty, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * This call returns every new feed added to the index over the past 24 hours in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/recent/newfeeds?pretty   - https://api.podcastindex.org/api/1.0/recent/newfeeds?pretty&since=1613805000
-     * @summary New Feeds
-     * @param {number} [max] Maximum number of results to return.
-     * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof RecentApi
-     */
-    public recentnewfeeds(max?: number, since?: number, pretty?: boolean, options?: any) {
-        return RecentApiFp(this.configuration).recentnewfeeds(max, since, pretty, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * This call returns the most recent `max` soundbites that the index has discovered.  A soundbite consists of an enclosure url, a start time and a duration. It is documented in the [podcast namespace](https://podcastindex.org/namespace/1.0#soundbite).  Example: https://api.podcastindex.org/api/1.0/recent/soundbites?pretty
-     * @summary Soundbites
-     * @param {number} [max] Maximum number of soundbites to return.
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof RecentApi
-     */
-    public recentsoundbites(max?: number, pretty?: boolean, options?: any) {
-        return RecentApiFp(this.configuration).recentsoundbites(max, pretty, options)(this.fetch, this.basePath);
-    }
-
-}
-
-export class SearchApiApi extends RESTDataSource {
-    constructor(baseUrl?: string) {
-        super();
-        this.baseURL = baseUrl;
-    }
-    paramCreator = SearchApiFetchParamCreator()
-    searchbyperson(q: string, fulltext?: boolean, pretty?: boolean, ): Promise<InlineResponse2001> {
-        const args = this.paramCreator.searchbyperson(q, fulltext, pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
-    searchbyterm(q: string, val?: string, clean?: boolean, fulltext?: boolean, pretty?: boolean, ): Promise<InlineResponse200> {
-        const args = this.paramCreator.searchbyterm(q, val, clean, fulltext, pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
-}
-
-
-/**
- * SearchApi - fetch parameter creator
- * @export
- */
-export const SearchApiFetchParamCreator = function (configuration?: Configuration) {
-    return {
         /**
          * This call returns all of the episodes where the specified person is mentioned.  Examples:    - https://api.podcastindex.org/api/1.0/search/byperson?q=adam%20curry&pretty   - https://api.podcastindex.org/api/1.0/search/byperson?q=Martin+Mouritzen&pretty   - https://api.podcastindex.org/api/1.0/search/byperson?q=Klaus+Schwab&pretty
          * @summary Search Episodes by Person
@@ -5805,37 +2280,7 @@ export const SearchApiFetchParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (q !== undefined) {
                 localVarQueryParameter['q'] = q;
@@ -5881,37 +2326,7 @@ export const SearchApiFetchParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (q !== undefined) {
                 localVarQueryParameter['q'] = q;
@@ -5943,157 +2358,6 @@ export const SearchApiFetchParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
-    }
-};
-
-/**
- * SearchApi - functional programming interface
- * @export
- */
-export const SearchApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         * This call returns all of the episodes where the specified person is mentioned.  Examples:    - https://api.podcastindex.org/api/1.0/search/byperson?q=adam%20curry&pretty   - https://api.podcastindex.org/api/1.0/search/byperson?q=Martin+Mouritzen&pretty   - https://api.podcastindex.org/api/1.0/search/byperson?q=Klaus+Schwab&pretty
-         * @summary Search Episodes by Person
-         * @param {string} q Person search for
-         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        searchbyperson(q: string, fulltext?: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2001> {
-            const localVarFetchArgs = SearchApiFetchParamCreator(configuration).searchbyperson(q, fulltext, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * This call returns all of the feeds that match the search terms in the `title`, `author` or `owner` of the feed.  This is ordered by the last-released episode, with the latest at the top of the results.  Example: https://api.podcastindex.org/api/1.0/search/byterm?q=batman+university&pretty
-         * @summary Search Podcasts
-         * @param {string} q Terms to search for
-         * @param {string} [val] Only returns feeds with a &#x60;value&#x60; block of the specified type. Use &#x60;any&#x60; to return feeds with any &#x60;value&#x60; block.
-         * @param {boolean} [clean] If present, only non-explicit feeds will be returned. Meaning, feeds where the &#x60;itunes:explicit&#x60; flag is set to &#x60;false&#x60;.  Parameter shall not have a value
-         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        searchbyterm(q: string, val?: string, clean?: boolean, fulltext?: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse200> {
-            const localVarFetchArgs = SearchApiFetchParamCreator(configuration).searchbyterm(q, val, clean, fulltext, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-    }
-};
-
-/**
- * SearchApi - factory interface
- * @export
- */
-export const SearchApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
-    return {
-        /**
-         * This call returns all of the episodes where the specified person is mentioned.  Examples:    - https://api.podcastindex.org/api/1.0/search/byperson?q=adam%20curry&pretty   - https://api.podcastindex.org/api/1.0/search/byperson?q=Martin+Mouritzen&pretty   - https://api.podcastindex.org/api/1.0/search/byperson?q=Klaus+Schwab&pretty
-         * @summary Search Episodes by Person
-         * @param {string} q Person search for
-         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        searchbyperson(q: string, fulltext?: boolean, pretty?: boolean, options?: any) {
-            return SearchApiFp(configuration).searchbyperson(q, fulltext, pretty, options)(fetch, basePath);
-        },
-        /**
-         * This call returns all of the feeds that match the search terms in the `title`, `author` or `owner` of the feed.  This is ordered by the last-released episode, with the latest at the top of the results.  Example: https://api.podcastindex.org/api/1.0/search/byterm?q=batman+university&pretty
-         * @summary Search Podcasts
-         * @param {string} q Terms to search for
-         * @param {string} [val] Only returns feeds with a &#x60;value&#x60; block of the specified type. Use &#x60;any&#x60; to return feeds with any &#x60;value&#x60; block.
-         * @param {boolean} [clean] If present, only non-explicit feeds will be returned. Meaning, feeds where the &#x60;itunes:explicit&#x60; flag is set to &#x60;false&#x60;.  Parameter shall not have a value
-         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        searchbyterm(q: string, val?: string, clean?: boolean, fulltext?: boolean, pretty?: boolean, options?: any) {
-            return SearchApiFp(configuration).searchbyterm(q, val, clean, fulltext, pretty, options)(fetch, basePath);
-        },
-    };
-};
-
-/**
- * SearchApi - object-oriented interface
- * @export
- * @class SearchApi
- * @extends {BaseAPI}
- */
-export class SearchApi extends BaseAPI {
-    /**
-     * This call returns all of the episodes where the specified person is mentioned.  Examples:    - https://api.podcastindex.org/api/1.0/search/byperson?q=adam%20curry&pretty   - https://api.podcastindex.org/api/1.0/search/byperson?q=Martin+Mouritzen&pretty   - https://api.podcastindex.org/api/1.0/search/byperson?q=Klaus+Schwab&pretty
-     * @summary Search Episodes by Person
-     * @param {string} q Person search for
-     * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SearchApi
-     */
-    public searchbyperson(q: string, fulltext?: boolean, pretty?: boolean, options?: any) {
-        return SearchApiFp(this.configuration).searchbyperson(q, fulltext, pretty, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * This call returns all of the feeds that match the search terms in the `title`, `author` or `owner` of the feed.  This is ordered by the last-released episode, with the latest at the top of the results.  Example: https://api.podcastindex.org/api/1.0/search/byterm?q=batman+university&pretty
-     * @summary Search Podcasts
-     * @param {string} q Terms to search for
-     * @param {string} [val] Only returns feeds with a &#x60;value&#x60; block of the specified type. Use &#x60;any&#x60; to return feeds with any &#x60;value&#x60; block.
-     * @param {boolean} [clean] If present, only non-explicit feeds will be returned. Meaning, feeds where the &#x60;itunes:explicit&#x60; flag is set to &#x60;false&#x60;.  Parameter shall not have a value
-     * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SearchApi
-     */
-    public searchbyterm(q: string, val?: string, clean?: boolean, fulltext?: boolean, pretty?: boolean, options?: any) {
-        return SearchApiFp(this.configuration).searchbyterm(q, val, clean, fulltext, pretty, options)(this.fetch, this.basePath);
-    }
-
-}
-
-export class StatsApiApi extends RESTDataSource {
-    constructor(baseUrl?: string) {
-        super();
-        this.baseURL = baseUrl;
-    }
-    paramCreator = StatsApiFetchParamCreator()
-    statscurrent(pretty?: boolean, ): Promise<InlineResponse20019> {
-        const args = this.paramCreator.statscurrent(pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
-}
-
-
-/**
- * StatsApi - fetch parameter creator
- * @export
- */
-export const StatsApiFetchParamCreator = function (configuration?: Configuration) {
-    return {
         /**
          * Return the most recent index statistics.  Example: https://api.podcastindex.org/api/1.0/stats/current?pretty
          * @summary Current
@@ -6108,37 +2372,7 @@ export const StatsApiFetchParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (pretty !== undefined) {
                 localVarQueryParameter['pretty'] = pretty;
@@ -6154,104 +2388,6 @@ export const StatsApiFetchParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
-    }
-};
-
-/**
- * StatsApi - functional programming interface
- * @export
- */
-export const StatsApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         * Return the most recent index statistics.  Example: https://api.podcastindex.org/api/1.0/stats/current?pretty
-         * @summary Current
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        statscurrent(pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20019> {
-            const localVarFetchArgs = StatsApiFetchParamCreator(configuration).statscurrent(pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-    }
-};
-
-/**
- * StatsApi - factory interface
- * @export
- */
-export const StatsApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
-    return {
-        /**
-         * Return the most recent index statistics.  Example: https://api.podcastindex.org/api/1.0/stats/current?pretty
-         * @summary Current
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        statscurrent(pretty?: boolean, options?: any) {
-            return StatsApiFp(configuration).statscurrent(pretty, options)(fetch, basePath);
-        },
-    };
-};
-
-/**
- * StatsApi - object-oriented interface
- * @export
- * @class StatsApi
- * @extends {BaseAPI}
- */
-export class StatsApi extends BaseAPI {
-    /**
-     * Return the most recent index statistics.  Example: https://api.podcastindex.org/api/1.0/stats/current?pretty
-     * @summary Current
-     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StatsApi
-     */
-    public statscurrent(pretty?: boolean, options?: any) {
-        return StatsApiFp(this.configuration).statscurrent(pretty, options)(this.fetch, this.basePath);
-    }
-
-}
-
-export class ValueApiApi extends RESTDataSource {
-    constructor(baseUrl?: string) {
-        super();
-        this.baseURL = baseUrl;
-    }
-    paramCreator = ValueApiFetchParamCreator()
-    valuebyfeedid(id: number, pretty?: boolean, ): Promise<InlineResponse20017> {
-        const args = this.paramCreator.valuebyfeedid(id, pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
-    valuebyfeedurl(url: string, pretty?: boolean, ): Promise<InlineResponse20018> {
-        const args = this.paramCreator.valuebyfeedurl(url, pretty, )
-
-        // @ts-ignore
-        return this.fetch(Object.assign(args.options, { path: args.url }))
-    }
-}
-
-
-/**
- * ValueApi - fetch parameter creator
- * @export
- */
-export const ValueApiFetchParamCreator = function (configuration?: Configuration) {
-    return {
         /**
          * This call returns the information for supporting the podcast via one of the \"Value for Value\" methods from the PodcastIndex ID.  Examples:    - https://api.podcastindex.org/api/1.0/value/byfeedid?id=920666&pretty   - https://api.podcastindex.org/api/1.0/value/byfeedid?id=779873&pretty
          * @summary By Feed ID
@@ -6271,37 +2407,7 @@ export const ValueApiFetchParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (id !== undefined) {
                 localVarQueryParameter['id'] = id;
@@ -6340,37 +2446,7 @@ export const ValueApiFetchParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication API Key required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Key")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Key"] = localVarApiKeyValue;
-            }
 
-            // authentication Authorization required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            // authentication Date required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("X-Auth-Date")
-					: configuration.apiKey;
-                localVarHeaderParameter["X-Auth-Date"] = localVarApiKeyValue;
-            }
-
-            // authentication User Agent required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("User-Agent")
-					: configuration.apiKey;
-                localVarHeaderParameter["User-Agent"] = localVarApiKeyValue;
-            }
 
             if (url !== undefined) {
                 localVarQueryParameter['url'] = url;
@@ -6394,11 +2470,440 @@ export const ValueApiFetchParamCreator = function (configuration?: Configuration
 };
 
 /**
- * ValueApi - functional programming interface
+ * DefaultApi - functional programming interface
  * @export
  */
-export const ValueApiFp = function(configuration?: Configuration) {
+export const DefaultApiFp = function(configuration?: Configuration) {
     return {
+        /**
+         * This call adds a podcast to the index using its feed url. If a feed already exists, you will get its existing Feed ID returned.  **NOTE**: this endpoint requires an APIKey with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty
+         * @summary By Feed URL
+         * @param {string} url Podcast feed URL
+         * @param {number} [itunesid] If this parameter is given, and the existing feed has no associated iTunes ID, it will be associated with this ID. If an existing iTunes ID is already associated with this feed it will **NOT** be changed.
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addbyfeedurlPost(url: string, itunesid?: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20020> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).addbyfeedurlPost(url, itunesid, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call adds a podcast to the index using its iTunes ID. If a feed already exists, it will be noted in the response.  **NOTE**: this endpoint requires an APIKey with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byitunesid?id=1441923632&pretty
+         * @summary By iTunes ID
+         * @param {number} [id] The iTunes ID to add
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addbyitunesidPost(id?: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20021> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).addbyitunesidPost(id, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call returns all the episodes we know about for this feed from the PodcastIndex ID. Episodes are in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=75075&pretty   - https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=41504,920666&pretty   - Includes `persons`: https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=169991&pretty
+         * @summary By Feed ID
+         * @param {string} id The PodcastIndex Feed ID or IDs to search for.  If searching for multiple IDs, separate values with a comma. A maximum of 200 IDs can be provided.
+         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
+         * @param {number} [max] Maximum number of results to return.
+         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        episodesbyfeedid(id: string, since?: number, max?: number, fulltext?: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2008> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).episodesbyfeedid(id, since, max, fulltext, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call returns all the episodes we know about for this feed from the feed URL. Episodes are in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/episodes/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty   - Includes `persons`: https://api.podcastindex.org/api/1.0/episodes/byfeedurl?url=https://engineered.network/pragmatic/feed/index.xml&pretty
+         * @summary By Feed URL
+         * @param {string} url Podcast feed URL
+         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
+         * @param {number} [max] Maximum number of results to return.
+         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        episodesbyfeedurl(url: string, since?: number, max?: number, fulltext?: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2009> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).episodesbyfeedurl(url, since, max, fulltext, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * Get all the metadata for a single episode by passing its id.  Example: https://api.podcastindex.org/api/1.0/episodes/byid?id=16795090&pretty
+         * @summary By ID
+         * @param {number} id The PodcastIndex episode ID to search for.
+         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        episodesbyid(id: number, fulltext?: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20011> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).episodesbyid(id, fulltext, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call returns all the episodes we know about for this feed from the iTunes ID. Episodes are in reverse chronological order.  Example: https://api.podcastindex.org/api/1.0/episodes/byitunesid?id=1441923632&pretty
+         * @summary By iTunes ID
+         * @param {number} id The iTunes Feed ID to search for
+         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
+         * @param {number} [max] Maximum number of results to return.
+         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        episodesbyitunesid(id: number, since?: number, max?: number, fulltext?: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20010> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).episodesbyitunesid(id, since, max, fulltext, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call returns a random batch of episodes, in no specific order.  Examples:    - https://api.podcastindex.org/api/1.0/episodes/random?notcat=News,Religion&lang=en,es&pretty   - https://api.podcastindex.org/api/1.0/episodes/random?max=2&pretty
+         * @summary Random
+         * @param {number} [max] Maximum number of results to return.
+         * @param {string} [lang] Specifying a language code (like \&quot;en\&quot;) will return only episodes having that specific language.  You can specify multiple languages by separating them with commas.  If you also want to return episodes that have no language given, use the token \&quot;unknown\&quot;. (ex. en,es,ja,unknown).  Values are not case sensitive.
+         * @param {string} [cat] Use this argument to specify that you **ONLY** want episodes with these categories in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
+         * @param {string} [notcat] Use this argument to specify categories of episodes to **NOT** show in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
+         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        episodesrandom(max?: number, lang?: string, cat?: string, notcat?: string, fulltext?: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20012> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).episodesrandom(max, lang, cat, notcat, fulltext, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call returns everything we know about the feed from the PodcastIndex ID  Examples:    - https://api.podcastindex.org/api/1.0/podcasts/byfeedid?id=75075&pretty   - Includes `value` and `funding`: https://api.podcastindex.org/api/1.0/podcasts/byfeedid?id=169991&pretty
+         * @summary By Feed ID
+         * @param {number} id The PodcastIndex Feed ID to search for
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        podcastsbyfeedid(id: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2002> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).podcastsbyfeedid(id, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call returns everything we know about the feed from the feed URL  Examples:    - https://api.podcastindex.org/api/1.0/podcasts/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty   - Includes `value` and `funding`: https://api.podcastindex.org/api/1.0/podcasts/byfeedurl?url=https://engineered.network/pragmatic/feed/index.xml&pretty
+         * @summary By Feed URL
+         * @param {string} url Podcast feed URL
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        podcastsbyfeedurl(url: string, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2003> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).podcastsbyfeedurl(url, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call returns everything we know about the feed from the iTunes ID  Example: https://api.podcastindex.org/api/1.0/podcasts/byitunesid?id=1441923632&pretty
+         * @summary By iTunes ID
+         * @param {number} id The iTunes Feed ID to search for
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        podcastsbyitunesid(id: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2004> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).podcastsbyitunesid(id, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call returns all feeds that support the specified [podcast namespace](https://podcastindex.org/namespace/1.0) tag.  Example: https://api.podcastindex.org/api/1.0/podcasts/bytag?podcast-value&pretty
+         * @summary By Tag
+         * @param {boolean} podcastValue Get feeds supporting the &#x60;value&#x60; tag.  Parameter shall not have a value
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        podcastsbytag(podcastValue: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2005> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).podcastsbytag(podcastValue, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call returns all feeds that have been marked dead (`dead` == 1)  Example: https://api.podcastindex.org/api/1.0/podcasts/dead?pretty
+         * @summary Dead
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        podcastsdead(pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2007> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).podcastsdead(pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call returns the podcasts/feeds that in the index that are trending.  Example: https://api.podcastindex.org/api/1.0/podcasts/trending?pretty
+         * @summary Trending
+         * @param {number} [max] Maximum number of results to return.
+         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
+         * @param {string} [lang] Specifying a language code (like \&quot;en\&quot;) will return only episodes having that specific language.  You can specify multiple languages by separating them with commas.  If you also want to return episodes that have no language given, use the token \&quot;unknown\&quot;. (ex. en,es,ja,unknown).  Values are not case sensitive.
+         * @param {string} [cat] Use this argument to specify that you **ONLY** want episodes with these categories in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
+         * @param {string} [notcat] Use this argument to specify categories of episodes to **NOT** show in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        podcaststrending(max?: number, since?: number, lang?: string, cat?: string, notcat?: string, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2006> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).podcaststrending(max, since, lang, cat, notcat, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call returns the most recent `max` number of episodes globally across the whole index, in reverse chronological order.  Example: https://api.podcastindex.org/api/1.0/recent/episodes?max=7&pretty
+         * @summary Episodes
+         * @param {number} [max] Maximum number of results to return.
+         * @param {string} [excludeString] Any item containing this string will be discarded from the result set.  This may, in certain cases, reduce your set size below your &#x60;max&#x60; value.  Matches against the &#x60;title&#x60; and URL properties.
+         * @param {number} [before] If you pass a PodcastIndex Episode ID, you will get recent episodes before that ID, allowing you to walk back through the episode history sequentially.
+         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recentepisodes(max?: number, excludeString?: string, before?: number, fulltext?: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20013> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).recentepisodes(max, excludeString, before, fulltext, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call returns the most recent `max` feeds, in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/recent/feeds?pretty   - https://api.podcastindex.org/api/1.0/recent/feeds?max=20&cat=102,health&lang=de,ja&pretty
+         * @summary Feeds
+         * @param {number} [max] Maximum number of results to return.
+         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
+         * @param {string} [lang] Specifying a language code (like \&quot;en\&quot;) will return only episodes having that specific language.  You can specify multiple languages by separating them with commas.  If you also want to return episodes that have no language given, use the token \&quot;unknown\&quot;. (ex. en,es,ja,unknown).  Values are not case sensitive.
+         * @param {string} [cat] Use this argument to specify that you **ONLY** want episodes with these categories in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
+         * @param {string} [notcat] Use this argument to specify categories of episodes to **NOT** show in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recentfeeds(max?: number, since?: number, lang?: string, cat?: string, notcat?: string, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20014> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).recentfeeds(max, since, lang, cat, notcat, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call returns every new feed added to the index over the past 24 hours in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/recent/newfeeds?pretty   - https://api.podcastindex.org/api/1.0/recent/newfeeds?pretty&since=1613805000
+         * @summary New Feeds
+         * @param {number} [max] Maximum number of results to return.
+         * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recentnewfeeds(max?: number, since?: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20015> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).recentnewfeeds(max, since, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call returns the most recent `max` soundbites that the index has discovered.  A soundbite consists of an enclosure url, a start time and a duration. It is documented in the [podcast namespace](https://podcastindex.org/namespace/1.0#soundbite).  Example: https://api.podcastindex.org/api/1.0/recent/soundbites?pretty
+         * @summary Soundbites
+         * @param {number} [max] Maximum number of soundbites to return.
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recentsoundbites(max?: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20016> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).recentsoundbites(max, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call returns all of the episodes where the specified person is mentioned.  Examples:    - https://api.podcastindex.org/api/1.0/search/byperson?q=adam%20curry&pretty   - https://api.podcastindex.org/api/1.0/search/byperson?q=Martin+Mouritzen&pretty   - https://api.podcastindex.org/api/1.0/search/byperson?q=Klaus+Schwab&pretty
+         * @summary Search Episodes by Person
+         * @param {string} q Person search for
+         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        searchbyperson(q: string, fulltext?: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2001> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).searchbyperson(q, fulltext, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * This call returns all of the feeds that match the search terms in the `title`, `author` or `owner` of the feed.  This is ordered by the last-released episode, with the latest at the top of the results.  Example: https://api.podcastindex.org/api/1.0/search/byterm?q=batman+university&pretty
+         * @summary Search Podcasts
+         * @param {string} q Terms to search for
+         * @param {string} [val] Only returns feeds with a &#x60;value&#x60; block of the specified type. Use &#x60;any&#x60; to return feeds with any &#x60;value&#x60; block.
+         * @param {boolean} [clean] If present, only non-explicit feeds will be returned. Meaning, feeds where the &#x60;itunes:explicit&#x60; flag is set to &#x60;false&#x60;.  Parameter shall not have a value
+         * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        searchbyterm(q: string, val?: string, clean?: boolean, fulltext?: boolean, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse200> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).searchbyterm(q, val, clean, fulltext, pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * Return the most recent index statistics.  Example: https://api.podcastindex.org/api/1.0/stats/current?pretty
+         * @summary Current
+         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        statscurrent(pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20019> {
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).statscurrent(pretty, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
         /**
          * This call returns the information for supporting the podcast via one of the \"Value for Value\" methods from the PodcastIndex ID.  Examples:    - https://api.podcastindex.org/api/1.0/value/byfeedid?id=920666&pretty   - https://api.podcastindex.org/api/1.0/value/byfeedid?id=779873&pretty
          * @summary By Feed ID
@@ -6408,7 +2913,7 @@ export const ValueApiFp = function(configuration?: Configuration) {
          * @throws {RequiredError}
          */
         valuebyfeedid(id: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20017> {
-            const localVarFetchArgs = ValueApiFetchParamCreator(configuration).valuebyfeedid(id, pretty, options);
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).valuebyfeedid(id, pretty, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -6428,7 +2933,7 @@ export const ValueApiFp = function(configuration?: Configuration) {
          * @throws {RequiredError}
          */
         valuebyfeedurl(url: string, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20018> {
-            const localVarFetchArgs = ValueApiFetchParamCreator(configuration).valuebyfeedurl(url, pretty, options);
+            const localVarFetchArgs = DefaultApiFetchParamCreator(configuration).valuebyfeedurl(url, pretty, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -6442,44 +2947,303 @@ export const ValueApiFp = function(configuration?: Configuration) {
     }
 };
 
-/**
- * ValueApi - factory interface
- * @export
- */
-export const ValueApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
-    return {
-        /**
-         * This call returns the information for supporting the podcast via one of the \"Value for Value\" methods from the PodcastIndex ID.  Examples:    - https://api.podcastindex.org/api/1.0/value/byfeedid?id=920666&pretty   - https://api.podcastindex.org/api/1.0/value/byfeedid?id=779873&pretty
-         * @summary By Feed ID
-         * @param {number} id The PodcastIndex Feed ID to search for.
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        valuebyfeedid(id: number, pretty?: boolean, options?: any) {
-            return ValueApiFp(configuration).valuebyfeedid(id, pretty, options)(fetch, basePath);
-        },
-        /**
-         * This call returns the information for supporting the podcast via one of the \"Value for Value\" methods from feed URL.  Examples:    - https://api.podcastindex.org/api/1.0/value/byfeedurl?url=https://mp3s.nashownotes.com/pc20rss.xml&pretty   - https://api.podcastindex.org/api/1.0/value/byfeedurl?url=https://lespoesiesdheloise.fr/@heloise/feed.xml&pretty
-         * @summary By Feed URL
-         * @param {string} url Podcast feed URL
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        valuebyfeedurl(url: string, pretty?: boolean, options?: any) {
-            return ValueApiFp(configuration).valuebyfeedurl(url, pretty, options)(fetch, basePath);
-        },
-    };
-};
 
 /**
- * ValueApi - object-oriented interface
+ * DefaultApi - object-oriented interface
  * @export
- * @class ValueApi
+ * @class DefaultApi
  * @extends {BaseAPI}
  */
-export class ValueApi extends BaseAPI {
+export class DefaultApi extends BaseAPI {
+    /**
+     * This call adds a podcast to the index using its feed url. If a feed already exists, you will get its existing Feed ID returned.  **NOTE**: this endpoint requires an APIKey with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty
+     * @summary By Feed URL
+     * @param {string} url Podcast feed URL
+     * @param {number} [itunesid] If this parameter is given, and the existing feed has no associated iTunes ID, it will be associated with this ID. If an existing iTunes ID is already associated with this feed it will **NOT** be changed.
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public addbyfeedurlPost(url: string, itunesid?: number, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).addbyfeedurlPost(url, itunesid, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call adds a podcast to the index using its iTunes ID. If a feed already exists, it will be noted in the response.  **NOTE**: this endpoint requires an APIKey with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byitunesid?id=1441923632&pretty
+     * @summary By iTunes ID
+     * @param {number} [id] The iTunes ID to add
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public addbyitunesidPost(id?: number, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).addbyitunesidPost(id, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call returns all the episodes we know about for this feed from the PodcastIndex ID. Episodes are in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=75075&pretty   - https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=41504,920666&pretty   - Includes `persons`: https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=169991&pretty
+     * @summary By Feed ID
+     * @param {string} id The PodcastIndex Feed ID or IDs to search for.  If searching for multiple IDs, separate values with a comma. A maximum of 200 IDs can be provided.
+     * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
+     * @param {number} [max] Maximum number of results to return.
+     * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public episodesbyfeedid(id: string, since?: number, max?: number, fulltext?: boolean, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).episodesbyfeedid(id, since, max, fulltext, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call returns all the episodes we know about for this feed from the feed URL. Episodes are in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/episodes/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty   - Includes `persons`: https://api.podcastindex.org/api/1.0/episodes/byfeedurl?url=https://engineered.network/pragmatic/feed/index.xml&pretty
+     * @summary By Feed URL
+     * @param {string} url Podcast feed URL
+     * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
+     * @param {number} [max] Maximum number of results to return.
+     * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public episodesbyfeedurl(url: string, since?: number, max?: number, fulltext?: boolean, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).episodesbyfeedurl(url, since, max, fulltext, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * Get all the metadata for a single episode by passing its id.  Example: https://api.podcastindex.org/api/1.0/episodes/byid?id=16795090&pretty
+     * @summary By ID
+     * @param {number} id The PodcastIndex episode ID to search for.
+     * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public episodesbyid(id: number, fulltext?: boolean, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).episodesbyid(id, fulltext, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call returns all the episodes we know about for this feed from the iTunes ID. Episodes are in reverse chronological order.  Example: https://api.podcastindex.org/api/1.0/episodes/byitunesid?id=1441923632&pretty
+     * @summary By iTunes ID
+     * @param {number} id The iTunes Feed ID to search for
+     * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
+     * @param {number} [max] Maximum number of results to return.
+     * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public episodesbyitunesid(id: number, since?: number, max?: number, fulltext?: boolean, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).episodesbyitunesid(id, since, max, fulltext, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call returns a random batch of episodes, in no specific order.  Examples:    - https://api.podcastindex.org/api/1.0/episodes/random?notcat=News,Religion&lang=en,es&pretty   - https://api.podcastindex.org/api/1.0/episodes/random?max=2&pretty
+     * @summary Random
+     * @param {number} [max] Maximum number of results to return.
+     * @param {string} [lang] Specifying a language code (like \&quot;en\&quot;) will return only episodes having that specific language.  You can specify multiple languages by separating them with commas.  If you also want to return episodes that have no language given, use the token \&quot;unknown\&quot;. (ex. en,es,ja,unknown).  Values are not case sensitive.
+     * @param {string} [cat] Use this argument to specify that you **ONLY** want episodes with these categories in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
+     * @param {string} [notcat] Use this argument to specify categories of episodes to **NOT** show in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
+     * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public episodesrandom(max?: number, lang?: string, cat?: string, notcat?: string, fulltext?: boolean, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).episodesrandom(max, lang, cat, notcat, fulltext, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call returns everything we know about the feed from the PodcastIndex ID  Examples:    - https://api.podcastindex.org/api/1.0/podcasts/byfeedid?id=75075&pretty   - Includes `value` and `funding`: https://api.podcastindex.org/api/1.0/podcasts/byfeedid?id=169991&pretty
+     * @summary By Feed ID
+     * @param {number} id The PodcastIndex Feed ID to search for
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public podcastsbyfeedid(id: number, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).podcastsbyfeedid(id, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call returns everything we know about the feed from the feed URL  Examples:    - https://api.podcastindex.org/api/1.0/podcasts/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty   - Includes `value` and `funding`: https://api.podcastindex.org/api/1.0/podcasts/byfeedurl?url=https://engineered.network/pragmatic/feed/index.xml&pretty
+     * @summary By Feed URL
+     * @param {string} url Podcast feed URL
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public podcastsbyfeedurl(url: string, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).podcastsbyfeedurl(url, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call returns everything we know about the feed from the iTunes ID  Example: https://api.podcastindex.org/api/1.0/podcasts/byitunesid?id=1441923632&pretty
+     * @summary By iTunes ID
+     * @param {number} id The iTunes Feed ID to search for
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public podcastsbyitunesid(id: number, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).podcastsbyitunesid(id, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call returns all feeds that support the specified [podcast namespace](https://podcastindex.org/namespace/1.0) tag.  Example: https://api.podcastindex.org/api/1.0/podcasts/bytag?podcast-value&pretty
+     * @summary By Tag
+     * @param {boolean} podcastValue Get feeds supporting the &#x60;value&#x60; tag.  Parameter shall not have a value
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public podcastsbytag(podcastValue: boolean, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).podcastsbytag(podcastValue, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call returns all feeds that have been marked dead (`dead` == 1)  Example: https://api.podcastindex.org/api/1.0/podcasts/dead?pretty
+     * @summary Dead
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public podcastsdead(pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).podcastsdead(pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call returns the podcasts/feeds that in the index that are trending.  Example: https://api.podcastindex.org/api/1.0/podcasts/trending?pretty
+     * @summary Trending
+     * @param {number} [max] Maximum number of results to return.
+     * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
+     * @param {string} [lang] Specifying a language code (like \&quot;en\&quot;) will return only episodes having that specific language.  You can specify multiple languages by separating them with commas.  If you also want to return episodes that have no language given, use the token \&quot;unknown\&quot;. (ex. en,es,ja,unknown).  Values are not case sensitive.
+     * @param {string} [cat] Use this argument to specify that you **ONLY** want episodes with these categories in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
+     * @param {string} [notcat] Use this argument to specify categories of episodes to **NOT** show in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public podcaststrending(max?: number, since?: number, lang?: string, cat?: string, notcat?: string, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).podcaststrending(max, since, lang, cat, notcat, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call returns the most recent `max` number of episodes globally across the whole index, in reverse chronological order.  Example: https://api.podcastindex.org/api/1.0/recent/episodes?max=7&pretty
+     * @summary Episodes
+     * @param {number} [max] Maximum number of results to return.
+     * @param {string} [excludeString] Any item containing this string will be discarded from the result set.  This may, in certain cases, reduce your set size below your &#x60;max&#x60; value.  Matches against the &#x60;title&#x60; and URL properties.
+     * @param {number} [before] If you pass a PodcastIndex Episode ID, you will get recent episodes before that ID, allowing you to walk back through the episode history sequentially.
+     * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public recentepisodes(max?: number, excludeString?: string, before?: number, fulltext?: boolean, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).recentepisodes(max, excludeString, before, fulltext, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call returns the most recent `max` feeds, in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/recent/feeds?pretty   - https://api.podcastindex.org/api/1.0/recent/feeds?max=20&cat=102,health&lang=de,ja&pretty
+     * @summary Feeds
+     * @param {number} [max] Maximum number of results to return.
+     * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
+     * @param {string} [lang] Specifying a language code (like \&quot;en\&quot;) will return only episodes having that specific language.  You can specify multiple languages by separating them with commas.  If you also want to return episodes that have no language given, use the token \&quot;unknown\&quot;. (ex. en,es,ja,unknown).  Values are not case sensitive.
+     * @param {string} [cat] Use this argument to specify that you **ONLY** want episodes with these categories in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
+     * @param {string} [notcat] Use this argument to specify categories of episodes to **NOT** show in the results.  Separate multiple categories with commas.  You may specify either the Category ID and/or the Category Name.  Values are not case sensitive.  The &#x60;cat&#x60; and &#x60;notcat&#x60; filters can be used together to fine tune a very specific result set.  Category numbers and names can be found in the [Podcast Namespace documentation](https://github.com/Podcastindex-org/podcast-namespace/blob/main/categories.json)
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public recentfeeds(max?: number, since?: number, lang?: string, cat?: string, notcat?: string, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).recentfeeds(max, since, lang, cat, notcat, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call returns every new feed added to the index over the past 24 hours in reverse chronological order.  Examples:    - https://api.podcastindex.org/api/1.0/recent/newfeeds?pretty   - https://api.podcastindex.org/api/1.0/recent/newfeeds?pretty&since=1613805000
+     * @summary New Feeds
+     * @param {number} [max] Maximum number of results to return.
+     * @param {number} [since] Return items since the specified time. The value can be a unix epoch timestamp or a negative integer that represents a number of seconds prior to right now.
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public recentnewfeeds(max?: number, since?: number, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).recentnewfeeds(max, since, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call returns the most recent `max` soundbites that the index has discovered.  A soundbite consists of an enclosure url, a start time and a duration. It is documented in the [podcast namespace](https://podcastindex.org/namespace/1.0#soundbite).  Example: https://api.podcastindex.org/api/1.0/recent/soundbites?pretty
+     * @summary Soundbites
+     * @param {number} [max] Maximum number of soundbites to return.
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public recentsoundbites(max?: number, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).recentsoundbites(max, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call returns all of the episodes where the specified person is mentioned.  Examples:    - https://api.podcastindex.org/api/1.0/search/byperson?q=adam%20curry&pretty   - https://api.podcastindex.org/api/1.0/search/byperson?q=Martin+Mouritzen&pretty   - https://api.podcastindex.org/api/1.0/search/byperson?q=Klaus+Schwab&pretty
+     * @summary Search Episodes by Person
+     * @param {string} q Person search for
+     * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public searchbyperson(q: string, fulltext?: boolean, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).searchbyperson(q, fulltext, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * This call returns all of the feeds that match the search terms in the `title`, `author` or `owner` of the feed.  This is ordered by the last-released episode, with the latest at the top of the results.  Example: https://api.podcastindex.org/api/1.0/search/byterm?q=batman+university&pretty
+     * @summary Search Podcasts
+     * @param {string} q Terms to search for
+     * @param {string} [val] Only returns feeds with a &#x60;value&#x60; block of the specified type. Use &#x60;any&#x60; to return feeds with any &#x60;value&#x60; block.
+     * @param {boolean} [clean] If present, only non-explicit feeds will be returned. Meaning, feeds where the &#x60;itunes:explicit&#x60; flag is set to &#x60;false&#x60;.  Parameter shall not have a value
+     * @param {boolean} [fulltext] If present, return the full text value of any text fields (ex: &#x60;description&#x60;). If not provided, field value is truncated to 100 words.  Parameter shall not have a value
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public searchbyterm(q: string, val?: string, clean?: boolean, fulltext?: boolean, pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).searchbyterm(q, val, clean, fulltext, pretty, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * Return the most recent index statistics.  Example: https://api.podcastindex.org/api/1.0/stats/current?pretty
+     * @summary Current
+     * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public statscurrent(pretty?: boolean, options?: any) {
+        return DefaultApiFp(this.configuration).statscurrent(pretty, options)(this.fetch, this.basePath);
+    }
+
     /**
      * This call returns the information for supporting the podcast via one of the \"Value for Value\" methods from the PodcastIndex ID.  Examples:    - https://api.podcastindex.org/api/1.0/value/byfeedid?id=920666&pretty   - https://api.podcastindex.org/api/1.0/value/byfeedid?id=779873&pretty
      * @summary By Feed ID
@@ -6487,10 +3251,10 @@ export class ValueApi extends BaseAPI {
      * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ValueApi
+     * @memberof DefaultApi
      */
     public valuebyfeedid(id: number, pretty?: boolean, options?: any) {
-        return ValueApiFp(this.configuration).valuebyfeedid(id, pretty, options)(this.fetch, this.basePath);
+        return DefaultApiFp(this.configuration).valuebyfeedid(id, pretty, options)(this.fetch, this.basePath);
     }
 
     /**
@@ -6500,10 +3264,10 @@ export class ValueApi extends BaseAPI {
      * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ValueApi
+     * @memberof DefaultApi
      */
     public valuebyfeedurl(url: string, pretty?: boolean, options?: any) {
-        return ValueApiFp(this.configuration).valuebyfeedurl(url, pretty, options)(this.fetch, this.basePath);
+        return DefaultApiFp(this.configuration).valuebyfeedurl(url, pretty, options)(this.fetch, this.basePath);
     }
 
 }
