@@ -3,7 +3,6 @@
 // @ts-nocheck
 /**
  * PodcastIndex.org API
- * # Overview The Podcast Index (Podcast Index LLC) is a software developer focused partnership that provides tools and data to anyone who aspires to create new and exciting Podcast experiences without the heavy lifting of indexing, aggregation and data management. # Example Code Users have provided example code for working the API in the following languages:    - [AWS Lambda - python](https://github.com/tbowers/python-podcastindex-org-lambda)   - [C#](https://github.com/ComicStrip/csharp-podcastindex-org-example)   - [Elisp](https://github.com/sabexx/elisp-example)   - [Flutter/Dart](https://github.com/crediblecreative/flutter-dart-podcastindex-org-example)   - [Go](https://github.com/ComicStrip/Go-podcastindex-org-example)   - [Go](https://github.com/kilobit/podcast-index-client)   - [Java](https://github.com/ComicStrip/Java-podcastindex-org-example)   - [Java](https://github.com/stucoates/PodcastIndexJavaClient)   - [Node.js](https://github.com/ComicStrip/node.js-podcastindex-org-example)   - [PHP](https://github.com/Podcastindex-org/example-code)   - [Python](https://github.com/tbowers/python-podcastindex-org-example)   - [Swift](https://github.com/ComicStrip/Swift-podcastindex-org-example)   - ... [More](https://github.com/Podcastindex-org-Examples)  Don't see your desired language, create an example repo and create a [Pull Request](https://github.com/Podcastindex-org/docs-api/pulls) with a link to your example code project! # Libraries User created libraries for working with the API:    - Node.js/npm/yarn       - [podcast-index-api](https://www.npmjs.com/package/podcast-index-api)       - [podcastdx-client](https://www.npmjs.com/package/podcastdx-client)   - Python/pip       - [python-podcastindex](https://pypi.org/project/python-podcastindex/)   - .NET       - [PodcastIndexSharp](https://www.nuget.org/packages/PodcastIndexSharp)  Are we missing a library? Did you create one for a different language? Create a [Pull Request](https://github.com/Podcastindex-org/docs-api/pulls) with a link to the new library! # Postman A collection file for use in the [Postman](https://www.postman.com/) application is available for this API.    1. Download the contents of the [Postman Docs](https://github.com/Podcastindex-org/docs-api/tree/master/Postman%20Docs) folder.   2. Import the `PodcastIndex.postman_collection.json` collection to Postman   3. Import the `PodcastIndexOrgEnvironment.postman_environment.json` to Postman   4. Set the `AuthKey` environment variable   5. Set the `SecretKey` environment variable   6. Hit the Send button (⌘ + return)  # Contributing The source for this API documentation is available at [https://github.com/Podcastindex-org/docs-api](https://github.com/Podcastindex-org/docs-api). Submit an Issue or create a Pull Request. # Authentication Details Sending an API request is easy. We use an Amazon-style request authorization token to secure each request.  Register for a free API key at https://api.podcastindex.org/  These headers parameters are required for each request: `User-Agent`, `X-Auth-Date`, `X-Auth-Key`, `Authorization`  See [Authentication](#auth) for description of parameters.
  *
  * OpenAPI spec version: 1.4.0
  * Contact: info@podcastindex.org
@@ -207,35 +206,10 @@ export interface DescriptionResponse {
  * @interface DestinationV4v
  */
 export interface DestinationV4v {
-    /**
-     *
-     * @type {NameDestination}
-     * @memberof DestinationV4v
-     */
     name: NameDestination;
-    /**
-     *
-     * @type {AddressDestination}
-     * @memberof DestinationV4v
-     */
     address: AddressDestination;
-    /**
-     *
-     * @type {TypeDestination}
-     * @memberof DestinationV4v
-     */
     type: TypeDestination;
-    /**
-     *
-     * @type {SplitDestination}
-     * @memberof DestinationV4v
-     */
     split: SplitDestination;
-    /**
-     *
-     * @type {FeeDestination}
-     * @memberof DestinationV4v
-     */
     fee: FeeDestination;
 }
 /**
@@ -300,161 +274,31 @@ export interface EpisodeNumber {
  * @interface EpisodeObject
  */
 export interface EpisodeObject {
-    /**
-     *
-     * @type {IdEpisode}
-     * @memberof EpisodeObject
-     */
     id: IdEpisode;
-    /**
-     *
-     * @type {TitleFeed}
-     * @memberof EpisodeObject
-     */
     title: TitleFeed;
-    /**
-     *
-     * @type {LinkFeed}
-     * @memberof EpisodeObject
-     */
     link: LinkFeed;
-    /**
-     *
-     * @type {DescriptionEpisode}
-     * @memberof EpisodeObject
-     */
     description: DescriptionEpisode;
-    /**
-     *
-     * @type {Guid}
-     * @memberof EpisodeObject
-     */
     guid: Guid;
-    /**
-     *
-     * @type {DatePublished}
-     * @memberof EpisodeObject
-     */
     datePublished: DatePublished;
-    /**
-     *
-     * @type {DatePublishedPretty}
-     * @memberof EpisodeObject
-     */
     datePublishedPretty: DatePublishedPretty;
-    /**
-     *
-     * @type {DateCrawled}
-     * @memberof EpisodeObject
-     */
     dateCrawled: DateCrawled;
-    /**
-     *
-     * @type {EnclosureUrl}
-     * @memberof EpisodeObject
-     */
     enclosureUrl: EnclosureUrl;
-    /**
-     *
-     * @type {EnclosureType}
-     * @memberof EpisodeObject
-     */
     enclosureType: EnclosureType;
-    /**
-     *
-     * @type {EnclosureLength}
-     * @memberof EpisodeObject
-     */
     enclosureLength: EnclosureLength;
-    /**
-     *
-     * @type {Duration}
-     * @memberof EpisodeObject
-     */
     duration: Duration;
-    /**
-     *
-     * @type {Explicit}
-     * @memberof EpisodeObject
-     */
     explicit: Explicit;
-    /**
-     *
-     * @type {EpisodeNumber}
-     * @memberof EpisodeObject
-     */
     episode: EpisodeNumber;
-    /**
-     *
-     * @type {EpisodeType}
-     * @memberof EpisodeObject
-     */
     episodeType: EpisodeType;
-    /**
-     *
-     * @type {Season}
-     * @memberof EpisodeObject
-     */
     season: Season;
-    /**
-     *
-     * @type {ImageEpisode}
-     * @memberof EpisodeObject
-     */
     image: ImageEpisode;
-    /**
-     *
-     * @type {ItunesIdFeed}
-     * @memberof EpisodeObject
-     */
     feedItunesId: ItunesIdFeed;
-    /**
-     *
-     * @type {ImageFeed}
-     * @memberof EpisodeObject
-     */
     feedImage: ImageFeed;
-    /**
-     *
-     * @type {IdFeed}
-     * @memberof EpisodeObject
-     */
     feedId: IdFeed;
-    /**
-     *
-     * @type {TitleFeed}
-     * @memberof EpisodeObject
-     */
     feedTitle: TitleFeed;
-    /**
-     *
-     * @type {Language}
-     * @memberof EpisodeObject
-     */
     feedLanguage: Language;
-    /**
-     *
-     * @type {ChaptersUrl}
-     * @memberof EpisodeObject
-     */
     chaptersUrl: ChaptersUrl;
-    /**
-     *
-     * @type {TranscriptUrl}
-     * @memberof EpisodeObject
-     */
     transcriptUrl: TranscriptUrl;
-    /**
-     *
-     * @type {Soundbite}
-     * @memberof EpisodeObject
-     */
     soundbite: Soundbite;
-    /**
-     *
-     * @type {Soundbites}
-     * @memberof EpisodeObject
-     */
     soundbites: Soundbites;
 }
 /**
