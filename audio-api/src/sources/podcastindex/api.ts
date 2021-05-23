@@ -20,7 +20,7 @@ import { RESTDataSource } from "apollo-datasource-rest";
 
 type GenericObject<key, type> = {}
 
-const BASE_PATH = "https://api.podcastindex.org/api/1.0".replace(/\/+$/, "");
+const BASE_PATH = "https://api.podcastindex.org/api/1.0";
 
 /**
  *
@@ -32,25 +32,6 @@ export const COLLECTION_FORMATS = {
     tsv: "\t",
     pipes: "|",
 };
-
-/**
- *
- * @export
- * @interface FetchAPI
- */
-export interface FetchAPI {
-    (url: string, init?: any): Promise<Response>;
-}
-
-/**
- *
- * @export
- * @interface FetchArgs
- */
-export interface FetchArgs {
-    url: string;
-    options: any;
-}
 
 /**
  *
@@ -3549,55 +3530,13 @@ export const AddApiFp = function(configuration?: Configuration) {
          * This call adds a podcast to the index using its feed url. If a feed already exists, you will get its existing Feed ID returned.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty
          * @summary By Feed URL
          * @param {string} url Podcast feed URL
-         * @param {string} chash The md5 hash of the following feed items in hex format. If known, allows for easier duplicate checking.    - &#x60;title&#x60;   - &#x60;link&#x60;   - &#x60;feedLanguage&#x60;   - &#x60;generator&#x60;   - &#x60;author&#x60;   - &#x60;ownerName&#x60;   - &#x60;ownerEmail&#x60; (note: not exposed via the API)  Pseudo-code:        chash &#x3D; md5(title+link+feedLanguage+generator+author+ownerName+ownerEmail)
          * @param {number} [itunesid] If this parameter is given, and the existing feed has no associated iTunes ID, it will be associated with this ID. If an existing iTunes ID is already associated with this feed it will **NOT** be changed.
          * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addbyfeedurlGet(url: string, chash: string, itunesid?: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20020> {
-            const localVarFetchArgs = AddApiFetchParamCreator(configuration).addbyfeedurlGet(url, chash, itunesid, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * This call adds a podcast to the index using its feed url. If a feed already exists, you will get its existing Feed ID returned.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty
-         * @summary By Feed URL
-         * @param {string} url Podcast feed URL
-         * @param {number} [itunesid] If this parameter is given, and the existing feed has no associated iTunes ID, it will be associated with this ID. If an existing iTunes ID is already associated with this feed it will **NOT** be changed.
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addbyfeedurlPost(url: string, itunesid?: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20020> {
+        addbyfeedurl(url: string, itunesid?: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20020> {
             const localVarFetchArgs = AddApiFetchParamCreator(configuration).addbyfeedurlPost(url, itunesid, pretty, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * This call adds a podcast to the index using its iTunes ID. If a feed already exists, it will be noted in the response.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byitunesid?id=1441923632&pretty
-         * @summary By iTunes ID
-         * @param {number} [id] The iTunes ID to add
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addbyitunesidGet(id?: number, pretty?: boolean, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse20021> {
-            const localVarFetchArgs = AddApiFetchParamCreator(configuration).addbyitunesidGet(id, pretty, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -3641,19 +3580,6 @@ export const AddApiFactory = function (configuration?: Configuration, fetch?: Fe
          * This call adds a podcast to the index using its feed url. If a feed already exists, you will get its existing Feed ID returned.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty
          * @summary By Feed URL
          * @param {string} url Podcast feed URL
-         * @param {string} chash The md5 hash of the following feed items in hex format. If known, allows for easier duplicate checking.    - &#x60;title&#x60;   - &#x60;link&#x60;   - &#x60;feedLanguage&#x60;   - &#x60;generator&#x60;   - &#x60;author&#x60;   - &#x60;ownerName&#x60;   - &#x60;ownerEmail&#x60; (note: not exposed via the API)  Pseudo-code:        chash &#x3D; md5(title+link+feedLanguage+generator+author+ownerName+ownerEmail)
-         * @param {number} [itunesid] If this parameter is given, and the existing feed has no associated iTunes ID, it will be associated with this ID. If an existing iTunes ID is already associated with this feed it will **NOT** be changed.
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addbyfeedurlGet(url: string, chash: string, itunesid?: number, pretty?: boolean, options?: any) {
-            return AddApiFp(configuration).addbyfeedurlGet(url, chash, itunesid, pretty, options)(fetch, basePath);
-        },
-        /**
-         * This call adds a podcast to the index using its feed url. If a feed already exists, you will get its existing Feed ID returned.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byfeedurl?url=https://feeds.theincomparable.com/batmanuniversity&pretty
-         * @summary By Feed URL
-         * @param {string} url Podcast feed URL
          * @param {number} [itunesid] If this parameter is given, and the existing feed has no associated iTunes ID, it will be associated with this ID. If an existing iTunes ID is already associated with this feed it will **NOT** be changed.
          * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
          * @param {*} [options] Override http request option.
@@ -3661,17 +3587,6 @@ export const AddApiFactory = function (configuration?: Configuration, fetch?: Fe
          */
         addbyfeedurlPost(url: string, itunesid?: number, pretty?: boolean, options?: any) {
             return AddApiFp(configuration).addbyfeedurlPost(url, itunesid, pretty, options)(fetch, basePath);
-        },
-        /**
-         * This call adds a podcast to the index using its iTunes ID. If a feed already exists, it will be noted in the response.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byitunesid?id=1441923632&pretty
-         * @summary By iTunes ID
-         * @param {number} [id] The iTunes ID to add
-         * @param {boolean} [pretty] If present, makes the output “pretty” to help with debugging.  Parameter shall not have a value
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addbyitunesidGet(id?: number, pretty?: boolean, options?: any) {
-            return AddApiFp(configuration).addbyitunesidGet(id, pretty, options)(fetch, basePath);
         },
         /**
          * This call adds a podcast to the index using its iTunes ID. If a feed already exists, it will be noted in the response.  **NOTE**: this endpoint requires an API Key with the **write** permission.  Example: https://api.podcastindex.org/api/1.0/add/byitunesid?id=1441923632&pretty
