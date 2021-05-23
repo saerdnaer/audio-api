@@ -3,6 +3,8 @@ import { RESTDataSource, RequestOptions } from "apollo-datasource-rest";
 
 import config from "../config";
 
+import { DataSource } from "./interface";
+
 /*
  * Docs: https://github.com/eazyliving/fyyd-api
  *
@@ -21,7 +23,7 @@ type EpisodeSearchArgs = {
 /* Please note: title, guid, pubdate, duration, url and term add episodes together. Think of a logical OR.
 In contrast to that, podcast_id and podcast_title restrict all episodes to podcasts matching to one of podcast_id or podcast_title. */
 
-export class FyydAPI extends RESTDataSource {
+export class FyydAPI extends RESTDataSource implements DataSource {
   constructor() {
     super();
     this.baseURL = "https://api.fyyd.de/0.2/";
