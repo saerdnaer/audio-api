@@ -6,6 +6,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "moduleResolution": "node",
+    "esModuleInterop": true,
 
     "removeComments": true,
     "noImplicitAny": true,

@@ -5,12 +5,12 @@
     "graphql:similar": "graphql similar"
   },
   "devDependencies": {
-    "@graphql-cli/codegen": "1.17.20",
+    "@graphql-cli/codegen": "1.17.23",
     "@graphql-cli/diff": "2.1.0",
     "@graphql-cli/similar": "2.1.0",
-    "@graphql-codegen/typescript": "1.21.0",
-    "@graphql-codegen/typescript-resolvers": "1.18.2",
-    "@graphql-inspector/graphql-cli-common": "^2.4.0",
+    "@graphql-codegen/typescript": "1.22.0",
+    "@graphql-codegen/typescript-resolvers": "1.19.1",
+    "@graphql-inspector/graphql-cli-common": "^2.6.0",
     "graphql-cli": "4.1.0"
   }
 }
