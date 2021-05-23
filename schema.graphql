@@ -21,7 +21,7 @@ type ImageType implements Image {
 }
 
 type ShowType implements Node & Collection & Podcast {
-  # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  "A globally unique identifier. Can be used in various places throughout the system to identify this single value."
   nodeId: ID!
   externalIds(system: Directory): [String!]
 
@@ -45,7 +45,7 @@ type ShowType implements Node & Collection & Podcast {
 
 
 type ItemType implements Node & Item {
-  # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  "A globally unique identifier. Can be used in various places throughout the system to identify this single value."
   nodeId: ID!
   guid: ID!
   externalIds(system: Directory): [String!]
@@ -86,55 +86,55 @@ type ItemType implements Node & Item {
 }
 
 type AssetType implements Asset {
-  # absolute path to media asset
+  "absolute path to media asset"
   url: URL!
-  # file size in  byte
+  "file size in byte"
   size: Int!
-  # title to be displayed in download tab e.g. "MPEG-4 AAC Audio (m4a)"
+  "title to be displayed in download tab e.g. `MPEG-4 AAC Audio (m4a)`"
   title: String
-  # media asset mimeType e.g. "audio/mp4"
+  "media asset mimeType e.g. `audio/mp4`"
   mimeType: String!
 }
 
 type ContributorType implements Contributor {
-  # used as a reference e.g. in transcripts
+  "used as a reference e.g. in transcripts"
   id: ID!
   uri: URL!
-  # name of the contributor e.g. Hans Meier
+  "name of the contributor e.g. `Hans Meier`"
   name: String!
-  # avatar e.g. profile photo of the contributor
+  "avatar e.g. profile photo of the contributor"
   avatar: Image
   avatarUrl: URL @deprecated(reason: "try to use avatar.url if possible")
-  # contributors group e.g. { id: "1", slug: "onair", title: "On Air" }
+  #"""contributors group e.g. { id: "1", slug: "onair", title: "On Air" }"""
   #group: ContributorGroup
   wikidataId: String
 }
 
 
-# A filter to be used against `Item` object types. All fields are combined with a logical ‘and.’
+"A filter to be used against `Item` object types. All fields are combined with a logical ‘and.’"
 input ItemFilter {
-  # Filter by the object’s `id` field.
+  "Filter by the object’s `id` field."
   id: StringFilter
 
-  # Filter by the object’s `publishDate` field.
+  #"Filter by the object’s `publishDate` field."
   #publicationDate: DatetimeFilter
 
-  # Filter by the object’s `title` field.
+  "Filter by the object’s `title` field."
   title: StringFilter
 
-  # Filter by the object’s `groupId` field.
+  "Filter by the object’s `groupId` field."
   groupingId: StringFilter
 
-  # Filter by the object’s `episodeNumber` field.
+  "Filter by the object’s `episodeNumber` field."
   episodeNumber: IntFilter
 
-  # Checks for all expressions in this list.
+  "Checks for all expressions in this list."
   and: [ItemFilter!]
 
-  # Checks for any expressions in this list.
+  "Checks for any expressions in this list."
   or: [ItemFilter!]
 
-  # Negates the expression.
+  "Negates the expression."
   not: ItemFilter
 }
 
@@ -154,7 +154,7 @@ enum ItemsOrderBy {
 }
 
 type OrganizationType implements Node & Organization {
-  # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  "A globally unique identifier. Can be used in various places throughout the system to identify this single value."
   nodeId: ID!
   name: String!
   uri: URL
@@ -179,19 +179,18 @@ type ShowsConnection implements CollectionConnection {
 
 # The root query type which gives access points into the data universe.
 type Query implements Node & AudioQuery {
-  # Exposes the root query type nested one level down. This is helpful for Relay 1
-  # which can only query top level fields if they are in a particular form.
+  "Exposes the root query type nested one level down. This is helpful for Relay 1 which can only query top level fields if they are in a particular form."
   query: Query!
 
-  # version, for backwards compability with other JSON formats
+  "version, for backwards compability with other JSON formats"
   version: Int
 
-  # The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
+  "The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`."
   nodeId: ID!
 
-  # Fetches an object given its globally unique `ID`.
+  "Fetches an object given its globally unique `ID`."
   node(
-    # The globally unique `ID`.
+    "The globally unique `ID`."
     nodeId: ID!
   ): Node
 
@@ -205,82 +204,79 @@ type Query implements Node & AudioQuery {
   organization(name: String!, source: Directory): Organization
   #publicationService(id: ID!): PublicationService
 
-  # Reads and enables pagination through a set of `Item`.
+  "Reads and enables pagination through a set of `Item`."
   items(
-    # Only read the first `n` values of the set.
+    "Only read the first `n` values of the set."
     first: Int
 
-    # Only read the last `n` values of the set.
+    "Only read the last `n` values of the set."
     last: Int
 
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
+    "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`."
     offset: Int
 
-    # Read all values in the set before (above) this cursor.
+    "Read all values in the set before (above) this cursor."
     before: Cursor
 
-    # Read all values in the set after (below) this cursor.
+    "Read all values in the set after (below) this cursor."
     after: Cursor
 
-    # The method to use when ordering `Item`.
+    "The method to use when ordering `Item`."
     orderBy: [ItemsOrderBy!] = [PRIMARY_KEY_ASC]
 
-    # A filter to be used in determining which values should be returned by the collection.
+    #"A filter to be used in determining which values should be returned by the collection."
     #filter: ItemFilter
 
     source: Directory
   ): ItemsConnection
 
-  # Reads and enables pagination through a set of `Show`.
+  "Reads and enables pagination through a set of `Show`."
   shows(
-    # Only read the first `n` values of the set.
+    "Only read the first `n` values of the set."
     first: Int
 
-    # Only read the last `n` values of the set.
+    "Only read the last `n` values of the set."
     last: Int
 
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
+    "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`."
     offset: Int
 
-    # Read all values in the set before (above) this cursor.
+    "Read all values in the set before (above) this cursor."
     before: Cursor
 
-    # Read all values in the set after (below) this cursor.
+    "Read all values in the set after (below) this cursor."
     after: Cursor
 
-    # The method to use when ordering `Show`.
+    #"The method to use when ordering `Show`."
     #orderBy: [ShowsOrderBy!] = [PRIMARY_KEY_ASC]
 
-    # A filter to be used in determining which values should be returned by the collection.
+    #"A filter to be used in determining which values should be returned by the collection."
     #filter: ShowFilter
 
     source: Directory
   ): ShowsConnection
 
-  # Reads and enables pagination through a set of `Organization`.
+  "Reads and enables pagination through a set of `Organization`."
   organizations(
-    # Only read the first `n` values of the set.
+    "Only read the first `n` values of the set."
     first: Int
 
-    # Only read the last `n` values of the set.
+    "Only read the last `n` values of the set."
     last: Int
 
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
+    "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`."
     offset: Int
 
-    # Read all values in the set before (above) this cursor.
+    "Read all values in the set before (above) this cursor."
     before: Cursor
 
-    # Read all values in the set after (below) this cursor.
+    "Read all values in the set after (below) this cursor."
     after: Cursor
 
-    # The method to use when ordering `Organization`.
+    "The method to use when ordering `Organization`."
     orderBy: [OrganizationsOrderBy!] = [PRIMARY_KEY_ASC]
 
-    # A filter to be used in determining which values should be returned by the collection.
+    #"A filter to be used in determining which values should be returned by the collection."
     #filter: OrganizationFilter
 
     source: Directory

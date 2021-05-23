@@ -1,8 +1,8 @@
 scalar URL
 scalar HTML
-# ISO 8601 DateTime format, this is capable of adding a time offset, see https://en.wikipedia.org/wiki/ISO_8601
+"ISO 8601 DateTime format, this is capable of adding a time offset, see https://en.wikipedia.org/wiki/ISO_8601"
 scalar Datetime
-# ISO 8601 Duration format ([hh]:[mm]:[ss].[sss]), capable of adding milliseconds, see https://en.wikipedia.org/wiki/ISO_8601
+"ISO 8601 Duration format ([hh]:[mm]:[ss].[sss]), capable of adding milliseconds, see https://en.wikipedia.org/wiki/ISO_8601"
 scalar Duration
 
 enum TitleVariant {
@@ -17,9 +17,9 @@ enum AspectRatio {
 
 
 enum PodcastVariant {
-  # episodic: Stand-alone episodes that should be presented last-to-first.
+  "episodic: Stand-alone episodes that should be presented last-to-first."
   EPISODIC
-  # Serial: Episodes that should be presented first-to-last. Great for narratives, storytelling, thematic, and multiple seasons.
+  "Serial: Episodes that should be presented first-to-last. Great for narratives, storytelling, thematic, and multiple seasons."
   SERIAL
 }
 
@@ -29,15 +29,15 @@ interface Image {
   attribution: String
 }
 
-# The primary collection an Item is related to, e.g. a Podcast, Show or Conference
+"The primary collection an Item is related to, e.g. a Podcast, Show or Conference"
 interface Collection {
   externalIds(system: Directory): [String!]
 
-  # title of the podcast that is the primary field to be used to represent the podcast in directories, lists and other uses.
+  "title of the podcast that is the primary field to be used to represent the podcast in directories, lists and other uses."
   title: String!
-  # subtitle is an extension to the title. The subtitle is meant to clarify what the podcast is about. While a title can be anything, a subtitle should be more descriptive in what the content actually wants to convey and what the most important information is, you want everybody want to know about the offering.
+  "subtitle is an extension to the title. The subtitle is meant to clarify what the podcast is about. While a title can be anything, a subtitle should be more descriptive in what the content actually wants to convey and what the most important information is, you want everybody want to know about the offering."
   subtitle: String
-  # A summary is a much more precise and elaborate description of the podcast\'s content. While title and subtitle are rather concise, a summary is meant to consist of one or more sentences that form a paragraph or more.
+  "A summary is a much more precise and elaborate description of the podcast's content. While title and subtitle are rather concise, a summary is meant to consist of one or more sentences that form a paragraph or more."
   summary: String
   description: HTML
 
@@ -56,16 +56,16 @@ interface Podcast {
 }
 
 
-# A single item of a Podcast e.g. a single Episode, Teaser, Talk or Lecture
+"A single item of a Podcast Feed e.g. a single Episode, Teaser, Talk or Lecture"
 interface Item {
   guid: ID!
   externalIds(system: Directory): [String!]
 
-  # Ordinal of the episode, either globally e.g. "72" or per season
+  "Ordinal of the episode, either globally e.g. `72` or per season"
   episodeNumber: Int
 
 
-  # e.g. "FG072 Verantwortung in der Informatik"
+  "e.g. `FG072 Verantwortung in der Informatik`"
   title(variant: TitleVariant): String!
   subtitle: String
   summary: String
@@ -81,31 +81,33 @@ interface Item {
   image(aspect: AspectRatio): Image
   imageUrl: URL @deprecated(reason: "try to use image.url if possible")
 
-  # an guid grouping this Item to a season, series or multi part publication
+  "an guid grouping this Item to a season, series or multi part publication"
   groupingId: ID
 
-  # Audio Assets
-  #  - media Assets played by an audio player
-  #  - format support depends on the used browser (https://en.wikipedia.org/wiki/HTML5_audio#Supported_audio_coding_formats)
-  #  - also allows HLS streams
+  """
+  Audio Assets
+  - media Assets played by an audio player
+  - format support depends on the used browser (https://en.wikipedia.org/wiki/HTML5_audio#Supported_audio_coding_formats)
+  - also allows HLS streams """
   audios: [Asset!]!
 
-  # Files
-  # - list of files available for download
-  # - if no files are present, a player will use audio assets as downloads
+  """
+  Files
+  - list of files available for download
+  - if no files are present, a player will use audio assets as downloads"""
   files: [Asset!]
 
 
-  # Contributors are natural persons providing content to that item
+  "Contributors are natural persons providing content to that item"
   contributors: [Contributor!]
 
 
-  # Chapters are sections of an episode
+  "Chapters are sections of an episode"
   chapters: [Chapter!],
 
 
-  # Transcripts are full text
-  # transcripts: [Transcript!]
+  #"Transcripts are full text"
+  #transcripts: [Transcript!]
 
 
   show: Collection
@@ -114,49 +116,49 @@ interface Item {
 
 
 interface Asset {
-  # absolute path to media asset
+  "absolute path to media asset"
   url: URL!
-  # file size in  byte
+  "file size in  byte"
   size: Int!
-  # title to be displayed in download tab e.g. "MPEG-4 AAC Audio (m4a)"
+  "title to be displayed in download tab e.g. `MPEG-4 AAC Audio (m4a)`"
   title: String
-  # media asset mimeType e.g. "audio/mp4"
+  "media asset mimeType e.g. `audio/mp4`"
   mimeType: String!
 }
 
 interface Contributor {
-  # used as a reference e.g. in transcripts
+  "used as a reference e.g. in transcripts"
   id: ID!
-  # name of the contributor e.g. Hans Meier
+  "name of the contributor e.g. Hans Meier"
   name: String!
-  # URI identifying the person e.g. his personal domain or this main social media profile e.g. Twitter/Mastodon
+  "URI identifying the person e.g. his personal domain or this main social media profile e.g. Twitter/Mastodon"
   uri: URL
-  # avatar e.g. profile photo of the contributor
+  "avatar e.g. profile photo of the contributor"
   avatar: Image
   avatarUrl: URL @deprecated(reason: "try to use avatar.url if possible")
-  # contributors group e.g. { id: "1", slug: "onair", title: "On Air" }
+  """contributors group e.g. { id: "1", slug: "onair", title: "On Air" }"""
   #group: ContributorGroup
   wikidataId: String
 }
 
 # chapters of an Item, following the Podlove Simple Chapters format (https://podlove.org/simple-chapters/)
 interface Chapter {
-  # start time following [hh]:[mm]:[ss].[sss] format
+  "start time following [hh]:[mm]:[ss].[sss] format"
   start: Duration!
   title: String!
-  # image that will be presented in the header section if the chapter is available
+  "image that will be presented in the header section if the chapter is available"
   image: Image
   imageUrl: URL @deprecated(reason: "try to use image.url if possible")
-  # Link related to the chapter
-  # TODO: should we call this link instead?
+  "Link related to the chapter"
+  #TODO: should we call this link instead?
   href: URL
 }
 
 
 
-# An object with a globally unique `ID`.
+"An object with a globally unique `ID`."
 interface Node {
-  # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  "A globally unique identifier. Can be used in various places throughout the system to identify this single value."
   nodeId: ID!
 }
 
@@ -168,15 +170,15 @@ interface Organization {
 }
 
 
-# The root query type interface which gives access points into the data universe.
+"The root query type interface which gives access points into the data universe."
 interface AudioQuery {
 
-  # The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
+  "The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`."
   nodeId: ID!
 
-  # Fetches an object given its globally unique `ID`.
+  "Fetches an object given its globally unique `ID`."
   node(
-    # The globally unique `ID`.
+    "The globally unique `ID`."
     nodeId: ID!
   ): Node
 
@@ -185,226 +187,218 @@ interface AudioQuery {
   contributor(uri: URL!): Contributor
 
 
-  # Reads and enables pagination through a set of `Item`.
+  "Reads and enables pagination through a set of `Item`."
   items(
-    # Only read the first `n` values of the set.
+    "Only read the first `n` values of the set."
     first: Int
 
-    # Only read the last `n` values of the set.
+    "Only read the last `n` values of the set."
     last: Int
 
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
+    "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`."
     offset: Int
 
-    # Read all values in the set before (above) this cursor.
+    "Read all values in the set before (above) this cursor."
     before: Cursor
 
-    # Read all values in the set after (below) this cursor.
+    "Read all values in the set after (below) this cursor."
     after: Cursor
 
-    # The method to use when ordering `Item`.
+    "The method to use when ordering `Item`."
     orderBy: [ItemsOrderBy!] = [PRIMARY_KEY_ASC]
 
-    # A filter to be used in determining which values should be returned by the collection.
+    #"A filter to be used in determining which values should be returned by the collection."
     #filter: ItemFilter
   ): ItemsConnection
 
-  # Reads and enables pagination through a set of `Collection`.
+  "Reads and enables pagination through a set of `Collection`."
   shows(
-    # Only read the first `n` values of the set.
+    "Only read the first `n` values of the set."
     first: Int
 
-    # Only read the last `n` values of the set.
+    "Only read the last `n` values of the set."
     last: Int
 
-    # Skip the first `n` values from our `after` cursor, an alternative to cursor
-    # based pagination. May not be used with `last`.
+    "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`."
     offset: Int
 
-    # Read all values in the set before (above) this cursor.
+    "Read all values in the set before (above) this cursor."
     before: Cursor
 
-    # Read all values in the set after (below) this cursor.
+    "Read all values in the set after (below) this cursor."
     after: Cursor
 
-    # The method to use when ordering `Collection`.
+    #"The method to use when ordering `Collection`."
     #orderBy: [CollectionsOrderBy!] = [PRIMARY_KEY_ASC]
 
-    # A filter to be used in determining which values should be returned by the collection.
+    #"A filter to be used in determining which values should be returned by the collection."
     #filter: CollectionFilter
   ): CollectionConnection
 }
 
 # A connection to a list of `Collection` values.
 interface CollectionConnection {
-  # A list of `Item` objects.
+  "A list of `Item` objects."
   nodes: [Collection!]!
 
-  # Information to aid in pagination.
+  "Information to aid in pagination."
   pageInfo: PageInfo!
 
-  # The count of *all* `Collection` you could get from the connection.
+  "The count of *all* `Collection` you could get from the connection."
   totalCount: Int!
 }
 
 # A connection to a list of `Item` values.
 type ItemsConnection {
-  # A list of `Item` objects.
+  "A list of `Item` objects."
   nodes: [Item!]!
 
-  # Information to aid in pagination.
+  "Information to aid in pagination."
   pageInfo: PageInfo!
 
-  # The count of *all* `Item` you could get from the connection.
+  "The count of *all* `Item` you could get from the connection."
   totalCount: Int!
 }
 
-# A connection to a list of `Organization` values.
+"A connection to a list of `Organization` values."
 type OrganizationsConnection {
-  # A list of `Organization` objects.
+  "A list of `Organization` objects."
   nodes: [Organization!]!
 
-  # Information to aid in pagination.
+  "Information to aid in pagination."
   pageInfo: PageInfo!
 
-  # The count of *all* `Organization` you could get from the connection.
+  "The count of *all* `Organization` you could get from the connection."
   totalCount: Int!
 }
 
 
-# Information about pagination in a connection.
+"Information about pagination in a connection."
 type PageInfo {
-  # When paginating forwards, are there more items?
+  "When paginating forwards, are there more items?"
   hasNextPage: Boolean!
 
-  # When paginating backwards, are there more items?
+  "When paginating backwards, are there more items?"
   hasPreviousPage: Boolean!
 
-  # When paginating backwards, the cursor to continue.
+  "When paginating backwards, the cursor to continue."
   startCursor: Cursor
 
-  # When paginating forwards, the cursor to continue.
+  "When paginating forwards, the cursor to continue."
   endCursor: Cursor
 }
 
-# A filter to be used against String fields. All fields are combined with a logical ‘and.’
+"A filter to be used against String fields. All fields are combined with a logical ‘and.’"
 input StringFilter {
-  # Is null (if `true` is specified) or is not null (if `false` is specified).
+  "Is null (if `true` is specified) or is not null (if `false` is specified)."
   isNull: Boolean
 
-  # Equal to the specified value.
+  "Equal to the specified value."
   equalTo: String
 
-  # Not equal to the specified value.
+  "Not equal to the specified value."
   notEqualTo: String
 
-  # Not equal to the specified value, treating null like an ordinary value.
+  "Not equal to the specified value, treating null like an ordinary value."
   distinctFrom: String
 
-  # Equal to the specified value, treating null like an ordinary value.
+  "Equal to the specified value, treating null like an ordinary value."
   notDistinctFrom: String
 
-  # Included in the specified list.
+  "Included in the specified list."
   in: [String!]
 
-  # Not included in the specified list.
+  "Not included in the specified list."
   notIn: [String!]
 
-  # Less than the specified value.
+  "Less than the specified value."
   lessThan: String
 
-  # Less than or equal to the specified value.
+  "Less than or equal to the specified value."
   lessThanOrEqualTo: String
 
-  # Greater than the specified value.
+  "Greater than the specified value."
   greaterThan: String
 
-  # Greater than or equal to the specified value.
+  "Greater than or equal to the specified value."
   greaterThanOrEqualTo: String
 
-  # Contains the specified string (case-sensitive).
+  "Contains the specified string (case-sensitive)."
   includes: String
 
-  # Does not contain the specified string (case-sensitive).
+  "Does not contain the specified string (case-sensitive)."
   notIncludes: String
 
-  # Contains the specified string (case-insensitive).
+  "Contains the specified string (case-insensitive)."
   includesInsensitive: String
 
-  # Does not contain the specified string (case-insensitive).
+  "Does not contain the specified string (case-insensitive)."
   notIncludesInsensitive: String
 
-  # Starts with the specified string (case-sensitive).
+  "Starts with the specified string (case-sensitive)."
   startsWith: String
 
-  # Does not start with the specified string (case-sensitive).
+  "Does not start with the specified string (case-sensitive)."
   notStartsWith: String
 
-  # Starts with the specified string (case-insensitive).
+  "Starts with the specified string (case-insensitive)."
   startsWithInsensitive: String
 
-  # Does not start with the specified string (case-insensitive).
+  "Does not start with the specified string (case-insensitive)."
   notStartsWithInsensitive: String
 
-  # Ends with the specified string (case-sensitive).
+  "Ends with the specified string (case-sensitive)."
   endsWith: String
 
-  # Does not end with the specified string (case-sensitive).
+  "Does not end with the specified string (case-sensitive)."
   notEndsWith: String
 
-  # Ends with the specified string (case-insensitive).
+  "Ends with the specified string (case-insensitive)."
   endsWithInsensitive: String
 
-  # Does not end with the specified string (case-insensitive).
+  "Does not end with the specified string (case-insensitive)."
   notEndsWithInsensitive: String
 
-  # Matches the specified pattern (case-sensitive). An underscore (_) matches any
-  # single character; a percent sign (%) matches any sequence of zero or more characters.
+  "Matches the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters."
   like: String
 
-  # Does not match the specified pattern (case-sensitive). An underscore (_)
-  # matches any single character; a percent sign (%) matches any sequence of zero
-  # or more characters.
+  "Does not match the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters."
   notLike: String
 
-  # Matches the specified pattern (case-insensitive). An underscore (_) matches
-  # any single character; a percent sign (%) matches any sequence of zero or more characters.
+  "Matches the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters."
   likeInsensitive: String
 
-  # Does not match the specified pattern (case-insensitive). An underscore (_)
-  # matches any single character; a percent sign (%) matches any sequence of zero
-  # or more characters.
+  "Does not match the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters."
   notLikeInsensitive: String
 
-  # Equal to the specified value (case-insensitive).
+  "Equal to the specified value (case-insensitive)."
   equalToInsensitive: String
 
-  # Not equal to the specified value (case-insensitive).
+  "Not equal to the specified value (case-insensitive)."
   notEqualToInsensitive: String
 
-  # Not equal to the specified value, treating null like an ordinary value (case-insensitive).
+  "Not equal to the specified value, treating null like an ordinary value (case-insensitive)."
   distinctFromInsensitive: String
 
-  # Equal to the specified value, treating null like an ordinary value (case-insensitive).
+  "Equal to the specified value, treating null like an ordinary value (case-insensitive)."
   notDistinctFromInsensitive: String
 
-  # Included in the specified list (case-insensitive).
+  "Included in the specified list (case-insensitive)."
   inInsensitive: [String!]
 
-  # Not included in the specified list (case-insensitive).
+  "Not included in the specified list (case-insensitive)."
   notInInsensitive: [String!]
 
-  # Less than the specified value (case-insensitive).
+  "Less than the specified value (case-insensitive)."
   lessThanInsensitive: String
 
-  # Less than or equal to the specified value (case-insensitive).
+  "Less than or equal to the specified value (case-insensitive)."
   lessThanOrEqualToInsensitive: String
 
-  # Greater than the specified value (case-insensitive).
+  "Greater than the specified value (case-insensitive)."
   greaterThanInsensitive: String
 
-  # Greater than or equal to the specified value (case-insensitive).
+  "Greater than or equal to the specified value (case-insensitive)."
   greaterThanOrEqualToInsensitive: String
 }
 
