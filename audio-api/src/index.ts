@@ -1,10 +1,11 @@
-import * as express from "express";
-
-import { ApolloServer } from "apollo-server-express";
-import { FyydAPI } from "./sources/fyyd";
+import fastify from "fastify";
+import { ApolloServer } from "apollo-server-fastify";
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
-import config from "./config";
 import { loadSchema } from "@graphql-tools/load";
+
+import config from "./config";
+import { FyydAPI } from "./sources/fyyd";
 import { resolvers } from "./resolvers/index";
 
 const startServer = async () => {
@@ -14,7 +15,7 @@ const startServer = async () => {
     resolvers
   });
 
-  const server = new ApolloServer({
+  const apolloServer = new ApolloServer({
     schema,
     dataSources: () => {
       return {
@@ -27,16 +28,17 @@ const startServer = async () => {
       };
     },
     debug: true,
+    plugins: [
+      ApolloServerPluginLandingPageGraphQLPlayground(),
+    ],
   });
+  const app = fastify();
+  await apolloServer.start();
 
-  const app = express();
-
-  server.applyMiddleware({ app });
-
-  app.listen({ port: config.port }, () =>
-    console.log(
-      `🚀 Server ready at http://localhost:${config.port}${server.graphqlPath}`
-    )
+  app.register(apolloServer.createHandler());
+  app.listen(config.port, () => console.log(
+    `🚀 Server ready at http://localhost:${config.port}${apolloServer.graphqlPath}`
+  )
   );
 };
 

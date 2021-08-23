@@ -1,5 +1,5 @@
 import { RESTDataSource, RequestOptions } from "apollo-datasource-rest";
-import { UserInputError } from "apollo-server-express";
+import { UserInputError } from "apollo-server-core";
 import { createHash } from "crypto";
 
 import { Item, ShowType, ShowsConnection } from "../generated-types";

@@ -1,7 +1,6 @@
-import { Directory } from "../generated-types";
-import { IResolverObject } from "apollo-server-express";
+import { Directory, QueryResolvers } from "../generated-types";
 
-const Query: IResolverObject = {
+const Query: QueryResolvers = {
   show(_root, { id, source }, { dataSources }) {
     switch (source) {
       case Directory.Fyyd:
