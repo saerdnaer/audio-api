@@ -1,4 +1,4 @@
-import { Item, ShowsConnection, ShowType } from "../generated-types";
+import { Item, ShowType, ShowsConnection } from "../generated-types";
 
 export interface DataSource {
 
@@ -6,7 +6,7 @@ export interface DataSource {
   episodes(args: EpisodeSearchArgs | any): Promise<Item[]>;
 
   podcast({ id, slug }: any): Promise<ShowType>;
-  podcasts(page: Number, count: Number): Promise<ShowsConnection>;
+  podcasts?(page: Number, count: Number): Promise<ShowsConnection>;
 };
 
 export type EpisodeSearchArgs = {

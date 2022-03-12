@@ -2,6 +2,8 @@ import fastify from "fastify";
 import { ApolloServer } from "apollo-server-fastify";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
+import { InternetArchiveAPI } from "./sources/internetarchive";
+import config from "./config";
 import { loadSchema } from "@graphql-tools/load";
 
 import config from "./config";
@@ -20,6 +22,7 @@ const startServer = async () => {
     dataSources: () => {
       return {
         fyydAPI: new FyydAPI(),
+        internetArchiveAPI: new InternetArchiveAPI(),
       };
     },
     context: () => {

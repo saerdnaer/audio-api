@@ -30,6 +30,8 @@ const Query: QueryResolvers = {
           : dataSources?.fyydAPI
               .episodes({ guid, count: 1 })
               .then((x: any[]) => x?.[0]);
+        case Directory.Internetarchive:
+          return dataSources?.internetArchiveAPI.episode(guid);
       default:
         return null;
     }
