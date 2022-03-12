@@ -195,8 +195,6 @@ type Query implements Node & AudioQuery {
     nodeId: ID!
   ): Node
 
-  test2: String
-
   item(guid: ID!, source: Directory): Item
   show(id: ID!, source: Directory): ShowType
   contributor(uri: URL!, source: Directory): Contributor

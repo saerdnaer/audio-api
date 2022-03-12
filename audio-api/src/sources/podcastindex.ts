@@ -1,14 +1,13 @@
-import { RESTDataSource, RequestOptions } from "apollo-datasource-rest";
-import { UserInputError } from "apollo-server-core";
-import { createHash } from "crypto";
+import * as PI from "./podcastindex/types";
 
+import { DataSource, EpisodeSearchArgs } from "./interface";
 import { Item, ShowType, ShowsConnection } from "../generated-types";
-import config from "../config";
-
-import { DataSource } from "./interface";
+import { RESTDataSource, RequestOptions } from "apollo-datasource-rest";
 
 import { PodcastIndexSource } from "./podcastindex/api";
-import * as PI from "./podcastindex/types";
+import { UserInputError } from "apollo-server-core";
+import config from "../config";
+import { createHash } from "crypto";
 
 /*
  * Docs: https://podcastindex-org.github.io/docs-api
@@ -34,27 +33,25 @@ export class PodcastIndexAPI extends PodcastIndexSource implements RESTDataSourc
     request.headers.set('User-Agent', `saerdnaer/audio-api (${config.branch || "local"})`);
   }
 
-  formatEpisode(data: PI.EpisodeObject): Item {
+  formatEpisode(data: PI.EpisodeObject): Item & any {
     return {
       __typename: "ItemType",
       nodeId: `pi:e${data.id}`,
       ...data,
-      episodeNumber: data.,
-      publicationDate: data.pub_date,
-      duration: data.duration_string,
-      durationSeconds: data.duration,
+      episodeNumber: data.episode as number,
+      publicationDate: data.datePublished,
+      duration: data.duration,
+      // TODO durationSeconds: data.duration,
       image: {
-        __typename: "ImageType",
         url: data.image,
       },
       audios: [
         {
-          __typename: "AssetType",
-          mimeType: data.content_type,
-          url: data.enclosure,
+          mimeType: data.enclosureType as string,
+          url: data.enclosureUrl,
+          size: +data.enclosureLength,
         },
       ],
-      link: data.url,
       _raw: data,
     };
   }
@@ -108,7 +105,7 @@ export class PodcastIndexAPI extends PodcastIndexSource implements RESTDataSourc
     max?: number,
     fulltext?: boolean,
     pretty?: boolean
-  ): Promise<PI.PI.InlineResponse2008> {
+  ): Promise<PI.InlineResponse2008> {
     // verify required parameter 'id' is not null or undefined
     if (!id) {
       throw new UserInputError(
@@ -215,16 +212,13 @@ export class PodcastIndexAPI extends PodcastIndexSource implements RESTDataSourc
   formatPodcast(p: any): ShowType {
     return {
       __typename: "ShowType",
-      nodeId: `fyyd:${p.slug}`,
+      nodeId: `pi:${p.slug}`,
       ...p,
       image: {
         __typename: "ImageType",
         url: p.thumbImageURL,
         urls: [
-          p.layoutImageURL, //  https://img-1.fyyd.de/pd/layout/4279c90453fc0dafbc5b9cf76f3442964.jpg
-          p.thumbImageURL, //  https://img-1.fyyd.de/pd/thumbs/4279c90453fc0dafbc5b9cf76f3442964.png
-          p.smallImageURL, //  https://img-1.fyyd.de/pd/small/4279c90453fc0dafbc5b9cf76f3442964.jpg
-          p.microImageURL, //  https://img-1.fyyd.de/pd/micro/4279c90453fc0dafbc5b9cf76f3442964.png
+
         ],
       },
       episodes: {
@@ -531,21 +525,23 @@ export class PodcastIndexAPI extends PodcastIndexSource implements RESTDataSourc
     return this.get(`/value/byfeedurl`, { url, pretty });
   }
 
-  async podcast({ id, slug }: any): Promise<ShowType> {
-    const response = id
-      ? await this.get(`podcast?podcast_id=${id}`)
-      : await this.get(`podcast?podcast_slug=${slug}`);
-    return this.formatPodcast(response.data);
+  async podcast({ id, url }: any): Promise<ShowType> {
+    const response = +id
+      ? await this.podcastsbyfeedid(id)
+      : await this.podcastsbyfeedurl(url || id);
+    return this.formatPodcast(response);
   }
 
   async podcasts(
-    page: Number = 0,
-    count: Number = 50
+    _page: Number = 0,
+    _count: Number = 50
   ): Promise<ShowsConnection> {
+    throw new Error("Method not implemented.");
+    /*
     const response = await this.get(`podcasts?page=${page}&count=${count}`);
 
     return {
       nodes: response.data.map(this.formatPodcast),
-    };
+    }; */
   }
 }
