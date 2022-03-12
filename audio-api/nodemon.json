@@ -9,5 +9,5 @@
 	},
 	"watch": ["src/"],
 	"ext": "js json ts graphql",
-	"exec": "ts-node ./src/index.ts"
+	"exec": "ts-node -w ./src/index.ts"
 }

@@ -1,13 +1,11 @@
-import fastify from "fastify";
 import { ApolloServer } from "apollo-server-fastify";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import { FyydAPI } from "./sources/fyyd";
 import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
 import { InternetArchiveAPI } from "./sources/internetarchive";
 import config from "./config";
+import fastify from "fastify";
 import { loadSchema } from "@graphql-tools/load";
-
-import config from "./config";
-import { FyydAPI } from "./sources/fyyd";
 import { resolvers } from "./resolvers/index";
 
 const startServer = async () => {

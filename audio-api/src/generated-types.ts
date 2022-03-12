@@ -13,7 +13,9 @@ export type Scalars = {
   Float: number;
   URL: any;
   HTML: any;
+  /** ISO 8601 DateTime format, this is capable of adding a time offset, see https://en.wikipedia.org/wiki/ISO_8601 */
   Datetime: any;
+  /** ISO 8601 Duration format ([hh]:[mm]:[ss].[sss]), capable of adding milliseconds, see https://en.wikipedia.org/wiki/ISO_8601 */
   Duration: any;
   JSON: any;
   Cursor: any;
@@ -34,7 +36,9 @@ export enum AspectRatio {
 }
 
 export enum PodcastVariant {
+  /** episodic: Stand-alone episodes that should be presented last-to-first. */
   Episodic = 'EPISODIC',
+  /** Serial: Episodes that should be presented first-to-last. Great for narratives, storytelling, thematic, and multiple seasons. */
   Serial = 'SERIAL'
 }
 
@@ -44,25 +48,30 @@ export type Image = {
   attribution?: Maybe<Scalars['String']>;
 };
 
+/** The primary collection an Item is related to, e.g. a Podcast, Show or Conference */
 export type Collection = {
   externalIds?: Maybe<Array<Scalars['String']>>;
+  /** title of the podcast that is the primary field to be used to represent the podcast in directories, lists and other uses. */
   title: Scalars['String'];
+  /** subtitle is an extension to the title. The subtitle is meant to clarify what the podcast is about. While a title can be anything, a subtitle should be more descriptive in what the content actually wants to convey and what the most important information is, you want everybody want to know about the offering. */
   subtitle?: Maybe<Scalars['String']>;
+  /** A summary is a much more precise and elaborate description of the podcast's content. While title and subtitle are rather concise, a summary is meant to consist of one or more sentences that form a paragraph or more. */
   summary?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['HTML']>;
   image?: Maybe<Image>;
   /** @deprecated try to use image.url if possible */
   imageUrl?: Maybe<Scalars['URL']>;
   link?: Maybe<Scalars['URL']>;
-  items?: Maybe<ItemsConnection>;
 };
 
 
+/** The primary collection an Item is related to, e.g. a Podcast, Show or Conference */
 export type CollectionExternalIdsArgs = {
   system?: Maybe<Directory>;
 };
 
 
+/** The primary collection an Item is related to, e.g. a Podcast, Show or Conference */
 export type CollectionImageArgs = {
   aspect?: Maybe<AspectRatio>;
 };
@@ -70,15 +79,20 @@ export type CollectionImageArgs = {
 export type Podcast = {
   type?: Maybe<PodcastVariant>;
   episodes?: Maybe<ItemsConnection>;
+  feedUrls?: Maybe<Array<Scalars['URL']>>;
+  language?: Maybe<Scalars['String']>;
 };
 
+/** A single item of a Podcast Feed e.g. a single Episode, Teaser, Talk or Lecture */
 export type Item = {
   guid: Scalars['ID'];
   externalIds?: Maybe<Array<Scalars['String']>>;
+  /** Ordinal of the episode, either globally e.g. `72` or per season */
   episodeNumber?: Maybe<Scalars['Int']>;
+  /** e.g. `FG072 Verantwortung in der Informatik` */
   title: Scalars['String'];
   subtitle?: Maybe<Scalars['String']>;
-  summary: Scalars['String'];
+  summary?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['HTML']>;
   publicationDate: Scalars['Datetime'];
   depublicationDate?: Maybe<Scalars['Datetime']>;
@@ -88,57 +102,88 @@ export type Item = {
   image?: Maybe<Image>;
   /** @deprecated try to use image.url if possible */
   imageUrl?: Maybe<Scalars['URL']>;
+  /** an guid grouping this Item to a season, series or multi part publication */
   groupingId?: Maybe<Scalars['ID']>;
+  /**
+   * Audio Assets
+   * - media Assets played by an audio player
+   * - format support depends on the used browser (https://en.wikipedia.org/wiki/HTML5_audio#Supported_audio_coding_formats)
+   * - also allows HLS streams
+   */
   audios: Array<Asset>;
+  /**
+   * Files
+   * - list of files available for download
+   * - if no files are present, a player will use audio assets as downloads
+   */
   files?: Maybe<Array<Asset>>;
+  /** Contributors are natural persons providing content to that item */
   contributors?: Maybe<Array<Contributor>>;
+  /** Chapters are sections of an episode */
   chapters?: Maybe<Array<Chapter>>;
   show?: Maybe<Collection>;
   nextEpisode?: Maybe<Item>;
 };
 
 
+/** A single item of a Podcast Feed e.g. a single Episode, Teaser, Talk or Lecture */
 export type ItemExternalIdsArgs = {
   system?: Maybe<Directory>;
 };
 
 
+/** A single item of a Podcast Feed e.g. a single Episode, Teaser, Talk or Lecture */
 export type ItemTitleArgs = {
   variant?: Maybe<TitleVariant>;
 };
 
 
+/** A single item of a Podcast Feed e.g. a single Episode, Teaser, Talk or Lecture */
 export type ItemImageArgs = {
   aspect?: Maybe<AspectRatio>;
 };
 
 export type Asset = {
+  /** absolute path to media asset */
   url: Scalars['URL'];
+  /** file size in  byte */
   size: Scalars['Int'];
+  /** title to be displayed in download tab e.g. `MPEG-4 AAC Audio (m4a)` */
   title?: Maybe<Scalars['String']>;
+  /** media asset mimeType e.g. `audio/mp4` */
   mimeType: Scalars['String'];
 };
 
 export type Contributor = {
-  id: Scalars['String'];
+  /** used as a reference e.g. in transcripts */
+  id: Scalars['ID'];
+  /** name of the contributor e.g. Hans Meier */
   name: Scalars['String'];
+  /** URI identifying the person e.g. his personal domain or this main social media profile e.g. Twitter/Mastodon */
   uri?: Maybe<Scalars['URL']>;
+  /** avatar e.g. profile photo of the contributor */
   avatar?: Maybe<Image>;
   /** @deprecated try to use avatar.url if possible */
   avatarUrl?: Maybe<Scalars['URL']>;
+  /** contributors group e.g. { id: "1", slug: "onair", title: "On Air" } */
   wikidataId?: Maybe<Scalars['String']>;
 };
 
 export type Chapter = {
+  /** start time following [hh]:[mm]:[ss].[sss] format */
   start: Scalars['Duration'];
   title: Scalars['String'];
+  /** image that will be presented in the header section if the chapter is available */
   image?: Maybe<Image>;
   /** @deprecated try to use image.url if possible */
   imageUrl?: Maybe<Scalars['URL']>;
+  /** Link related to the chapter */
   href?: Maybe<Scalars['URL']>;
 };
 
+/** An object with a globally unique `ID`. */
 export type Node = {
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   nodeId: Scalars['ID'];
 };
 
@@ -149,37 +194,47 @@ export type Organization = {
   wikidataId?: Maybe<Scalars['String']>;
 };
 
+/** The root query type interface which gives access points into the data universe. */
 export type AudioQuery = {
+  /** The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`. */
   nodeId: Scalars['ID'];
+  /** Fetches an object given its globally unique `ID`. */
   node?: Maybe<Node>;
   item?: Maybe<Item>;
   show?: Maybe<ShowType>;
   contributor?: Maybe<Contributor>;
+  /** Reads and enables pagination through a set of `Item`. */
   items?: Maybe<ItemsConnection>;
+  /** Reads and enables pagination through a set of `Collection`. */
   shows?: Maybe<CollectionConnection>;
 };
 
 
+/** The root query type interface which gives access points into the data universe. */
 export type AudioQueryNodeArgs = {
   nodeId: Scalars['ID'];
 };
 
 
+/** The root query type interface which gives access points into the data universe. */
 export type AudioQueryItemArgs = {
   guid: Scalars['ID'];
 };
 
 
+/** The root query type interface which gives access points into the data universe. */
 export type AudioQueryShowArgs = {
   id: Scalars['ID'];
 };
 
 
+/** The root query type interface which gives access points into the data universe. */
 export type AudioQueryContributorArgs = {
   uri: Scalars['URL'];
 };
 
 
+/** The root query type interface which gives access points into the data universe. */
 export type AudioQueryItemsArgs = {
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
@@ -190,6 +245,7 @@ export type AudioQueryItemsArgs = {
 };
 
 
+/** The root query type interface which gives access points into the data universe. */
 export type AudioQueryShowsArgs = {
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
@@ -199,71 +255,123 @@ export type AudioQueryShowsArgs = {
 };
 
 export type CollectionConnection = {
-  __typename?: 'CollectionConnection';
+  /** A list of `Item` objects. */
   nodes: Array<Collection>;
+  /** Information to aid in pagination. */
   pageInfo: PageInfo;
+  /** The count of *all* `Collection` you could get from the connection. */
   totalCount: Scalars['Int'];
 };
 
 export type ItemsConnection = {
   __typename?: 'ItemsConnection';
+  /** A list of `Item` objects. */
   nodes: Array<Item>;
+  /** Information to aid in pagination. */
   pageInfo: PageInfo;
+  /** The count of *all* `Item` you could get from the connection. */
   totalCount: Scalars['Int'];
 };
 
+/** A connection to a list of `Organization` values. */
 export type OrganizationsConnection = {
   __typename?: 'OrganizationsConnection';
+  /** A list of `Organization` objects. */
   nodes: Array<Organization>;
+  /** Information to aid in pagination. */
   pageInfo: PageInfo;
+  /** The count of *all* `Organization` you could get from the connection. */
   totalCount: Scalars['Int'];
 };
 
+/** Information about pagination in a connection. */
 export type PageInfo = {
   __typename?: 'PageInfo';
+  /** When paginating forwards, are there more items? */
   hasNextPage: Scalars['Boolean'];
+  /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean'];
+  /** When paginating backwards, the cursor to continue. */
   startCursor?: Maybe<Scalars['Cursor']>;
+  /** When paginating forwards, the cursor to continue. */
   endCursor?: Maybe<Scalars['Cursor']>;
 };
 
+/** A filter to be used against String fields. All fields are combined with a logical ‘and.’ */
 export type StringFilter = {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
   isNull?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value. */
   equalTo?: Maybe<Scalars['String']>;
+  /** Not equal to the specified value. */
   notEqualTo?: Maybe<Scalars['String']>;
+  /** Not equal to the specified value, treating null like an ordinary value. */
   distinctFrom?: Maybe<Scalars['String']>;
+  /** Equal to the specified value, treating null like an ordinary value. */
   notDistinctFrom?: Maybe<Scalars['String']>;
+  /** Included in the specified list. */
   in?: Maybe<Array<Scalars['String']>>;
+  /** Not included in the specified list. */
   notIn?: Maybe<Array<Scalars['String']>>;
+  /** Less than the specified value. */
   lessThan?: Maybe<Scalars['String']>;
+  /** Less than or equal to the specified value. */
   lessThanOrEqualTo?: Maybe<Scalars['String']>;
+  /** Greater than the specified value. */
   greaterThan?: Maybe<Scalars['String']>;
+  /** Greater than or equal to the specified value. */
   greaterThanOrEqualTo?: Maybe<Scalars['String']>;
+  /** Contains the specified string (case-sensitive). */
   includes?: Maybe<Scalars['String']>;
+  /** Does not contain the specified string (case-sensitive). */
   notIncludes?: Maybe<Scalars['String']>;
+  /** Contains the specified string (case-insensitive). */
   includesInsensitive?: Maybe<Scalars['String']>;
+  /** Does not contain the specified string (case-insensitive). */
   notIncludesInsensitive?: Maybe<Scalars['String']>;
+  /** Starts with the specified string (case-sensitive). */
   startsWith?: Maybe<Scalars['String']>;
+  /** Does not start with the specified string (case-sensitive). */
   notStartsWith?: Maybe<Scalars['String']>;
+  /** Starts with the specified string (case-insensitive). */
   startsWithInsensitive?: Maybe<Scalars['String']>;
+  /** Does not start with the specified string (case-insensitive). */
   notStartsWithInsensitive?: Maybe<Scalars['String']>;
+  /** Ends with the specified string (case-sensitive). */
   endsWith?: Maybe<Scalars['String']>;
+  /** Does not end with the specified string (case-sensitive). */
   notEndsWith?: Maybe<Scalars['String']>;
+  /** Ends with the specified string (case-insensitive). */
   endsWithInsensitive?: Maybe<Scalars['String']>;
+  /** Does not end with the specified string (case-insensitive). */
   notEndsWithInsensitive?: Maybe<Scalars['String']>;
+  /** Matches the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
   like?: Maybe<Scalars['String']>;
+  /** Does not match the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
   notLike?: Maybe<Scalars['String']>;
+  /** Matches the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
   likeInsensitive?: Maybe<Scalars['String']>;
+  /** Does not match the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
   notLikeInsensitive?: Maybe<Scalars['String']>;
+  /** Equal to the specified value (case-insensitive). */
   equalToInsensitive?: Maybe<Scalars['String']>;
+  /** Not equal to the specified value (case-insensitive). */
   notEqualToInsensitive?: Maybe<Scalars['String']>;
+  /** Not equal to the specified value, treating null like an ordinary value (case-insensitive). */
   distinctFromInsensitive?: Maybe<Scalars['String']>;
+  /** Equal to the specified value, treating null like an ordinary value (case-insensitive). */
   notDistinctFromInsensitive?: Maybe<Scalars['String']>;
+  /** Included in the specified list (case-insensitive). */
   inInsensitive?: Maybe<Array<Scalars['String']>>;
+  /** Not included in the specified list (case-insensitive). */
   notInInsensitive?: Maybe<Array<Scalars['String']>>;
+  /** Less than the specified value (case-insensitive). */
   lessThanInsensitive?: Maybe<Scalars['String']>;
+  /** Less than or equal to the specified value (case-insensitive). */
   lessThanOrEqualToInsensitive?: Maybe<Scalars['String']>;
+  /** Greater than the specified value (case-insensitive). */
   greaterThanInsensitive?: Maybe<Scalars['String']>;
+  /** Greater than or equal to the specified value (case-insensitive). */
   greaterThanOrEqualToInsensitive?: Maybe<Scalars['String']>;
 };
 
@@ -294,6 +402,7 @@ export enum Directory {
   Fyyd = 'FYYD',
   Panoptikum = 'PANOPTIKUM',
   Podcastindexorg = 'PODCASTINDEXORG',
+  Internetarchive = 'INTERNETARCHIVE',
   Podchaser = 'PODCHASER',
   Listennotes = 'LISTENNOTES',
   Ardaudiothek = 'ARDAUDIOTHEK',
@@ -309,16 +418,22 @@ export type ImageType = Image & {
 
 export type ShowType = Node & Collection & Podcast & {
   __typename?: 'ShowType';
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   nodeId: Scalars['ID'];
   externalIds?: Maybe<Array<Scalars['String']>>;
   title: Scalars['String'];
   subtitle?: Maybe<Scalars['String']>;
-  summary?: Maybe<Scalars['String']>;
+  summary: Scalars['String'];
   description?: Maybe<Scalars['HTML']>;
   image?: Maybe<Image>;
   /** @deprecated try to use image.url if possible */
   imageUrl?: Maybe<Scalars['URL']>;
   link?: Maybe<Scalars['URL']>;
+  type?: Maybe<PodcastVariant>;
+  episodes?: Maybe<ItemsConnection>;
+  feedUrls?: Maybe<Array<Scalars['URL']>>;
+  language?: Maybe<Scalars['String']>;
+  meta?: Maybe<Scalars['JSON']>;
   /** @deprecated only for debugging */
   _raw?: Maybe<Scalars['JSON']>;
 };
@@ -335,17 +450,18 @@ export type ShowTypeImageArgs = {
 
 export type ItemType = Node & Item & {
   __typename?: 'ItemType';
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   nodeId: Scalars['ID'];
   guid: Scalars['ID'];
   externalIds?: Maybe<Array<Scalars['String']>>;
-  title?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
   subtitle?: Maybe<Scalars['String']>;
   summary?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['HTML']>;
   publicationDate: Scalars['Datetime'];
   depublicationDate?: Maybe<Scalars['Datetime']>;
-  duration?: Maybe<Scalars['Duration']>;
-  durationSeconds?: Maybe<Scalars['Int']>;
+  duration: Scalars['Duration'];
+  durationSeconds: Scalars['Int'];
   link?: Maybe<Scalars['URL']>;
   image?: Maybe<Image>;
   /** @deprecated try to use image.url if possible */
@@ -382,28 +498,45 @@ export type ItemTypeImageArgs = {
 
 export type AssetType = Asset & {
   __typename?: 'AssetType';
+  /** absolute path to media asset */
   url: Scalars['URL'];
+  /** file size in byte */
   size: Scalars['Int'];
+  /** title to be displayed in download tab e.g. `MPEG-4 AAC Audio (m4a)` */
   title?: Maybe<Scalars['String']>;
+  /** media asset mimeType e.g. `audio/mp4` */
   mimeType: Scalars['String'];
 };
 
 export type ContributorType = Contributor & {
   __typename?: 'ContributorType';
+  /** used as a reference e.g. in transcripts */
   id: Scalars['ID'];
+  uri: Scalars['URL'];
+  /** name of the contributor e.g. `Hans Meier` */
   name: Scalars['String'];
+  /** avatar e.g. profile photo of the contributor */
   avatar?: Maybe<Image>;
   /** @deprecated try to use avatar.url if possible */
   avatarUrl?: Maybe<Scalars['URL']>;
+  wikidataId?: Maybe<Scalars['String']>;
 };
 
+/** A filter to be used against `Item` object types. All fields are combined with a logical ‘and.’ */
 export type ItemFilter = {
+  /** Filter by the object’s `id` field. */
   id?: Maybe<StringFilter>;
+  /** Filter by the object’s `title` field. */
   title?: Maybe<StringFilter>;
+  /** Filter by the object’s `groupId` field. */
   groupingId?: Maybe<StringFilter>;
+  /** Filter by the object’s `episodeNumber` field. */
   episodeNumber?: Maybe<IntFilter>;
+  /** Checks for all expressions in this list. */
   and?: Maybe<Array<ItemFilter>>;
+  /** Checks for any expressions in this list. */
   or?: Maybe<Array<ItemFilter>>;
+  /** Negates the expression. */
   not?: Maybe<ItemFilter>;
 };
 
@@ -423,8 +556,17 @@ export enum ItemsOrderBy {
 
 export type OrganizationType = Node & Organization & {
   __typename?: 'OrganizationType';
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   nodeId: Scalars['ID'];
   name: Scalars['String'];
+  uri?: Maybe<Scalars['URL']>;
+  wikidataId?: Maybe<Scalars['String']>;
+  image?: Maybe<Image>;
+};
+
+
+export type OrganizationTypeImageArgs = {
+  aspect?: Maybe<AspectRatio>;
 };
 
 export enum OrganizationsOrderBy {
@@ -435,24 +577,34 @@ export enum OrganizationsOrderBy {
   NameDesc = 'NAME_DESC'
 }
 
-export type ShowsConnection = {
+export type ShowsConnection = CollectionConnection & {
   __typename?: 'ShowsConnection';
-  nodes?: Maybe<Array<ShowType>>;
+  nodes: Array<ShowType>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int'];
 };
 
 export type Query = Node & AudioQuery & {
   __typename?: 'Query';
+  /** Exposes the root query type nested one level down. This is helpful for Relay 1 which can only query top level fields if they are in a particular form. */
   query: Query;
+  /** version, for backwards compability with other JSON formats */
   version?: Maybe<Scalars['Int']>;
+  /** The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`. */
   nodeId: Scalars['ID'];
+  /** Fetches an object given its globally unique `ID`. */
   node?: Maybe<Node>;
+  test2?: Maybe<Scalars['String']>;
   item?: Maybe<Item>;
   show?: Maybe<ShowType>;
   contributor?: Maybe<Contributor>;
   contributorById?: Maybe<Contributor>;
   organization?: Maybe<Organization>;
+  /** Reads and enables pagination through a set of `Item`. */
   items?: Maybe<ItemsConnection>;
+  /** Reads and enables pagination through a set of `Show`. */
   shows?: Maybe<ShowsConnection>;
+  /** Reads and enables pagination through a set of `Organization`. */
   organizations?: Maybe<OrganizationsConnection>;
 };
 
@@ -621,7 +773,7 @@ export type ResolversTypes = {
   Node: ResolversTypes['ShowType'] | ResolversTypes['ItemType'] | ResolversTypes['OrganizationType'] | ResolversTypes['Query'];
   Organization: ResolversTypes['OrganizationType'];
   AudioQuery: ResolversTypes['Query'];
-  CollectionConnection: ResolverTypeWrapper<CollectionConnection>;
+  CollectionConnection: ResolversTypes['ShowsConnection'];
   ItemsConnection: ResolverTypeWrapper<ItemsConnection>;
   OrganizationsConnection: ResolverTypeWrapper<OrganizationsConnection>;
   PageInfo: ResolverTypeWrapper<PageInfo>;
@@ -664,7 +816,7 @@ export type ResolversParentTypes = {
   Node: ResolversParentTypes['ShowType'] | ResolversParentTypes['ItemType'] | ResolversParentTypes['OrganizationType'] | ResolversParentTypes['Query'];
   Organization: ResolversParentTypes['OrganizationType'];
   AudioQuery: ResolversParentTypes['Query'];
-  CollectionConnection: CollectionConnection;
+  CollectionConnection: ResolversParentTypes['ShowsConnection'];
   ItemsConnection: ItemsConnection;
   OrganizationsConnection: OrganizationsConnection;
   PageInfo: PageInfo;
@@ -718,13 +870,14 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   image?: Resolver<Maybe<ResolversTypes['Image']>, ParentType, ContextType, RequireFields<CollectionImageArgs, never>>;
   imageUrl?: Resolver<Maybe<ResolversTypes['URL']>, ParentType, ContextType>;
   link?: Resolver<Maybe<ResolversTypes['URL']>, ParentType, ContextType>;
-  items?: Resolver<Maybe<ResolversTypes['ItemsConnection']>, ParentType, ContextType>;
 };
 
 export type PodcastResolvers<ContextType = any, ParentType extends ResolversParentTypes['Podcast'] = ResolversParentTypes['Podcast']> = {
   __resolveType: TypeResolveFn<'ShowType', ParentType, ContextType>;
   type?: Resolver<Maybe<ResolversTypes['PodcastVariant']>, ParentType, ContextType>;
   episodes?: Resolver<Maybe<ResolversTypes['ItemsConnection']>, ParentType, ContextType>;
+  feedUrls?: Resolver<Maybe<Array<ResolversTypes['URL']>>, ParentType, ContextType>;
+  language?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 };
 
 export type ItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['Item'] = ResolversParentTypes['Item']> = {
@@ -734,7 +887,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   episodeNumber?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<ItemTitleArgs, never>>;
   subtitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  summary?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['HTML']>, ParentType, ContextType>;
   publicationDate?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>;
   depublicationDate?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>;
@@ -762,7 +915,7 @@ export type AssetResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type ContributorResolvers<ContextType = any, ParentType extends ResolversParentTypes['Contributor'] = ResolversParentTypes['Contributor']> = {
   __resolveType: TypeResolveFn<'ContributorType', ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   uri?: Resolver<Maybe<ResolversTypes['URL']>, ParentType, ContextType>;
   avatar?: Resolver<Maybe<ResolversTypes['Image']>, ParentType, ContextType>;
@@ -804,10 +957,10 @@ export type AudioQueryResolvers<ContextType = any, ParentType extends ResolversP
 };
 
 export type CollectionConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['CollectionConnection'] = ResolversParentTypes['CollectionConnection']> = {
+  __resolveType: TypeResolveFn<'ShowsConnection', ParentType, ContextType>;
   nodes?: Resolver<Array<ResolversTypes['Collection']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ItemsConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['ItemsConnection'] = ResolversParentTypes['ItemsConnection']> = {
@@ -852,11 +1005,16 @@ export type ShowTypeResolvers<ContextType = any, ParentType extends ResolversPar
   externalIds?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType, RequireFields<ShowTypeExternalIdsArgs, never>>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   subtitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  summary?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['HTML']>, ParentType, ContextType>;
   image?: Resolver<Maybe<ResolversTypes['Image']>, ParentType, ContextType, RequireFields<ShowTypeImageArgs, never>>;
   imageUrl?: Resolver<Maybe<ResolversTypes['URL']>, ParentType, ContextType>;
   link?: Resolver<Maybe<ResolversTypes['URL']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['PodcastVariant']>, ParentType, ContextType>;
+  episodes?: Resolver<Maybe<ResolversTypes['ItemsConnection']>, ParentType, ContextType>;
+  feedUrls?: Resolver<Maybe<Array<ResolversTypes['URL']>>, ParentType, ContextType>;
+  language?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  meta?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
   _raw?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -865,14 +1023,14 @@ export type ItemTypeResolvers<ContextType = any, ParentType extends ResolversPar
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   guid?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   externalIds?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType, RequireFields<ItemTypeExternalIdsArgs, never>>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<ItemTypeTitleArgs, never>>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<ItemTypeTitleArgs, never>>;
   subtitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['HTML']>, ParentType, ContextType>;
   publicationDate?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>;
   depublicationDate?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>;
-  duration?: Resolver<Maybe<ResolversTypes['Duration']>, ParentType, ContextType>;
-  durationSeconds?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  duration?: Resolver<ResolversTypes['Duration'], ParentType, ContextType>;
+  durationSeconds?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   link?: Resolver<Maybe<ResolversTypes['URL']>, ParentType, ContextType>;
   image?: Resolver<Maybe<ResolversTypes['Image']>, ParentType, ContextType, RequireFields<ItemTypeImageArgs, never>>;
   imageUrl?: Resolver<Maybe<ResolversTypes['URL']>, ParentType, ContextType>;
@@ -901,20 +1059,27 @@ export type AssetTypeResolvers<ContextType = any, ParentType extends ResolversPa
 
 export type ContributorTypeResolvers<ContextType = any, ParentType extends ResolversParentTypes['ContributorType'] = ResolversParentTypes['ContributorType']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  uri?: Resolver<ResolversTypes['URL'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   avatar?: Resolver<Maybe<ResolversTypes['Image']>, ParentType, ContextType>;
   avatarUrl?: Resolver<Maybe<ResolversTypes['URL']>, ParentType, ContextType>;
+  wikidataId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type OrganizationTypeResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrganizationType'] = ResolversParentTypes['OrganizationType']> = {
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  uri?: Resolver<Maybe<ResolversTypes['URL']>, ParentType, ContextType>;
+  wikidataId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  image?: Resolver<Maybe<ResolversTypes['Image']>, ParentType, ContextType, RequireFields<OrganizationTypeImageArgs, never>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ShowsConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['ShowsConnection'] = ResolversParentTypes['ShowsConnection']> = {
-  nodes?: Resolver<Maybe<Array<ResolversTypes['ShowType']>>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['ShowType']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -923,6 +1088,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   version?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   node?: Resolver<Maybe<ResolversTypes['Node']>, ParentType, ContextType, RequireFields<QueryNodeArgs, 'nodeId'>>;
+  test2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   item?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<QueryItemArgs, 'guid'>>;
   show?: Resolver<Maybe<ResolversTypes['ShowType']>, ParentType, ContextType, RequireFields<QueryShowArgs, 'id'>>;
   contributor?: Resolver<Maybe<ResolversTypes['Contributor']>, ParentType, ContextType, RequireFields<QueryContributorArgs, 'uri'>>;

@@ -1,14 +1,14 @@
 {
   "name": "audio-api",
   "version": "0.1.0",
-  "description": "provide a unified way to access different data sources relevant for the podcasting and conference recordings: ",
+  "description": "provide a unified way to access different data sources relevant for the podcasting and conference recordings",
   "main": "index.ts",
   "repository": "https://github.com/saerdnaer/audio-api",
   "author": "Andreas Hubel",
   "license": "BSD-2-Clause",
   "scripts": {
-    "start": "if test \"$NODE_ENV\" = \"production\" ; then yarn run start:production ; else yarn run start:development ; fi",
-    "start:development": "nodemon --config nodemon.json",
+    "start": "if test \"$NODE_ENV\" = \"production\" ; then yarn run start:production ; else yarn run dev ; fi",
+    "dev": "ts-node-dev src/index.ts",
     "start:production": "node dist/index.js",
     "build": "yarn build:clean && yarn build:transpile",
     "build:clean": "rm -rf .dist/*",
@@ -19,23 +19,22 @@
     "test:unit:watch": "NODE_ENV=test jest --env=jsdom --watch"
   },
   "dependencies": {
-    "@graphql-tools/graphql-file-loader": "^7.0.5",
-    "@graphql-tools/load": "^7.1.8",
-    "apollo-datasource-rest": "^3.1.1",
-    "apollo-server-core": "^3.1.2",
-    "apollo-server-fastify": "^3.1.2",
+    "@graphql-tools/graphql-file-loader": "^7.3.4",
+    "@graphql-tools/load": "^7.5.2",
+    "@types/node": "^14.18.12",
+    "apollo-server-core": "^3.6.4",
+    "apollo-server-fastify": "^3.6.4",
+    "apollo-datasource-rest": "^3.5.1",
     "crypto": "^1.0.1",
-    "fastify": "^3.20.2",
-    "graphql": "^15.5.1",
+    "fastify": "^3.27.4",
+    "graphql": "^16.3.0",
+    "internetarchive-sdk-js": "^1.0.6-beta",
     "moment": "^2.29.1",
-    "ts-node": "^10.2.1"
+    "ts-node": "^10.7.0"
   },
   "devDependencies": {
     "@types/graphql": "^14.5.0",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^14.17.0",
-    "jest": "^27.0.6",
-    "nodemon": "^2.0.12",
-    "typescript": "^4.3.5"
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.6.2"
   }
 }
