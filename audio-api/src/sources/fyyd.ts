@@ -1,9 +1,8 @@
-import { Item, ShowType, ShowsConnection } from "../generated-types";
+import { Item, ItemsConnection, ShowType, ShowsConnection } from "../generated-types";
 import { RESTDataSource, RequestOptions } from "apollo-datasource-rest";
 
-import config from "../config";
-
 import { DataSource } from "./interface";
+import config from "../config";
 
 /*
  * Docs: https://github.com/eazyliving/fyyd-api
@@ -69,10 +68,11 @@ export class FyydAPI extends RESTDataSource implements DataSource {
     return response.data.map(this.formatEpisode);
   }
 
-  formatPodcast(p: any): ShowType {
+  formatPodcast(p: PodcastData): ShowType {
     return {
       __typename: "ShowType",
       nodeId: `fyyd:${p.slug}`,
+      summary: p.description,
       ...p,
       image: {
         __typename: "ImageType",
@@ -83,10 +83,10 @@ export class FyydAPI extends RESTDataSource implements DataSource {
           p.smallImageURL,  //  https://img-1.fyyd.de/pd/small/4279c90453fc0dafbc5b9cf76f3442964.jpg
           p.microImageURL,  //  https://img-1.fyyd.de/pd/micro/4279c90453fc0dafbc5b9cf76f3442964.png
         ]
-      },
+      } as any,
       episodes: {
-        totalCount: p.episode_count,
-      },
+        totalCount: +p.episode_count,
+      } as ItemsConnection,
       feedUrls: [
         p.xmlURL
       ],
@@ -105,8 +105,8 @@ export class FyydAPI extends RESTDataSource implements DataSource {
 
   async podcast({ id, slug }: any): Promise<ShowType> {
     const response = id
-      ? await this.get(`podcast?podcast_id=${id}`)
-      : await this.get(`podcast?podcast_slug=${slug}`);
+      ? await this.get<FyydResponse<PodcastData>>(`podcast?podcast_id=${id}`)
+      : await this.get<FyydResponse<PodcastData>>(`podcast?podcast_slug=${slug}`);
     return this.formatPodcast(response.data);
   }
 
@@ -114,10 +114,84 @@ export class FyydAPI extends RESTDataSource implements DataSource {
     page: Number = 0,
     count: Number = 50
   ): Promise<ShowsConnection> {
-    const response = await this.get(`podcasts?page=${page}&count=${count}`);
+    const response = await this.get<FyydResponse<PodcastData[]>>(
+      `podcasts?page=${page}&count=${count}`
+    );
 
     return {
+      ...pageInfos(response),
       nodes: response.data.map(this.formatPodcast),
     };
   }
 }
+
+const pageInfos = ({ meta }: FyydResponse<any>) => {
+  const { paging } = meta;
+  return {
+    pageInfo: {
+      hasNextPage: paging.next_page != null,
+      hasPreviousPage: paging.prev_page != null,
+    },
+    totalCount: paging.count || 0,
+  }
+}
+
+export interface FyydResponse<T> {
+  status: number;
+  msg:    string;
+  meta: {
+    paging: {
+      count:      number | null;
+      page:       number | null;
+      first_page: number;
+      last_page:  number;
+      next_page:  number;
+      prev_page:  number|null;
+    };
+    API_INFO: {
+      API_VERSION: string;
+    };
+    SERVER:   string;
+    duration: number;
+  };
+  data:   T;
+}
+
+export interface PodcastData {
+  title:          string;
+  id:             number;
+  xmlURL:         string;
+  htmlURL:        string;
+  imgURL:         string;
+  status:         number;
+  status_since:   string;
+  slug:           string;
+  layoutImageURL: string;
+  thumbImageURL:  string;
+  smallImageURL:  string;
+  microImageURL:  string;
+  language:       string;
+  lastpoll:       string;
+  generator:      string;
+  categories:     number[];
+  lastpub:        string;
+  rank:           number;
+  url_fyyd:       string;
+  description:    string;
+  subtitle:       string;
+  tcolor:         string;
+  color:          string;
+  episode_count:  string;
+  iflags:         string;
+  paymentURL:     null;
+  author:         string;
+  stats:          {
+    medianduration:        number;
+    medianduration_string: string;
+    episodecount:          number;
+    pubinterval:           number;
+    pubinterval_string:    string;
+    pubinterval_value:     number;
+    pubinterval_type:      number;
+  };
+};
